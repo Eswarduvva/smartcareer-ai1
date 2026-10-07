@@ -1,7 +1,7 @@
 /**
  * DEVELOPMENT PREVIEW ADAPTER — NOT REAL DATA.
  *
- * Used only while VITE_API_BASE_URL is unset so screens can be reviewed.
+ * Used only when VITE_DATA_SOURCE=preview or before the Cloud database is configured.
  * Records are illustrative and generated deterministically; they are never
  * mixed with API data. The UI shows a "Preview data" badge whenever this is active.
  */

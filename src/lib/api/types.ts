@@ -1,4 +1,4 @@
-// Mirrors the six normalized tables in smartcareer_db.
+// Mirrors the six normalized tables in the SmartCareer Cloud database.
 
 export interface Student {
   student_id: string;
