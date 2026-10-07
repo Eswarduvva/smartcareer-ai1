@@ -117,11 +117,18 @@ export interface AnalyticsOverview {
   readiness_distribution: Bucket[];
   domains: Bucket[];
   avg_skills: { key: SkillKey; value: number }[];
+  degrees?: string[];
+  branches?: string[];
+}
+
+export interface AnalyticsFilters {
+  degree?: string | undefined;
+  branch?: string | undefined;
 }
 
 export interface ApiAdapter {
-  readonly kind: "http" | "preview";
+  readonly kind: "supabase" | "preview";
   listStudents(params: StudentListParams): Promise<StudentListResult>;
   getStudentRecord(id: string): Promise<StudentRecord | null>;
-  getAnalytics(): Promise<AnalyticsOverview>;
+  getAnalytics(filters?: AnalyticsFilters): Promise<AnalyticsOverview>;
 }
