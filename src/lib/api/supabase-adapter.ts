@@ -2,7 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { AnalyticsOverview, ApiAdapter, StudentRecord } from "./types";
 
 export class DataError extends Error {
-  constructor(message: string, public cause?: unknown) {
+  constructor(message: string, public override cause?: unknown) {
     super(message);
   }
 }
@@ -60,7 +60,7 @@ export const supabaseAdapter: ApiAdapter = {
     if (!data) return null;
     const { student_skill_scores, student_experience, career_preferences, career_goals, career_recommendations, ...student } = data as Record<string, unknown>;
     return {
-      student: { ...(student as StudentRecord["student"]), cgpa: num(student["cgpa"]) },
+      student: { ...(student as unknown as StudentRecord["student"]), cgpa: num(student["cgpa"]) },
       skills: numerify(one(student_skill_scores as never), ["student_id"]),
       experience: numerify(one(student_experience as never), ["student_id"]),
       preferences: one(career_preferences as never),
