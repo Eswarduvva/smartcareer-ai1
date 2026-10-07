@@ -195,7 +195,7 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
 
   return (
     <>
-      {!mobile && <fog attach="fog" args={[c.bg, 13, 28]} />}
+      {!mobile && <fog attach="fog" args={[c.bg, 17, 36]} />}
       <ambientLight intensity={0.55} />
       <directionalLight position={[5, 7, 6]} intensity={1.3} />
       <directionalLight position={[-6, 2, -6]} intensity={0.5} color={c.accent} />
