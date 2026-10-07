@@ -15,7 +15,7 @@ export interface SpaceNode {
 export interface SkillSpaceProps {
   nodes: SpaceNode[];
   groups: string[];
-  destination?: string | null;
+  destination?: string | null | undefined;
   /** abstract = landing hero: no labels until hover, slower drift */
   variant?: "data" | "abstract";
 }
@@ -157,7 +157,7 @@ function Scene({ nodes, groups, destination, variant, reduced }: SkillSpaceProps
           points={[[0, 0, 0], n.pos.toArray()]}
           color={hover === n.id ? c.accent : c.line}
           lineWidth={hover === n.id ? 1.6 : 0.8}
-          dashed={n.weak}
+          dashed={!!n.weak}
           dashSize={0.08}
           gapSize={0.08}
         />

@@ -33,7 +33,7 @@ const PROFILES = [
 
 function build(i: number): StudentRecord {
   const r = rng(i * 7919 + 13);
-  const p = PROFILES[i % PROFILES.length];
+  const p = PROFILES[i % PROFILES.length]!;
   const id = `PRV-${String(i + 1).padStart(3, "0")}`;
   const round = (n: number, d = 0) => Math.round(n * 10 ** d) / 10 ** d;
   const skillEntries = SKILL_KEYS.map((k) => [k, round(35 + r() * 60)] as const);
@@ -98,7 +98,7 @@ const avg = (xs: (number | null | undefined)[]) => {
 };
 function bucketize(values: number[], edges: number[], fmt: (a: number, b: number) => string): Bucket[] {
   return edges.slice(0, -1).map((a, i) => {
-    const b = edges[i + 1];
+    const b = edges[i + 1]!;
     return { label: fmt(a, b), count: values.filter((v) => v >= a && (i === edges.length - 2 ? v <= b : v < b)).length };
   });
 }

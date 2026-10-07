@@ -10,9 +10,9 @@ export function Tile({
   label,
   aside,
 }: {
-  className?: string;
+  className?: string | undefined;
   children: ReactNode;
-  label?: string;
+  label?: string | undefined;
   aside?: ReactNode;
 }) {
   return (

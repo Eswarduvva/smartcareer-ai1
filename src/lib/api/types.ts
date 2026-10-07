@@ -87,12 +87,12 @@ export interface StudentRecord {
 }
 
 export interface StudentListParams {
-  q?: string;
-  degree?: string;
-  branch?: string;
-  minCgpa?: number;
-  page?: number;
-  pageSize?: number;
+  q?: string | undefined;
+  degree?: string | undefined;
+  branch?: string | undefined;
+  minCgpa?: number | undefined;
+  page?: number | undefined;
+  pageSize?: number | undefined;
 }
 
 export interface StudentListResult {

@@ -22,7 +22,7 @@ function Skills() {
   if (!skills.length) return <EmptyState title="No skill scores on record for this student" />;
   const groups = groupAverages(skills);
   const radar = groups.map((g) => ({ group: g.group, value: g.value ?? 0 }));
-  const tech = groups[0].value ?? 0;
+  const tech = groups[0]?.value ?? 0;
   const soft = groups.slice(1).filter((g) => g.value != null);
   const softAvg = soft.reduce((a, b) => a + (b.value ?? 0), 0) / (soft.length || 1);
 
