@@ -71,7 +71,7 @@ function Rig({ children, reduced }: { children: React.ReactNode; reduced: boolea
     const aspect = state.size.width / Math.max(1, state.size.height);
     const z = 8 / Math.min(1, Math.pow(aspect, 0.85));
     state.camera.position.x += ((reduced ? 0 : state.pointer.x * 0.6) - state.camera.position.x) * k;
-    state.camera.position.z += (z - state.camera.position.z) * k;
+    state.camera.position.z = z;
     state.camera.lookAt(0, 0.5, 0);
   });
   return <group ref={g}>{children}</group>;
