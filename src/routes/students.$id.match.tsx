@@ -60,6 +60,19 @@ function Match() {
           ) : <p className="text-sm text-muted-foreground">No skills below {GAP_THRESHOLD}.</p>}
         </Tile>
 
+        <Tile className="lg:col-span-6" label="Relevant experience">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {([
+              ["Projects", r.experience?.project_count],
+              ["Internships", r.experience?.internship_count],
+              ["Certifications", r.experience?.certification_count],
+              ["Work months", r.experience?.work_experience_months],
+            ] as const).map(([l, v]) => (
+              <div key={l}><p className="num text-4xl">{v ?? "—"}</p><p className="eyebrow mt-1">{l}</p></div>
+            ))}
+          </div>
+        </Tile>
+
         <Tile className="lg:col-span-6" label="Recommendation vs stated preference">
           <div className="grid gap-6 md:grid-cols-3">
             <div><p className="eyebrow">Recommended role</p><p className="mt-1">{rec?.recommended_role ?? "—"}</p></div>
