@@ -173,3 +173,18 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+@utility skeleton {
+  background: linear-gradient(90deg, var(--color-muted) 0%, color-mix(in oklab, var(--color-muted) 55%, var(--color-background)) 50%, var(--color-muted) 100%);
+  background-size: 200% 100%;
+  animation: sc-shimmer 1.6s ease-in-out infinite;
+}
+@utility skeleton-cell {
+  background: linear-gradient(90deg, var(--color-card) 0%, var(--color-muted) 50%, var(--color-card) 100%);
+  background-size: 200% 100%;
+  animation: sc-shimmer 1.8s ease-in-out infinite;
+}
+@keyframes sc-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
