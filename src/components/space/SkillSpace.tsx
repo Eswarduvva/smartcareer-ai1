@@ -10,6 +10,8 @@ export interface SpaceNode {
   /** 0..1 normalized strength */
   value: number;
   weak?: boolean;
+  /** raw score shown on hover */
+  display?: number;
 }
 
 export interface SkillSpaceProps {
@@ -65,8 +67,12 @@ function Rig({ children, reduced }: { children: React.ReactNode; reduced: boolea
     const k = 1 - Math.exp(-3 * dt);
     g.current.rotation.x += (tx - g.current.rotation.x) * k;
     g.current.rotation.y += (ty + (reduced ? 0 : state.clock.elapsedTime * 0.03) - g.current.rotation.y) * k;
+    // fit the scene to the panel's shape: narrower panels pull the camera back
+    const aspect = state.size.width / Math.max(1, state.size.height);
+    const z = 8 / Math.min(1, Math.pow(aspect, 0.85));
     state.camera.position.x += ((reduced ? 0 : state.pointer.x * 0.6) - state.camera.position.x) * k;
-    state.camera.lookAt(0, 0, 0);
+    state.camera.position.z += (z - state.camera.position.z) * k;
+    state.camera.lookAt(0, 0.5, 0);
   });
   return <group ref={g}>{children}</group>;
 }
@@ -114,11 +120,12 @@ function Node({
           <meshStandardMaterial color={color} roughness={0.55} metalness={0.1} />
         )}
       </mesh>
-      {(showLabel || active) && (
-        <Html center distanceFactor={9} position={[0, size + 0.22, 0]} style={{ pointerEvents: "none" }}>
+      {/* always mounted; visibility via opacity avoids React root unmount races */}
+      {(
+        <Html center distanceFactor={9} position={[0, size + 0.22, 0]} style={{ pointerEvents: "none", opacity: showLabel || active ? 1 : 0, transition: "opacity 200ms" }}>
           <div className="whitespace-nowrap font-mono text-[11px] text-foreground">
             {n.label}
-            {active && <span className="ml-1 text-muted-foreground">{Math.round(n.value * 100)}</span>}
+            <span className="ml-1 text-muted-foreground" style={{ opacity: active ? 1 : 0 }}>{n.display ?? Math.round(n.value * 100)}</span>
           </div>
         </Html>
       )}

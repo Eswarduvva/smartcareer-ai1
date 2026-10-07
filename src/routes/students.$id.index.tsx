@@ -23,7 +23,7 @@ function Overview() {
   const top = skills.slice(0, 3);
   const weak = skills.slice(-3).reverse();
   const rec = r.recommendation;
-  const nodes = skills.map((k) => ({ id: k.key, label: k.label, group: k.group, value: k.score / SCORE_MAX, weak: k.score < GAP_THRESHOLD }));
+  const nodes = skills.map((k) => ({ id: k.key, label: k.label, group: k.group, value: k.score / SCORE_MAX, weak: k.score < GAP_THRESHOLD, display: k.score }));
 
   return (
     <div className="grid auto-rows-min gap-3 lg:grid-cols-6">
