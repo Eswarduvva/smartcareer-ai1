@@ -9,11 +9,13 @@ Everything in Version 1 stays: the pages, data models, loading/error states, cha
 - Indexes on degree, branch, city and cgpa so search stays fast across about 5k students.
 - The database calculates the analytics: student count, averages, CGPA and readiness distributions, domains and average skill scores. No number is hardcoded or calculated in the browser.
 - Access rules: anyone can read for now, and no one can write from the app. The access rules make this a deliberate, temporary choice for the demo. Student, mentor and admin access comes later with real sign-in.
-- No student data is created. You import the real dataset yourself, as CSV files through the Cloud table editor, in table order with `students` first. I'll give you short import steps.
+- No student data is created or imported in this step. First I set up and check the tables, links between tables, indexes, access rules and the app connection, with the database still empty. You provide the cleaned dataset after that.
 
 ## 2. Data layer
 - `http-adapter` becomes `supabase-adapter`. The `ApiAdapter` interface stays the same, so pages don't change.
-- How the app picks its data source: it uses the database when it is reachable and holds students. It uses the preview adapter only when the database is empty or unreachable. The two sources are never mixed.
+- How the app picks its data source: one explicit setting, decided when the app is built and never at runtime. Preview data is used only in preview/development mode, or before the database is set up. Once the database is set as the data source, the app only ever uses real data.
+- Database not reachable: a polished "Unable to connect to SmartCareer data" screen with a Retry button. It never quietly switches to preview students.
+- The preview adapter stays fully separate (its own module, never loaded together with real data).
 - The banner text becomes "Preview data — Supabase not connected".
 - Error messages are friendly for normal users, with technical details kept out of sight.
 
@@ -43,6 +45,7 @@ Everything in Version 1 stays: the pages, data models, loading/error states, cha
 ## Technical details
 - Migration: create the tables, foreign keys, indexes and a `get_analytics(degree, branch)` function, plus public read-only (`TO anon SELECT`) policies and no write policies.
 - `src/lib/api/supabase-adapter.ts` uses the browser Cloud client. The student list uses `.range()` pagination with `count: 'exact'` and `ilike` search. The record loads with one `select` that joins the related tables.
-- `client.ts` picks the adapter with a one-time check (`students` head count). TanStack Query caches it, and `isPreviewData` reads from it.
+- `client.ts` picks the adapter from a `VITE_DATA_SOURCE` setting (`preview` | `supabase`), which defaults to `supabase` once Cloud env vars exist. The choice is made at build time and is never a runtime fallback. Connection errors surface through the route errorComponent with a retry (`router.invalidate`).
+- Verification step: an empty-database check of the table and column layout, the foreign keys, the access rules (anon can read but not write) and that `get_analytics` returns zero counts.
 - Update the project rules and memory: the earlier "FastAPI/MySQL, never Cloud DB" rule is replaced by Cloud Postgres as the source of truth.
 - 3D work: `src/components/space/` (SkillSpace, Legend, DetailPanel, Fallback2D).
