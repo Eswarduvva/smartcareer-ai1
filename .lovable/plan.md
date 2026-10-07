@@ -10,10 +10,13 @@ Frontend for the student career intelligence platform, designed to plug into you
 - Every screen has loading, empty, error ("API unreachable") and success states.
 - Analytics totals are computed from what the API returns, never hardcoded.
 
-## Visual direction
-- Calm, editorial, precise. Warm off-white "paper" surface with deep ink text, one restrained accent (deep teal) and a muted amber for gaps. Dark mode supported.
-- Typography: a sharp display serif-free grotesk for headings (e.g. "Instrument Sans"/"Geist"-style) + a readable text face + tabular mono for numbers.
-- Few cards; hierarchy through type size, rules, and whitespace. Small radius, minimal shadows, no glow blobs or neon gradients.
+## Visual direction (your picks)
+- **Colours, a blend of the three palettes you liked:**
+  - Light mode: warm paper `#f5f3ee`, ink `#1b1f24`, teal accent `#1f6f6b`, amber `#c98a2b` for gaps.
+  - Dark mode ("Observatory Night"): `#0e1216` / `#1c232b` surfaces, silver text `#c9d3dc`, cyan `#5fb3c4` for highlights.
+  - Forest greens (`#2d5a3d`, `#5a8a5c`, `#a0c49d`) for strengths, readiness and progress in both modes.
+- **Type:** JetBrains Mono for headings, labels and every number; Work Sans for body text.
+- **Layout:** bento grid of panels in different sizes. The 3D skill space gets the biggest tile, one main score per tile, and smaller tiles for profile, skills and experience. Thin borders, small corners, almost no shadows, no glow or neon gradients.
 
 ## 3D "Career Intelligence Space"
 - React Three Fiber scene: the student at the centre, skill nodes grouped in four clusters (Technical, Reasoning, Communication, Behavioural), node size/brightness from actual scores, weak skills shown as hollow/amber, career domain as a destination node with a path.
