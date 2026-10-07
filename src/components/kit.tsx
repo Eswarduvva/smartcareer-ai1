@@ -60,21 +60,24 @@ export function PreviewBadge() {
   if (!isPreviewData) return null;
   return (
     <span
-      title="VITE_API_BASE_URL is not set, so illustrative preview records are shown instead of your database."
+      title="Preview mode: illustrative records only. They are never mixed with real data."
       className="inline-flex items-center gap-2 border border-gap/50 bg-gap-soft/40 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-foreground"
     >
       <span className="h-1.5 w-1.5 rounded-full bg-gap" />
-      Preview data — API not connected
+      Preview data — Supabase not connected
     </span>
   );
 }
 
 export function PageHead({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children?: ReactNode }) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
+    <div className="mb-10 flex flex-wrap items-end justify-between gap-6 pb-2">
       <div>
-        <p className="eyebrow mb-2">{eyebrow}</p>
-        <h1 className="text-2xl font-medium md:text-3xl">{title}</h1>
+        <p className="eyebrow mb-3 flex items-center gap-3">
+          <span className="h-px w-6 bg-primary" />
+          {eyebrow}
+        </p>
+        <h1 className="text-3xl font-medium tracking-tight md:text-[2.6rem] md:leading-[1.05]">{title}</h1>
       </div>
       {children}
     </div>
@@ -83,10 +86,18 @@ export function PageHead({ eyebrow, title, children }: { eyebrow: string; title:
 
 export function LoadingState({ label = "Loading" }: { label?: string }) {
   return (
-    <div className="grid gap-3 p-8 md:grid-cols-3">
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <div key={i} className="h-32 animate-pulse border border-border bg-muted/60" />
-      ))}
+    <div className="p-2" aria-busy="true">
+      <div className="mb-10 space-y-3">
+        <div className="skeleton h-3 w-24" />
+        <div className="skeleton h-9 w-72" />
+      </div>
+      <div className="grid gap-px border border-border bg-border md:grid-cols-3">
+        <div className="skeleton-cell h-72 md:col-span-2" />
+        <div className="skeleton-cell h-72" />
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="skeleton-cell h-36" />
+        ))}
+      </div>
       <span className="sr-only">{label}</span>
     </div>
   );
@@ -94,14 +105,21 @@ export function LoadingState({ label = "Loading" }: { label?: string }) {
 
 export function ErrorState({ error }: { error: unknown }) {
   const router = useRouter();
-  const msg = error instanceof Error ? error.message : "Something went wrong.";
+  const notFound = error instanceof Error && /404|not found/i.test(error.message);
   return (
-    <div role="alert" className="mx-auto max-w-lg border border-destructive/40 p-8">
-      <p className="eyebrow mb-2 text-destructive">Data unavailable</p>
-      <p className="mb-1 text-lg">{msg}</p>
-      <p className="mb-6 text-sm text-muted-foreground">Check that the SmartCareer API is running and allows requests from this site.</p>
-      <button onClick={() => router.invalidate()} className="border border-foreground px-4 py-2 font-mono text-xs uppercase tracking-wider hover:bg-foreground hover:text-background">
-        Retry
+    <div role="alert" className="mx-auto mt-10 max-w-xl border-l-2 border-gap pl-8 py-4">
+      <p className="eyebrow mb-4 text-gap">Connection</p>
+      <h2 className="mb-3 text-2xl font-medium tracking-tight">
+        {notFound ? "This data could not be found" : "Unable to connect to SmartCareer data"}
+      </h2>
+      <p className="mb-8 max-w-md text-sm leading-relaxed text-muted-foreground">
+        The student database didn't respond. Nothing has been replaced with sample data — try again in a moment.
+      </p>
+      <button
+        onClick={() => router.invalidate()}
+        className="group inline-flex items-center gap-3 border border-foreground px-5 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors hover:bg-foreground hover:text-background"
+      >
+        <span className="inline-block transition-transform group-hover:rotate-180">↻</span> Retry
       </button>
     </div>
   );

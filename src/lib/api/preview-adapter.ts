@@ -1,7 +1,7 @@
 /**
  * DEVELOPMENT PREVIEW ADAPTER — NOT REAL DATA.
  *
- * Used only while VITE_API_BASE_URL is unset so screens can be reviewed.
+ * Used only when VITE_DATA_SOURCE=preview or before the Cloud database is configured.
  * Records are illustrative and generated deterministically; they are never
  * mixed with API data. The UI shows a "Preview data" badge whenever this is active.
  */
@@ -125,25 +125,30 @@ export const previewAdapter: ApiAdapter = {
     await wait();
     return RECORDS.find((r) => r.student.student_id === id) ?? null;
   },
-  async getAnalytics(): Promise<AnalyticsOverview> {
+  async getAnalytics(f): Promise<AnalyticsOverview> {
     await wait();
-    const cg = RECORDS.map((r) => r.student.cgpa ?? 0);
-    const rd = RECORDS.map((r) => r.goals?.career_readiness_score ?? 0);
+    const ALL = RECORDS;
+    const RS = ALL.filter((r) => (!f?.degree || r.student.degree === f.degree) && (!f?.branch || r.student.branch === f.branch));
+    const cg = RS.map((r) => r.student.cgpa ?? 0);
+    const rd = RS.map((r) => r.goals?.career_readiness_score ?? 0);
     const domains = new Map<string, number>();
-    RECORDS.forEach((r) => {
+    RS.forEach((r) => {
       const d = r.recommendation?.recommended_career_domain ?? "Unknown";
       domains.set(d, (domains.get(d) ?? 0) + 1);
     });
+    const uniq = (xs: (string | null)[]) => [...new Set(xs.filter((x): x is string => !!x))].sort();
     return {
-      student_count: RECORDS.length,
+      student_count: RS.length,
       avg_cgpa: avg(cg),
       avg_readiness: avg(rd),
-      avg_match: avg(RECORDS.map((r) => r.recommendation?.career_match_score)),
-      avg_gap: avg(RECORDS.map((r) => r.recommendation?.skill_gap_score)),
+      avg_match: avg(RS.map((r) => r.recommendation?.career_match_score)),
+      avg_gap: avg(RS.map((r) => r.recommendation?.skill_gap_score)),
       cgpa_distribution: bucketize(cg, [5, 6, 7, 8, 9, 10], (a, b) => `${a}–${b}`),
       readiness_distribution: bucketize(rd, [0, 20, 40, 60, 80, 100], (a, b) => `${a}–${b}`),
       domains: [...domains].map(([label, count]) => ({ label, count })).sort((a, b) => b.count - a.count),
-      avg_skills: SKILL_KEYS.map((key) => ({ key, value: avg(RECORDS.map((r) => r.skills?.[key])) ?? 0 })),
+      avg_skills: SKILL_KEYS.map((key) => ({ key, value: avg(RS.map((r) => r.skills?.[key])) ?? 0 })),
+      degrees: uniq(ALL.map((r) => r.student.degree)),
+      branches: uniq(ALL.map((r) => r.student.branch)),
     };
   },
 };

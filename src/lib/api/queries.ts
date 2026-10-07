@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { api } from "./client";
-import type { StudentListParams } from "./types";
+import type { AnalyticsFilters, StudentListParams } from "./types";
 
 export const studentsQuery = (p: StudentListParams) =>
   queryOptions({
@@ -16,9 +16,9 @@ export const studentRecordQuery = (id: string) =>
     staleTime: 60_000,
   });
 
-export const analyticsQuery = () =>
+export const analyticsQuery = (f: AnalyticsFilters = {}) =>
   queryOptions({
-    queryKey: ["analytics"],
-    queryFn: () => api.getAnalytics(),
+    queryKey: ["analytics", f],
+    queryFn: () => api.getAnalytics(f),
     staleTime: 5 * 60_000,
   });

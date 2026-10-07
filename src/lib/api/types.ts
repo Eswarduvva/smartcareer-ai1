@@ -1,4 +1,4 @@
-// Mirrors the six normalized tables in smartcareer_db.
+// Mirrors the six normalized tables in the SmartCareer Cloud database.
 
 export interface Student {
   student_id: string;
@@ -117,11 +117,18 @@ export interface AnalyticsOverview {
   readiness_distribution: Bucket[];
   domains: Bucket[];
   avg_skills: { key: SkillKey; value: number }[];
+  degrees?: string[];
+  branches?: string[];
+}
+
+export interface AnalyticsFilters {
+  degree?: string | undefined;
+  branch?: string | undefined;
 }
 
 export interface ApiAdapter {
-  readonly kind: "http" | "preview";
+  readonly kind: "supabase" | "preview";
   listStudents(params: StudentListParams): Promise<StudentListResult>;
   getStudentRecord(id: string): Promise<StudentRecord | null>;
-  getAnalytics(): Promise<AnalyticsOverview>;
+  getAnalytics(filters?: AnalyticsFilters): Promise<AnalyticsOverview>;
 }

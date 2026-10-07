@@ -76,7 +76,7 @@ function Landing() {
 
       <footer className="flex flex-wrap justify-between gap-4 border-t border-border px-6 py-6 font-mono text-[11px] text-muted-foreground md:px-12">
         <span>SmartCareer AI</span>
-        <span>Data source: smartcareer_db via the SmartCareer API</span>
+        <span>Data source: SmartCareer database (Lovable Cloud)</span>
       </footer>
     </div>
   );
