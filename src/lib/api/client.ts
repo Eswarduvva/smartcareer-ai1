@@ -1,9 +1,16 @@
-import { createHttpAdapter } from "./http-adapter";
 import { previewAdapter } from "./preview-adapter";
+import { supabaseAdapter } from "./supabase-adapter";
 import type { ApiAdapter } from "./types";
 
-const baseUrl = import.meta.env["VITE_API_BASE_URL"] as string | undefined;
+/**
+ * Data source is chosen at build time, never at runtime.
+ * - VITE_DATA_SOURCE=preview → illustrative preview records only.
+ * - otherwise, once the Cloud database is configured → real data only.
+ * A real-data failure surfaces as an error state; it never falls back to preview data.
+ */
+const explicit = import.meta.env["VITE_DATA_SOURCE"] as string | undefined;
+const cloudConfigured = Boolean(import.meta.env["VITE_SUPABASE_URL"]);
+const usePreview = explicit === "preview" || (explicit !== "supabase" && !cloudConfigured);
 
-/** Real API when VITE_API_BASE_URL is set; otherwise the clearly-labelled preview adapter. */
-export const api: ApiAdapter = baseUrl ? createHttpAdapter(baseUrl) : previewAdapter;
+export const api: ApiAdapter = usePreview ? previewAdapter : supabaseAdapter;
 export const isPreviewData = api.kind === "preview";
