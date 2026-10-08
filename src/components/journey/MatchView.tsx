@@ -26,7 +26,11 @@ export function MatchView() {
         </Tile>
         <Tile className="lg:col-span-2" label="Skill gap score">
           <Big value={fmt(rec?.skill_gap_score)} tone="gap" />
-          <p className="mt-auto pt-4 text-xs text-muted-foreground">Both scores are read directly from the recommendations table. How they are calculated is defined by your backend, not this app.</p>
+          <p className="mt-auto pt-4 text-xs text-muted-foreground">
+            {source === "database"
+              ? "Both scores are read directly from the recommendations table. How they are calculated is defined by your backend, not this app."
+              : "Rule-based recommendation: each career track lists five key skills with a target of 75. Match = how close you are to those targets; gap = average points still missing. Not AI."}
+          </p>
         </Tile>
 
         <Tile className="lg:col-span-3" label={`Strengths (≥ ${STRONG_THRESHOLD})`}>
