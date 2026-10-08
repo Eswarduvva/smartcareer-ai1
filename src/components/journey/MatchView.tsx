@@ -1,10 +1,11 @@
 import { Big, Meter, PageHead, Tile } from "@/components/kit";
-import { useRecord } from "@/lib/use-record";
+import { useRecommendationSource, useRecord } from "@/lib/use-record";
 import { fmt, GAP_THRESHOLD, scoredSkills, sortDesc, STRONG_THRESHOLD } from "@/lib/skills";
 
 
 export function MatchView() {
   const r = useRecord();
+  const source = useRecommendationSource();
   const rec = r.recommendation;
   const skills = sortDesc(scoredSkills(r.skills));
   const strengths = skills.filter((s) => s.score >= STRONG_THRESHOLD);
@@ -14,7 +15,7 @@ export function MatchView() {
 
   return (
     <div>
-      <PageHead eyebrow="Career match" title={rec?.recommended_role ?? "No recommendation on record"}>
+      <PageHead eyebrow={source === "database" ? "Career match" : "Career match · rule-based recommendation"} title={rec?.recommended_role ?? "No recommendation on record"}>
         <p className="font-mono text-sm text-muted-foreground">{rec?.recommended_career_domain}</p>
       </PageHead>
       <div className="grid gap-3 lg:grid-cols-6">
