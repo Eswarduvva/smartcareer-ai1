@@ -11,7 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as BuildRouteImport } from './routes/build'
+import { Route as MeRouteImport } from './routes/me'
 import { Route as StudentsRouteImport } from './routes/students'
+import { Route as MeIndexRouteImport } from './routes/me.index'
+import { Route as MeGapsRouteImport } from './routes/me.gaps'
+import { Route as MeMatchRouteImport } from './routes/me.match'
+import { Route as MeRoadmapRouteImport } from './routes/me.roadmap'
+import { Route as MeSkillsRouteImport } from './routes/me.skills'
 import { Route as StudentsIndexRouteImport } from './routes/students.index'
 import { Route as StudentsIdRouteImport } from './routes/students.$id'
 import { Route as StudentsIdIndexRouteImport } from './routes/students.$id.index'
@@ -31,10 +38,45 @@ const AnalyticsRoute = AnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuildRoute = BuildRouteImport.update({
+  id: '/build',
+  path: '/build',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeRoute = MeRouteImport.update({
+  id: '/me',
+  path: '/me',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentsRoute = StudentsRouteImport.update({
   id: '/students',
   path: '/students',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MeIndexRoute = MeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MeRoute,
+} as any)
+const MeGapsRoute = MeGapsRouteImport.update({
+  id: '/gaps',
+  path: '/gaps',
+  getParentRoute: () => MeRoute,
+} as any)
+const MeMatchRoute = MeMatchRouteImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => MeRoute,
+} as any)
+const MeRoadmapRoute = MeRoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => MeRoute,
+} as any)
+const MeSkillsRoute = MeSkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => MeRoute,
 } as any)
 const StudentsIndexRoute = StudentsIndexRouteImport.update({
   id: '/',
@@ -80,8 +122,15 @@ const StudentsIdSkillsRoute = StudentsIdSkillsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/build': typeof BuildRoute
+  '/me': typeof MeRouteWithChildren
   '/students': typeof StudentsRouteWithChildren
+  '/me/gaps': typeof MeGapsRoute
+  '/me/match': typeof MeMatchRoute
+  '/me/roadmap': typeof MeRoadmapRoute
+  '/me/skills': typeof MeSkillsRoute
   '/students/$id': typeof StudentsIdRouteWithChildren
+  '/me/': typeof MeIndexRoute
   '/students/': typeof StudentsIndexRoute
   '/students/$id/gaps': typeof StudentsIdGapsRoute
   '/students/$id/match': typeof StudentsIdMatchRoute
@@ -93,6 +142,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/build': typeof BuildRoute
+  '/me/gaps': typeof MeGapsRoute
+  '/me/match': typeof MeMatchRoute
+  '/me/roadmap': typeof MeRoadmapRoute
+  '/me/skills': typeof MeSkillsRoute
+  '/me': typeof MeIndexRoute
   '/students': typeof StudentsIndexRoute
   '/students/$id/gaps': typeof StudentsIdGapsRoute
   '/students/$id/match': typeof StudentsIdMatchRoute
@@ -105,8 +160,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/build': typeof BuildRoute
+  '/me': typeof MeRouteWithChildren
   '/students': typeof StudentsRouteWithChildren
+  '/me/gaps': typeof MeGapsRoute
+  '/me/match': typeof MeMatchRoute
+  '/me/roadmap': typeof MeRoadmapRoute
+  '/me/skills': typeof MeSkillsRoute
   '/students/$id': typeof StudentsIdRouteWithChildren
+  '/me/': typeof MeIndexRoute
   '/students/': typeof StudentsIndexRoute
   '/students/$id/gaps': typeof StudentsIdGapsRoute
   '/students/$id/match': typeof StudentsIdMatchRoute
@@ -120,8 +182,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/analytics'
+    | '/build'
+    | '/me'
     | '/students'
+    | '/me/gaps'
+    | '/me/match'
+    | '/me/roadmap'
+    | '/me/skills'
     | '/students/$id'
+    | '/me/'
     | '/students/'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -133,6 +202,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/analytics'
+    | '/build'
+    | '/me/gaps'
+    | '/me/match'
+    | '/me/roadmap'
+    | '/me/skills'
+    | '/me'
     | '/students'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -144,8 +219,15 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/analytics'
+    | '/build'
+    | '/me'
     | '/students'
+    | '/me/gaps'
+    | '/me/match'
+    | '/me/roadmap'
+    | '/me/skills'
     | '/students/$id'
+    | '/me/'
     | '/students/'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -158,6 +240,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  BuildRoute: typeof BuildRoute
+  MeRoute: typeof MeRouteWithChildren
   StudentsRoute: typeof StudentsRouteWithChildren
 }
 
@@ -177,12 +261,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/build': {
+      id: '/build'
+      path: '/build'
+      fullPath: '/build'
+      preLoaderRoute: typeof BuildRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/me': {
+      id: '/me'
+      path: '/me'
+      fullPath: '/me'
+      preLoaderRoute: typeof MeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/students': {
       id: '/students'
       path: '/students'
       fullPath: '/students'
       preLoaderRoute: typeof StudentsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/me/': {
+      id: '/me/'
+      path: '/'
+      fullPath: '/me/'
+      preLoaderRoute: typeof MeIndexRouteImport
+      parentRoute: typeof MeRoute
+    }
+    '/me/gaps': {
+      id: '/me/gaps'
+      path: '/gaps'
+      fullPath: '/me/gaps'
+      preLoaderRoute: typeof MeGapsRouteImport
+      parentRoute: typeof MeRoute
+    }
+    '/me/match': {
+      id: '/me/match'
+      path: '/match'
+      fullPath: '/me/match'
+      preLoaderRoute: typeof MeMatchRouteImport
+      parentRoute: typeof MeRoute
+    }
+    '/me/roadmap': {
+      id: '/me/roadmap'
+      path: '/roadmap'
+      fullPath: '/me/roadmap'
+      preLoaderRoute: typeof MeRoadmapRouteImport
+      parentRoute: typeof MeRoute
+    }
+    '/me/skills': {
+      id: '/me/skills'
+      path: '/skills'
+      fullPath: '/me/skills'
+      preLoaderRoute: typeof MeSkillsRouteImport
+      parentRoute: typeof MeRoute
     }
     '/students/': {
       id: '/students/'
@@ -243,6 +376,24 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface MeRouteChildren {
+  MeGapsRoute: typeof MeGapsRoute
+  MeMatchRoute: typeof MeMatchRoute
+  MeRoadmapRoute: typeof MeRoadmapRoute
+  MeSkillsRoute: typeof MeSkillsRoute
+  MeIndexRoute: typeof MeIndexRoute
+}
+
+const MeRouteChildren: MeRouteChildren = {
+  MeGapsRoute: MeGapsRoute,
+  MeMatchRoute: MeMatchRoute,
+  MeRoadmapRoute: MeRoadmapRoute,
+  MeSkillsRoute: MeSkillsRoute,
+  MeIndexRoute: MeIndexRoute,
+}
+
+const MeRouteWithChildren = MeRoute._addFileChildren(MeRouteChildren)
+
 interface StudentsIdRouteChildren {
   StudentsIdGapsRoute: typeof StudentsIdGapsRoute
   StudentsIdMatchRoute: typeof StudentsIdMatchRoute
@@ -282,6 +433,8 @@ const StudentsRouteWithChildren = StudentsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  BuildRoute: BuildRoute,
+  MeRoute: MeRouteWithChildren,
   StudentsRoute: StudentsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
