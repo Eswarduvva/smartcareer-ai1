@@ -7,7 +7,7 @@ import type { StudentRecord } from "@/lib/api/types";
 interface Step { title: string; why: string }
 
 /** Transparent rules — no model involved. */
-function buildSteps(r: StudentRecord): Step[] {
+export function buildSteps(r: StudentRecord): Step[] {
   const steps: Step[] = [];
   const gaps = scoredSkills(r.skills).filter((s) => s.score < GAP_THRESHOLD).sort((a, b) => a.score - b.score);
   gaps.slice(0, 3).forEach((g) =>
