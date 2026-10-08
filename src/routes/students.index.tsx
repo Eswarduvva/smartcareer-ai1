@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { studentsQuery } from "@/lib/api/queries";
-import { EmptyState, ErrorState, LoadingState, Meter, PageHead, PreviewBadge } from "@/components/kit";
+import { EmptyState, ErrorState, LoadingState, Meter, PageHead } from "@/components/kit";
 import { fmt } from "@/lib/skills";
 
 const search = z.object({
@@ -37,7 +37,7 @@ function StudentsPage() {
   return (
     <div>
       <PageHead eyebrow="Mentor / Admin · Student directory" title="Students">
-        <div className="flex flex-col items-end gap-2"><PreviewBadge />
+        <div>
         <p className="num text-sm text-muted-foreground">{data.total} matching</p></div>
       </PageHead>
 

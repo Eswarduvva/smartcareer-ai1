@@ -113,7 +113,7 @@ function NavLinks() {
               ))}
             </div>
             <div>
-              <p className="eyebrow mb-2">Mentor / Admin · preview</p>
+              <p className="eyebrow mb-2">Mentor / Admin</p>
               <Link to="/students" className={linkCls} activeProps={activeCls} activeOptions={{ exact: true }}>
                 Student Directory
               </Link>

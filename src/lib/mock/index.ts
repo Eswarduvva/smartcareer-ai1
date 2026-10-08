@@ -124,7 +124,7 @@ export function toSummary(rec: StudentRecord): StudentSummary {
 }
 
 /** The realistic profile behind "Fill with a sample profile" in the builder. */
-export const mockSampleProfileId = "SC-1001";
+export const mockSampleProfileId = "SC-1003";
 
 const ACTIONS = ["completed their career profile", "viewed their roadmap", "updated skill scores", "checked career match", "marked a roadmap step done", "added a new project"];
 const WHEN = ["12 min ago", "40 min ago", "1 h ago", "2 h ago", "3 h ago", "5 h ago", "Yesterday", "Yesterday", "2 days ago", "3 days ago"];
