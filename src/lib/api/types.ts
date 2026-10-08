@@ -2,6 +2,8 @@
 
 export interface Student {
   student_id: string;
+  /** Display name (demo data only; the database has none yet). */
+  full_name?: string | null;
   age: number | null;
   gender: string | null;
   city: string | null;
@@ -95,8 +97,17 @@ export interface StudentListParams {
   pageSize?: number | undefined;
 }
 
+/** Directory row: student plus headline career figures. */
+export interface StudentSummary extends Student {
+  readiness: number | null;
+  match: number | null;
+  role: string | null;
+  top_skills: string[];
+  gap_count: number | null;
+}
+
 export interface StudentListResult {
-  items: Student[];
+  items: StudentSummary[];
   total: number;
   page: number;
   pageSize: number;
@@ -119,6 +130,16 @@ export interface AnalyticsOverview {
   avg_skills: { key: SkillKey; value: number }[];
   degrees?: string[];
   branches?: string[];
+  interests?: Bucket[];
+  common_gaps?: Bucket[];
+  activity?: ActivityItem[];
+}
+
+export interface ActivityItem {
+  student_id: string;
+  name: string;
+  action: string;
+  when: string;
 }
 
 export interface AnalyticsFilters {

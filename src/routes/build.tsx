@@ -7,13 +7,15 @@ import type { SkillKey } from "@/lib/api/types";
 import { clearProfile, emptyProfile, loadProfile, MY_ID, saveProfile, type MyProfile } from "@/lib/my-profile";
 import { GAP_THRESHOLD, GROUPS, SCORE_MAX, SKILLS, STRONG_THRESHOLD } from "@/lib/skills";
 import { cn } from "@/lib/utils";
+import { INTEREST_OPTIONS, ROLE_OPTIONS } from "@/lib/careers";
+import { mockSampleProfileId } from "@/lib/mock";
 
 export const Route = createFileRoute("/build")({
   head: () => ({
     meta: [
-      { title: "Build my career profile — SmartCareer AI" },
+      { title: "Build my career profile — SmartCareer" },
       { name: "description", content: "Five short steps: about you, skills, experience, interests and goals. Then see your career match." },
-      { property: "og:title", content: "Build my career profile — SmartCareer AI" },
+      { property: "og:title", content: "Build my career profile — SmartCareer" },
       { property: "og:description", content: "Tell SmartCareer about your studies, skills and goals in five steps." },
     ],
   }),
@@ -76,7 +78,7 @@ function Builder() {
   };
 
   const loadSample = async () => {
-    const rec = await api.getStudentRecord("PRV-004");
+    const rec = await api.getStudentRecord(mockSampleProfileId);
     if (!rec) return;
     const { recommendation: _r, ...rest } = rec;
     const withId = <T extends object>(o: T | null) => (o ? { ...o, student_id: MY_ID } : o);
@@ -98,7 +100,7 @@ function Builder() {
         </div>
         <div className="flex gap-4 font-mono text-[11px] uppercase tracking-wider">
           {isPreviewData && (
-            <button onClick={loadSample} className="text-primary hover:underline">Fill with a preview sample</button>
+            <button onClick={loadSample} className="text-primary hover:underline">Fill with a sample profile</button>
           )}
           <button onClick={() => { clearProfile(); setP(emptyProfile()); setStep(0); }} className="text-muted-foreground hover:text-foreground">Start over</button>
         </div>
@@ -188,10 +190,10 @@ function Builder() {
 
       {step === 3 && (
         <Fields>
-          <Choice label="Primary interest" value={p.preferences?.primary_interest} onChange={(v) => set("preferences", "primary_interest", v)} options={["AI & Machine Learning", "Data Science", "Software Engineering", "Business Analytics", "Product Management"]} required />
-          <Text label="Secondary interest" value={p.preferences?.secondary_interest} onChange={(v) => set("preferences", "secondary_interest", v)} options={["Research", "Cloud", "Cybersecurity", "Design", "Consulting"]} />
+          <Choice label="Primary interest" value={p.preferences?.primary_interest} onChange={(v) => set("preferences", "primary_interest", v)} options={INTEREST_OPTIONS} required />
+          <Text label="Secondary interest" value={p.preferences?.secondary_interest} onChange={(v) => set("preferences", "secondary_interest", v)} options={INTEREST_OPTIONS} />
           <Text label="Preferred industry" value={p.preferences?.preferred_industry} onChange={(v) => set("preferences", "preferred_industry", v)} options={["Technology", "Finance", "Healthcare", "Consulting", "E-commerce"]} />
-          <Text label="Preferred role" value={p.preferences?.preferred_work_role} onChange={(v) => set("preferences", "preferred_work_role", v)} options={["Machine Learning Engineer", "Data Analyst", "Software Developer", "Business Analyst", "Associate Product Manager"]} />
+          <Text label="Preferred role" value={p.preferences?.preferred_work_role} onChange={(v) => set("preferences", "preferred_work_role", v)} options={ROLE_OPTIONS} />
           <Choice label="Work mode" value={p.preferences?.preferred_work_mode} onChange={(v) => set("preferences", "preferred_work_mode", v)} options={["On-site", "Hybrid", "Remote"]} />
           <Text label="Preferred location" value={p.preferences?.preferred_location} onChange={(v) => set("preferences", "preferred_location", v)} />
           <Choice label="Willing to relocate?" value={p.preferences?.willing_to_relocate} onChange={(v) => set("preferences", "willing_to_relocate", v)} options={["Yes", "No"]} />
@@ -200,7 +202,7 @@ function Builder() {
 
       {step === 4 && (
         <Fields>
-          <Text label="Career goal" value={p.goals?.career_goal} onChange={(v) => set("goals", "career_goal", v)} options={["Machine Learning Engineer", "Data Analyst", "Software Developer", "Business Analyst", "Associate Product Manager"]} />
+          <Text label="Career goal" value={p.goals?.career_goal} onChange={(v) => set("goals", "career_goal", v)} options={ROLE_OPTIONS} />
           <Num label="Expected salary" hint="₹ per year" step={10000} value={p.goals?.expected_salary} onChange={(v) => set("goals", "expected_salary", v)} />
           <Num label="Study hours per week" value={p.goals?.study_hours_per_week} onChange={(v) => set("goals", "study_hours_per_week", v)} />
           <div className="border-l border-border pl-4 text-xs text-muted-foreground md:col-span-2">

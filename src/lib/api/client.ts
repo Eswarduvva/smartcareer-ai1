@@ -9,7 +9,7 @@ import type { ApiAdapter } from "./types";
  * (or build with VITE_DATA_SOURCE=supabase). From then on only real data is shown,
  * and a failure shows "Unable to connect to SmartCareer data" — never preview data.
  */
-const DEFAULT_SOURCE: "preview" | "supabase" = "preview";
+const DEFAULT_SOURCE = "preview" as "preview" | "supabase";
 
 const explicit = import.meta.env["VITE_DATA_SOURCE"] as string | undefined;
 const source = explicit === "preview" || explicit === "supabase" ? explicit : DEFAULT_SOURCE;

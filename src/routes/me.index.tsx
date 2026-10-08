@@ -9,9 +9,9 @@ import { fmt, GAP_THRESHOLD, GROUPS, SCORE_MAX, scoredSkills, sortDesc, STRONG_T
 export const Route = createFileRoute("/me/")({
   head: () => ({
     meta: [
-      { title: "My career intelligence — SmartCareer AI" },
+      { title: "My career intelligence — SmartCareer" },
       { name: "description", content: "Your career match, recommended role, strengths, skill gaps and next steps on one page." },
-      { property: "og:title", content: "My career intelligence — SmartCareer AI" },
+      { property: "og:title", content: "My career intelligence — SmartCareer" },
       { property: "og:description", content: "Career match, skill gaps and roadmap from your profile." },
     ],
   }),
@@ -64,7 +64,7 @@ function Intelligence() {
             <div>
               <p className="eyebrow">Career readiness</p>
               <p className="num mt-1 text-3xl">{fmt(r.goals?.career_readiness_score)}</p>
-              <p className="text-[11px] text-muted-foreground">Calculated by SmartCareer from the database — not yet available for self-entered profiles.</p>
+              <p className="text-[11px] text-muted-foreground">Rule-based: 70% skills + projects, internships, certifications.</p>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@ function Intelligence() {
 
       <section className="py-8">
         <div className="mb-4 flex items-baseline justify-between">
-          <p className="eyebrow">Relevant experience</p>
+          <p className="eyebrow">Experience & interests</p>
           <Link to="/build" className="font-mono text-[11px] text-primary hover:underline">Edit profile →</Link>
         </div>
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -139,6 +139,11 @@ function Intelligence() {
               <p className="eyebrow mt-1">{l}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-6 grid gap-4 border-t border-border pt-5 text-sm sm:grid-cols-3">
+          <p><span className="eyebrow block">Primary interest</span>{r.preferences?.primary_interest ?? "—"}</p>
+          <p><span className="eyebrow block">Preferred role</span>{r.preferences?.preferred_work_role ?? "—"}</p>
+          <p><span className="eyebrow block">Work mode · industry</span>{[r.preferences?.preferred_work_mode, r.preferences?.preferred_industry].filter(Boolean).join(" · ") || "—"}</p>
         </div>
       </section>
 

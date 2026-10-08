@@ -6,9 +6,9 @@ import { fmt } from "@/lib/skills";
 export const Route = createFileRoute("/students/$id/profile")({
   head: ({ params }) => ({
     meta: [
-      { title: `Student ${params.id} profile — SmartCareer AI` },
+      { title: `Student ${params.id} profile — SmartCareer` },
       { name: "description", content: "Academic and personal profile of the student." },
-      { property: "og:title", content: `Student ${params.id} profile — SmartCareer AI` },
+      { property: "og:title", content: `Student ${params.id} profile — SmartCareer` },
       { property: "og:description", content: "Academic and personal profile of the student." },
     ],
   }),

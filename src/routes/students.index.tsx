@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { studentsQuery } from "@/lib/api/queries";
-import { EmptyState, ErrorState, LoadingState, PageHead } from "@/components/kit";
+import { EmptyState, ErrorState, LoadingState, Meter, PageHead, PreviewBadge } from "@/components/kit";
 import { fmt } from "@/lib/skills";
 
 const search = z.object({
@@ -17,9 +17,9 @@ export const Route = createFileRoute("/students/")({
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(studentsQuery({ ...deps, pageSize: 25 })),
   head: () => ({
     meta: [
-      { title: "Students — SmartCareer AI" },
-      { name: "description", content: "Search students by ID, branch, city and CGPA." },
-      { property: "og:title", content: "Students — SmartCareer AI" },
+      { title: "Students — SmartCareer" },
+      { name: "description", content: "Mentor view: search students and see readiness, career match and skill gaps." },
+      { property: "og:title", content: "Students — SmartCareer" },
       { property: "og:description", content: "Search students by ID, branch, city and CGPA." },
     ],
   }),
@@ -36,8 +36,9 @@ function StudentsPage() {
 
   return (
     <div>
-      <PageHead eyebrow="Cohort" title="Students">
-        <p className="num text-sm text-muted-foreground">{data.total} matching</p>
+      <PageHead eyebrow="Mentor / Admin · Student directory" title="Students">
+        <div className="flex flex-col items-end gap-2"><PreviewBadge />
+        <p className="num text-sm text-muted-foreground">{data.total} matching</p></div>
       </PageHead>
 
       <form
@@ -50,7 +51,7 @@ function StudentsPage() {
           navigate({ search: { q, minCgpa: c > 0 ? c : undefined, page: undefined } });
         }}
       >
-        <input name="q" defaultValue={s.q} placeholder="Student ID, branch, city…" className="min-w-64 flex-1 border border-input bg-card px-3 py-2 text-sm outline-none focus:border-primary" />
+        <input name="q" defaultValue={s.q} placeholder="Name, ID, branch, city or role…" aria-label="Search students" className="min-w-0 flex-1 basis-56 border border-input bg-card px-3 py-2 text-sm outline-none focus:border-primary" />
         <input name="minCgpa" type="number" step="0.1" min="0" max="10" defaultValue={s.minCgpa} placeholder="Min CGPA" className="w-32 border border-input bg-card px-3 py-2 text-sm outline-none focus:border-primary" />
         <button className="border border-foreground px-4 py-2 font-mono text-xs uppercase tracking-wider hover:bg-foreground hover:text-background">Search</button>
       </form>
@@ -58,34 +59,32 @@ function StudentsPage() {
       {data.items.length === 0 ? (
         <EmptyState title="No students match these filters" body="Try a broader search." />
       ) : (
-        <div className="overflow-x-auto border border-border">
-          <table className="w-full text-sm">
-            <thead className="bg-muted/50 text-left">
-              <tr className="eyebrow">
-                {["ID", "Degree", "Branch", "Specialization", "City", "Grad", "CGPA"].map((h) => (
-                  <th key={h} className="px-4 py-3 font-normal">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.items.map((st) => (
-                <tr key={st.student_id} className="border-t border-border hover:bg-accent/40">
-                  <td className="px-4 py-3">
-                    <Link to="/students/$id" params={{ id: st.student_id }} className="font-mono text-primary hover:underline">
-                      {st.student_id}
-                    </Link>
-                  </td>
-                  <td className="px-4 py-3">{st.degree ?? "—"}</td>
-                  <td className="px-4 py-3">{st.branch ?? "—"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{st.specialization ?? "—"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{st.city ?? "—"}</td>
-                  <td className="num px-4 py-3">{st.graduation_year ?? "—"}</td>
-                  <td className="num px-4 py-3 text-right">{fmt(st.cgpa, 2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {data.items.map((st) => (
+            <li key={st.student_id}>
+              <Link to="/students/$id" params={{ id: st.student_id }} className="group flex h-full flex-col border border-border bg-card p-5 transition-colors hover:border-primary">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-lg font-medium group-hover:text-primary">{st.full_name ?? st.student_id}</p>
+                    <p className="truncate font-mono text-[11px] text-muted-foreground">{st.student_id} · {st.degree} {st.branch}</p>
+                  </div>
+                  <span className="num shrink-0 text-2xl text-primary">{fmt(st.match, 0)}<span className="text-xs text-muted-foreground">%</span></span>
+                </div>
+                <p className="mt-3 text-sm">{st.role ?? "—"}</p>
+                <div className="mt-3">
+                  <div className="mb-1 flex justify-between text-[11px] text-muted-foreground"><span>Readiness</span><span className="num">{fmt(st.readiness, 0)}</span></div>
+                  <Meter value={st.readiness ?? 0} max={100} tone="strength" />
+                </div>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {st.top_skills.map((t) => <span key={t} className="border border-strength/40 px-2 py-0.5 text-[11px]">{t}</span>)}
+                </div>
+                <p className="mt-auto pt-4 text-[11px] text-muted-foreground">
+                  <span className="text-gap num">{st.gap_count ?? "—"}</span> skill gap{st.gap_count === 1 ? "" : "s"} · CGPA <span className="num">{fmt(st.cgpa, 2)}</span> · {st.city}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
 
       {pages > 1 && (

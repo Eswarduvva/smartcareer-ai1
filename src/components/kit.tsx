@@ -60,11 +60,11 @@ export function PreviewBadge() {
   if (!isPreviewData) return null;
   return (
     <span
-      title="Preview mode: illustrative records only. They are never mixed with real data."
+      title="Demo data: sample students for presentation. Your own profile stays on this device."
       className="inline-flex items-center gap-2 border border-gap/50 bg-gap-soft/40 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-foreground"
     >
       <span className="h-1.5 w-1.5 rounded-full bg-gap" />
-      Preview data — Supabase not connected
+      Demo data
     </span>
   );
 }
@@ -113,7 +113,7 @@ export function ErrorState({ error }: { error: unknown }) {
         {notFound ? "This data could not be found" : "Unable to connect to SmartCareer data"}
       </h2>
       <p className="mb-8 max-w-md text-sm leading-relaxed text-muted-foreground">
-        The student database didn't respond. Nothing has been replaced with sample data — try again in a moment.
+        SmartCareer couldn't load this information. Nothing was replaced with other data — please try again.
       </p>
       <button
         onClick={() => router.invalidate()}
@@ -137,7 +137,7 @@ export function EmptyState({ title, body }: { title: string; body?: string }) {
 export function StudentNotFound() {
   return (
     <div className="p-10">
-      <EmptyState title="No student with that ID" body="The record may not exist in the database." />
+      <EmptyState title="No student with that ID" body="This student may have been removed from the directory." />
       <div className="mt-6 text-center">
         <Link to="/students" className="font-mono text-xs uppercase tracking-wider text-primary underline-offset-4 hover:underline">
           Back to students

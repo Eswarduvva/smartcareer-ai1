@@ -4,9 +4,9 @@ import { MatchView } from "@/components/journey/MatchView";
 export const Route = createFileRoute("/me/match")({
   head: () => ({
     meta: [
-      { title: "My career match — SmartCareer AI" },
+      { title: "My career match — SmartCareer" },
       { name: "description", content: "Your recommended career domain and role, with the strengths and gaps behind it." },
-      { property: "og:title", content: "My career match — SmartCareer AI" },
+      { property: "og:title", content: "My career match — SmartCareer" },
       { property: "og:description", content: "Recommended career, match score and skill gap." },
     ],
   }),
