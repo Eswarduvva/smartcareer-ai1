@@ -44,7 +44,7 @@ export const supabaseAdapter: ApiAdapter = {
     const { data, error, count } = await q.order("student_id").range((page - 1) * size, page * size - 1);
     if (error) fail(error);
     return {
-      items: (data ?? []).map((s) => ({ ...s, cgpa: num(s.cgpa) })),
+      items: (data ?? []).map((s) => ({ ...s, cgpa: num(s.cgpa), readiness: null, match: null, role: null, top_skills: [], gap_count: null })),
       total: count ?? 0,
       page,
       pageSize: size,

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -15,9 +15,9 @@ export const Route = createFileRoute("/analytics")({
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(analyticsQuery(deps)),
   head: () => ({
     meta: [
-      { title: "Cohort analytics — SmartCareer AI" },
+      { title: "Cohort analytics — SmartCareer" },
       { name: "description", content: "CGPA, readiness, career domains and average skills across all students." },
-      { property: "og:title", content: "Cohort analytics — SmartCareer AI" },
+      { property: "og:title", content: "Cohort analytics — SmartCareer" },
       { property: "og:description", content: "Distributions across the whole student cohort." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -59,7 +59,7 @@ function Analytics() {
 
   return (
     <div>
-      <PageHead eyebrow="Analytics" title="The cohort at a glance">
+      <PageHead eyebrow="Mentor / Admin · Platform analytics" title="The cohort at a glance">
         <div className="flex flex-wrap gap-3">
           <Select label="Degree" value={s.degree} options={a.degrees ?? []} onChange={(degree) => navigate({ search: (p) => ({ ...p, degree }) })} />
           <Select label="Branch" value={s.branch} options={a.branches ?? []} onChange={(branch) => navigate({ search: (p) => ({ ...p, branch }) })} />
@@ -67,7 +67,7 @@ function Analytics() {
       </PageHead>
 
       {a.student_count === 0 ? (
-        <EmptyState title="No students in the database yet" body="Once the dataset is imported, cohort figures appear here automatically." />
+        <EmptyState title="No students match these filters" body="Try clearing the degree or branch filter." />
       ) : (
         <>
           {/* headline strip */}
@@ -110,7 +110,7 @@ function Analytics() {
               </div>
             </div>
             <aside className="lg:border-l lg:border-border lg:pl-8">
-              <h2 className="mb-5 text-lg font-medium">Recommended domains</h2>
+              <h2 className="mb-5 text-lg font-medium">Career distribution</h2>
               <ul className="space-y-3">
                 {a.domains.map((d) => (
                   <li key={d.label} className="group">
@@ -120,6 +120,41 @@ function Analytics() {
                 ))}
               </ul>
             </aside>
+          </section>
+
+          <section className="mb-14 grid gap-10 border-t border-border pt-10 md:grid-cols-3">
+            {([["Most common career interests", a.interests ?? [], "bg-primary"], ["Most common skill gaps", a.common_gaps ?? [], "bg-gap"]] as const).map(([t, xs, bar]) => {
+              const max = Math.max(1, ...xs.map((x) => x.count));
+              return (
+                <div key={t}>
+                  <h3 className="eyebrow mb-4">{t}</h3>
+                  {xs.length ? (
+                    <ul className="space-y-3">
+                      {xs.map((d) => (
+                        <li key={d.label}>
+                          <div className="mb-1 flex justify-between text-sm"><span className="truncate">{d.label}</span><span className="num text-muted-foreground">{d.count}</span></div>
+                          <div className="h-1 bg-muted"><div className={`h-full ${bar}`} style={{ width: `${(d.count / max) * 100}%` }} /></div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : <p className="text-sm text-muted-foreground">No data for this selection.</p>}
+                </div>
+              );
+            })}
+            <div>
+              <h3 className="eyebrow mb-4">Recent student activity</h3>
+              {a.activity?.length ? (
+                <ul className="divide-y divide-border border-y border-border">
+                  {a.activity.slice(0, 7).map((x, i) => (
+                    <li key={i} className="py-2.5 text-sm">
+                      <Link to="/students/$id" params={{ id: x.student_id }} className="font-medium hover:text-primary">{x.name}</Link>{" "}
+                      <span className="text-muted-foreground">{x.action}</span>
+                      <span className="block font-mono text-[10px] text-muted-foreground">{x.when}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : <p className="text-sm text-muted-foreground">No recent activity.</p>}
+            </div>
           </section>
 
           {/* secondary charts */}

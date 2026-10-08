@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
-- Data flows only through `src/lib/api/` (ApiAdapter); the source (preview vs Cloud) is chosen at build time in `client.ts` via `DEFAULT_SOURCE`/`VITE_DATA_SOURCE`, never as a runtime fallback, and real-data failures show an error state. Why: preview data must never mix with or replace real data.
+- Data flows only through `src/lib/api/` (ApiAdapter); demo records live only in `src/lib/mock/` and are read solely by the preview adapter. The source is chosen at build time in `client.ts`, never as a runtime fallback. Why: connecting a real backend means swapping the adapter, not rewriting pages.
 - Cohort analytics are computed in the database by `get_analytics(degree, branch)`. Why: no totals hardcoded or computed over partial client data.
 - Table RLS is temporary public read-only with no write policies. Why: demo without auth; replace with role-scoped policies when sign-in ships.
 - 3D scenes live in `src/components/space/` and load only client-side via `SkillSpaceLazy`. Why: three.js must not run during SSR and must stay out of the main bundle.
@@ -18,3 +18,6 @@
 
 - The student's own profile is stored on-device (`src/lib/my-profile.ts`) and scored by `src/lib/recommend.ts` (rule-based, labelled). Why: no auth yet and DB is read-only; a future engine replaces `recommend()` with the same output shape.
 - Journey page bodies live in `src/components/journey/` and read the record via `RecordProvider`/`useRecord`; `/students/$id/*` (database) and `/me/*` (self-entered) both reuse them. Why: one UI for both sources.
+
+- Career catalog, skill guidance and all scoring rules (match, readiness, gap priority) live in `src/lib/careers.ts` and `src/lib/recommend.ts`. Why: one place to replace when a backend engine arrives.
+- 3D labels are DOM overlays positioned from scene anchors, not drei `<Html>`. Why: `<Html>` threw on unmount under React 19.

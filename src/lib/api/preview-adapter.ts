@@ -1,5 +1,5 @@
 /**
- * DEVELOPMENT PREVIEW ADAPTER — NOT REAL DATA.
+ * DEMO DATA ADAPTER — NOT REAL DATA. Reads src/lib/mock.
  *
  * Used only when VITE_DATA_SOURCE=preview or before the Cloud database is configured.
  * Records are illustrative and generated deterministically; they are never
@@ -9,87 +9,12 @@ import type {
   AnalyticsOverview,
   ApiAdapter,
   Bucket,
-  SkillKey,
   StudentRecord,
 } from "./types";
-import { SKILL_KEYS } from "../skills";
+import { GAP_THRESHOLD, SKILL_KEYS, skillLabel } from "../skills";
+import { mockActivity, mockStudents, toSummary } from "../mock";
 
-function rng(seed: number) {
-  let s = seed;
-  return () => {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
-
-const PROFILES = [
-  { degree: "B.Tech", branch: "Computer Science", spec: "Data Science", domain: "Data Science", role: "Data Analyst", city: "Hyderabad", state: "Telangana" },
-  { degree: "B.Tech", branch: "Electronics", spec: "Embedded Systems", domain: "Software Engineering", role: "Backend Developer", city: "Pune", state: "Maharashtra" },
-  { degree: "B.Sc", branch: "Statistics", spec: "Applied Statistics", domain: "Data Science", role: "Business Analyst", city: "Chennai", state: "Tamil Nadu" },
-  { degree: "B.Tech", branch: "Information Technology", spec: "AI & ML", domain: "Artificial Intelligence", role: "Machine Learning Engineer", city: "Bengaluru", state: "Karnataka" },
-  { degree: "BCA", branch: "Computer Applications", spec: "Web Technologies", domain: "Software Engineering", role: "Frontend Developer", city: "Kochi", state: "Kerala" },
-  { degree: "MBA", branch: "Business Analytics", spec: "Marketing Analytics", domain: "Business Analytics", role: "Product Analyst", city: "Delhi", state: "Delhi" },
-];
-
-function build(i: number): StudentRecord {
-  const r = rng(i * 7919 + 13);
-  const p = PROFILES[i % PROFILES.length]!;
-  const id = `PRV-${String(i + 1).padStart(3, "0")}`;
-  const round = (n: number, d = 0) => Math.round(n * 10 ** d) / 10 ** d;
-  const skillEntries = SKILL_KEYS.map((k) => [k, round(35 + r() * 60)] as const);
-  const skills = Object.fromEntries(skillEntries) as Record<SkillKey, number>;
-  return {
-    student: {
-      student_id: id,
-      age: 20 + Math.floor(r() * 5),
-      gender: r() > 0.5 ? "Female" : "Male",
-      city: p.city,
-      state: p.state,
-      degree: p.degree,
-      branch: p.branch,
-      specialization: p.spec,
-      college_type: r() > 0.5 ? "Private" : "Government",
-      graduation_year: 2025 + Math.floor(r() * 3),
-      cgpa: round(6 + r() * 3.6, 2),
-      backlogs: r() > 0.75 ? 1 : 0,
-      higher_education_interest: r() > 0.6 ? "Yes" : "No",
-    },
-    skills: { student_id: id, ...skills },
-    experience: {
-      student_id: id,
-      project_count: Math.floor(r() * 6),
-      internship_count: Math.floor(r() * 3),
-      certification_count: Math.floor(r() * 5),
-      work_experience_months: Math.floor(r() * 10),
-    },
-    preferences: {
-      student_id: id,
-      primary_interest: p.domain,
-      secondary_interest: "Research",
-      preferred_industry: "Technology",
-      preferred_work_role: p.role,
-      preferred_work_mode: r() > 0.5 ? "Hybrid" : "On-site",
-      preferred_location: p.city,
-      willing_to_relocate: r() > 0.4 ? "Yes" : "No",
-    },
-    goals: {
-      student_id: id,
-      career_goal: p.role,
-      expected_salary: Math.round(4 + r() * 10) * 100000,
-      study_hours_per_week: Math.round(6 + r() * 20),
-      career_readiness_score: round(40 + r() * 50, 1),
-    },
-    recommendation: {
-      student_id: id,
-      recommended_career_domain: p.domain,
-      recommended_role: p.role,
-      career_match_score: round(55 + r() * 40, 1),
-      skill_gap_score: round(10 + r() * 40, 1),
-    },
-  };
-}
-
-const RECORDS: StudentRecord[] = Array.from({ length: 12 }, (_, i) => build(i));
+const RECORDS: StudentRecord[] = mockStudents;
 
 const wait = (ms = 220) => new Promise((r) => setTimeout(r, ms));
 const avg = (xs: (number | null | undefined)[]) => {
@@ -108,8 +33,8 @@ export const previewAdapter: ApiAdapter = {
   async listStudents(p) {
     await wait();
     const q = p.q?.toLowerCase().trim();
-    let items = RECORDS.map((r) => r.student).filter((s) => {
-      if (q && ![s.student_id, s.city, s.branch, s.specialization].some((f) => f?.toLowerCase().includes(q))) return false;
+    let items = RECORDS.map(toSummary).filter((s) => {
+      if (q && ![s.student_id, s.full_name, s.city, s.branch, s.specialization, s.role].some((f) => f?.toLowerCase().includes(q))) return false;
       if (p.degree && s.degree !== p.degree) return false;
       if (p.branch && s.branch !== p.branch) return false;
       if (p.minCgpa != null && (s.cgpa ?? 0) < p.minCgpa) return false;
@@ -136,6 +61,7 @@ export const previewAdapter: ApiAdapter = {
       const d = r.recommendation?.recommended_career_domain ?? "Unknown";
       domains.set(d, (domains.get(d) ?? 0) + 1);
     });
+    const count = (xs: string[]) => [...xs.reduce((m, x) => m.set(x, (m.get(x) ?? 0) + 1), new Map<string, number>())].map(([label, count]) => ({ label, count })).sort((a, b) => b.count - a.count);
     const uniq = (xs: (string | null)[]) => [...new Set(xs.filter((x): x is string => !!x))].sort();
     return {
       student_count: RS.length,
@@ -147,6 +73,10 @@ export const previewAdapter: ApiAdapter = {
       readiness_distribution: bucketize(rd, [0, 20, 40, 60, 80, 100], (a, b) => `${a}–${b}`),
       domains: [...domains].map(([label, count]) => ({ label, count })).sort((a, b) => b.count - a.count),
       avg_skills: SKILL_KEYS.map((key) => ({ key, value: avg(RS.map((r) => r.skills?.[key])) ?? 0 })),
+      interests: count(RS.map((r) => r.preferences?.primary_interest ?? "Unknown")),
+      common_gaps: SKILL_KEYS.map((k) => ({ label: skillLabel(k), count: RS.filter((r) => (r.skills?.[k] ?? 100) < GAP_THRESHOLD).length }))
+        .filter((b) => b.count > 0).sort((a, b) => b.count - a.count).slice(0, 6),
+      activity: mockActivity,
       degrees: uniq(ALL.map((r) => r.student.degree)),
       branches: uniq(ALL.map((r) => r.student.branch)),
     };

@@ -1,5 +1,7 @@
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, useParams, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PreviewBadge } from "./kit";
 import { useMyProfile } from "@/lib/my-profile";
 
@@ -38,6 +40,48 @@ const JOURNEY = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
+  return (
+    <div className="min-h-screen md:grid md:grid-cols-[232px_1fr]">
+      <aside className="hidden border-sidebar-border bg-sidebar md:block md:sticky md:top-0 md:h-screen md:border-b-0 md:border-r">
+        <div className="flex h-full flex-col gap-8 p-5">
+          <Link to="/" className="font-mono text-sm font-semibold tracking-tight">
+            SMART<span className="text-primary">CAREER</span>
+          </Link>
+          <NavLinks />
+          <div className="mt-auto hidden flex-col gap-3 md:flex">
+            <ThemeToggle />
+            <p className="text-[11px] leading-relaxed text-muted-foreground">
+              Your profile is saved privately on this device.
+            </p>
+          </div>
+        </div>
+      </aside>
+      <main className="min-w-0">
+        <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-3 md:justify-end md:px-10">
+          <div className="flex items-center gap-3 md:hidden">
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger aria-label="Open menu" className="p-1"><Menu className="h-5 w-5" /></SheetTrigger>
+              <SheetContent side="left" className="w-72 overflow-y-auto bg-sidebar p-5">
+                <SheetTitle className="mb-8 font-mono text-sm font-semibold">SMART<span className="text-primary">CAREER</span></SheetTitle>
+                <div onClick={(e) => { if ((e.target as HTMLElement).closest("a")) setOpen(false); }}>
+                  <NavLinks />
+                </div>
+                <div className="mt-8"><ThemeToggle /></div>
+              </SheetContent>
+            </Sheet>
+            <Link to="/" className="font-mono text-sm font-semibold">SMART<span className="text-primary">CAREER</span></Link>
+          </div>
+          <PreviewBadge />
+        </div>
+        <div key={pathname} className="animate-page-in px-4 py-8 sm:px-6 md:px-10">{children}</div>
+      </main>
+    </div>
+  );
+}
+
+function NavLinks() {
   const params = useParams({ strict: false }) as { id?: string };
   const id = params.id;
   const mine = useMyProfile();
@@ -52,13 +96,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   ] as const;
 
   return (
-    <div className="min-h-screen md:grid md:grid-cols-[232px_1fr]">
-      <aside className="border-b border-sidebar-border bg-sidebar md:sticky md:top-0 md:h-screen md:border-b-0 md:border-r">
-        <div className="flex h-full flex-col gap-8 p-5">
-          <Link to="/" className="font-mono text-sm font-semibold tracking-tight">
-            SMARTCAREER<span className="text-primary"> AI</span>
-          </Link>
-          <nav className="flex gap-8 overflow-x-auto md:flex-col md:gap-7 md:overflow-visible">
+          <nav className="flex flex-col gap-7">
             <div>
               <p className="eyebrow mb-2">Your career</p>
               <Link to="/" className={linkCls} activeProps={activeCls} activeOptions={{ exact: true }}>
@@ -75,7 +113,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               ))}
             </div>
             <div>
-              <p className="eyebrow mb-2">Mentor / Admin · preview</p>
+              <p className="eyebrow mb-2">Mentor / Admin</p>
               <Link to="/students" className={linkCls} activeProps={activeCls} activeOptions={{ exact: true }}>
                 Student Directory
               </Link>
@@ -101,23 +139,5 @@ export function AppShell({ children }: { children: ReactNode }) {
               )}
             </div>
           </nav>
-          <div className="mt-auto hidden flex-col gap-3 md:flex">
-            <ThemeToggle />
-            <p className="text-[11px] leading-relaxed text-muted-foreground">
-              Sign-in and roles (student, mentor, admin) come in a later phase. Your profile is saved on this device only.
-            </p>
-          </div>
-        </div>
-      </aside>
-      <main className="min-w-0">
-        <div className="flex items-center justify-end gap-4 border-b border-border px-6 py-3 md:px-10">
-          <PreviewBadge />
-          <span className="md:hidden">
-            <ThemeToggle />
-          </span>
-        </div>
-        <div className="px-6 py-8 md:px-10">{children}</div>
-      </main>
-    </div>
   );
 }

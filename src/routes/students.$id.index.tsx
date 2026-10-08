@@ -7,9 +7,9 @@ import { fmt, GAP_THRESHOLD, GROUPS, SCORE_MAX, scoredSkills, sortDesc } from "@
 export const Route = createFileRoute("/students/$id/")({
   head: ({ params }) => ({
     meta: [
-      { title: `Student ${params.id} overview — SmartCareer AI` },
+      { title: `Student ${params.id} overview — SmartCareer` },
       { name: "description", content: "Academic standing, strengths, gaps and recommended career for one student." },
-      { property: "og:title", content: `Student ${params.id} overview — SmartCareer AI` },
+      { property: "og:title", content: `Student ${params.id} overview — SmartCareer` },
       { property: "og:description", content: "Academic standing, strengths, gaps and recommended career." },
     ],
   }),

@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * SmartCareer AI design tokens. All colors oklch.
+ * SmartCareer design tokens. All colors oklch.
  * Light = paper + ink + teal. Dark = observatory night + cyan.
  * Forest greens = strength/progress, amber = gaps, in both modes.
  */
@@ -187,4 +187,15 @@
 @keyframes sc-shimmer {
   from { background-position: 100% 0; }
   to { background-position: -100% 0; }
+}
+
+@keyframes sc-page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@utility animate-page-in {
+  animation: sc-page-in 320ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-page-in { animation: none; }
 }

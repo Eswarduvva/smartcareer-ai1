@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Html, Line } from "@react-three/drei";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { Line } from "@react-three/drei";
+import { memo, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import * as THREE from "three";
 
 export interface SpaceNode {
@@ -115,6 +115,33 @@ function Rig({ children, reduced, focus }: { children: React.ReactNode; reduced:
   return <group ref={g}>{children}</group>;
 }
 
+/*
+ * Labels are plain DOM rendered OUTSIDE the <Canvas> and positioned every frame from
+ * invisible anchors in the scene. This replaces drei <Html>, whose separate React roots
+ * threw on unmount when leaving the page.
+ */
+type AnchorMap = MutableRefObject<Map<string, THREE.Object3D>>;
+type ElMap = MutableRefObject<Map<string, HTMLElement>>;
+
+function Anchor({ id, position, anchors }: { id: string; position: [number, number, number]; anchors: AnchorMap }) {
+  return <object3D position={position} ref={(o: THREE.Object3D | null) => { if (o) anchors.current.set(id, o); else anchors.current.delete(id); }} />;
+}
+
+function LabelSync({ anchors, els }: { anchors: AnchorMap; els: ElMap }) {
+  const v = useMemo(() => new THREE.Vector3(), []);
+  useFrame((state) => {
+    const { width, height } = state.size;
+    els.current.forEach((el, id) => {
+      const o = anchors.current.get(id);
+      if (!o) { el.style.visibility = "hidden"; return; }
+      o.getWorldPosition(v).project(state.camera);
+      el.style.visibility = v.z > 1 ? "hidden" : "";
+      el.style.transform = `translate(${((v.x + 1) / 2) * width}px, ${((1 - v.y) / 2) * height}px) translate(-50%, -50%)`;
+    });
+  });
+  return null;
+}
+
 const Label = ({ children, tone = "text-foreground", strong = false }: { children: React.ReactNode; tone?: string; strong?: boolean }) => (
   <div
     className={`whitespace-nowrap border border-border bg-background/90 px-1.5 py-0.5 font-mono text-[11px] leading-tight ${tone} ${strong ? "shadow-sm" : ""}`}
@@ -124,8 +151,9 @@ const Label = ({ children, tone = "text-foreground", strong = false }: { childre
 );
 
 const SkillNode = memo(function SkillNode({
-  n, c, state, onHover, onClick,
+  n, c, state, onHover, onClick, anchors,
 }: {
+  anchors: AnchorMap;
   n: Placed;
   c: Colors;
   state: "idle" | "hover" | "selected" | "dim";
@@ -165,21 +193,17 @@ const SkillNode = memo(function SkillNode({
           <meshBasicMaterial color={c.gap} transparent opacity={state === "dim" ? 0.25 : 0.95} />
         </mesh>
       )}
-      <Html center position={[0, n.size + 0.3, 0]} style={{ pointerEvents: "none", opacity: showLabel ? 1 : 0, transition: "opacity 180ms" }} zIndexRange={[20, 0]}>
-        <Label strong>
-          {n.label}
-          <span className={`ml-2 ${n.weak ? "text-gap" : "text-strength"}`}>{n.display ?? Math.round(n.value * 100)}</span>
-        </Label>
-      </Html>
+      <Anchor id={`node:${n.id}`} position={[0, n.size + 0.3, 0]} anchors={anchors} />
     </group>
   );
 });
 
-function Scene({ nodes, groups, destination, variant, reduced = false, selected = null, onSelect, mobile }: SkillSpaceProps) {
+type SceneProps = SkillSpaceProps & { hover: string | null; setHover: (id: string | null) => void; anchors: AnchorMap; els: ElMap };
+
+function Scene({ nodes, groups, destination, mobile, reduced = false, selected = null, onSelect, hover, setHover, anchors, els }: SceneProps) {
   const dark = useIsDark();
   const c = dark ? PALETTE.dark : PALETTE.light;
   const { placed, hubs } = useMemo(() => layout(nodes, groups), [nodes, groups]);
-  const [hover, setHover] = useState<string | null>(null);
   const active = hover ?? selected;
   const activeNode = placed.find((p) => p.id === active) ?? null;
   const focusNode = placed.find((p) => p.id === selected) ?? null;
@@ -195,6 +219,7 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
 
   return (
     <>
+      <LabelSync anchors={anchors} els={els} />
       {!mobile && <fog attach="fog" args={[c.bg, 17, 36]} />}
       <ambientLight intensity={1.1} />
       <directionalLight position={[5, 7, 6]} intensity={1.3} />
@@ -210,9 +235,7 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
             <torusGeometry args={[0.78, 0.006, 6, 96]} />
             <meshBasicMaterial color={c.ink} transparent opacity={0.5} />
           </mesh>
-          <Html center position={[0, -0.85, 0]} style={{ pointerEvents: "none" }}>
-            <span className="eyebrow whitespace-nowrap text-foreground">Student</span>
-          </Html>
+          <Anchor id="student" position={[0, -0.85, 0]} anchors={anchors} />
         </group>
 
         {/* ground plane grid for depth */}
@@ -222,11 +245,7 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
         {hubs.map((h, i) => (
           <group key={`hub-${i}`}>
             <Line points={curve(new THREE.Vector3(), h, 0.3)} color={c.groups[i]!} lineWidth={1} transparent opacity={activeNode && activeNode.gi !== i ? 0.15 : 0.55} />
-            {variant === "data" && !mobile && (
-              <Html center position={[h.x, h.y - 1.35, h.z]} style={{ pointerEvents: "none", opacity: activeNode && activeNode.gi !== i ? 0.3 : 1, transition: "opacity 200ms" }}>
-                <span className="eyebrow whitespace-nowrap" style={{ color: c.groups[i] }}>{groups[i]}</span>
-              </Html>
-            )}
+            <Anchor id={`hub:${i}`} position={[h.x, h.y - 1.35, h.z]} anchors={anchors} />
           </group>
         ))}
 
@@ -246,7 +265,7 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
         ))}
 
         {placed.map((p) => (
-          <SkillNode key={p.id} n={p} c={c} state={nodeState(p)} onHover={setHover} onClick={(id) => onSelect?.(id === selected ? null : id)} />
+          <SkillNode key={p.id} n={p} c={c} anchors={anchors} state={nodeState(p)} onHover={setHover} onClick={(id) => onSelect?.(id === selected ? null : id)} />
         ))}
 
         {destination && (
@@ -262,12 +281,7 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
               <torusGeometry args={[0.65, 0.008, 6, 64]} />
               <meshBasicMaterial color={c.accent} />
             </mesh>
-            <Html center position={[DEST.x, DEST.y + 0.75, DEST.z]} style={{ pointerEvents: "none" }}>
-              <div className="text-center">
-                <p className="eyebrow mb-1" style={{ color: c.accent }}>Destination</p>
-                <Label tone="text-primary">{destination}</Label>
-              </div>
-            </Html>
+            <Anchor id="dest" position={[DEST.x, DEST.y + 0.75, DEST.z]} anchors={anchors} />
           </group>
         )}
       </Rig>
@@ -277,15 +291,48 @@ function Scene({ nodes, groups, destination, variant, reduced = false, selected 
 
 export default function SkillSpace(props: SkillSpaceProps) {
   const nodes = props.mobile && props.nodes.length > 10 ? props.nodes.filter((_, i) => i % 2 === 0) : props.nodes;
+  const [hover, setHover] = useState<string | null>(null);
+  const anchors = useRef(new Map<string, THREE.Object3D>());
+  const els = useRef(new Map<string, HTMLElement>());
+  const dark = useIsDark();
+  const c = dark ? PALETTE.dark : PALETTE.light;
+  const active = hover ?? props.selected ?? null;
+  const activeGroup = active ? props.groups.indexOf(nodes.find((n) => n.id === active)?.group ?? "") : -1;
+  const reg = (id: string) => (el: HTMLElement | null) => { if (el) els.current.set(id, el); else els.current.delete(id); };
+  useEffect(() => () => { document.body.style.cursor = ""; }, []);
+  const tag = "absolute left-0 top-0 will-change-transform";
+
   return (
-    <Canvas
-      dpr={props.mobile ? [1, 1.25] : [1, 1.75]}
-      camera={{ position: [0, 1.6, 10.5], fov: 40 }}
-      gl={{ antialias: !props.mobile, alpha: true, powerPreference: "high-performance" }}
-      frameloop={props.reduced ? "demand" : "always"}
-      onPointerMissed={() => props.onSelect?.(null)}
-    >
-      <Scene {...props} nodes={nodes} />
-    </Canvas>
+    <div className="relative h-full w-full">
+      <Canvas
+        dpr={props.mobile ? [1, 1.25] : [1, 1.75]}
+        camera={{ position: [0, 1.6, 10.5], fov: 40 }}
+        gl={{ antialias: !props.mobile, alpha: true, powerPreference: "high-performance" }}
+        frameloop={props.reduced ? "demand" : "always"}
+        onPointerMissed={() => props.onSelect?.(null)}
+      >
+        <Scene {...props} nodes={nodes} hover={hover} setHover={setHover} anchors={anchors} els={els} />
+      </Canvas>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <span ref={reg("student")} className={`${tag} eyebrow whitespace-nowrap text-foreground`} style={{ visibility: "hidden" }}>Student</span>
+        {props.variant === "data" && !props.mobile && props.groups.map((g, i) => (
+          <span key={g} ref={reg(`hub:${i}`)} className={`${tag} eyebrow whitespace-nowrap transition-opacity`} style={{ color: c.groups[i % c.groups.length], opacity: activeGroup >= 0 && activeGroup !== i ? 0.3 : 1, visibility: "hidden" }}>{g}</span>
+        ))}
+        {nodes.map((n) => (
+          <div key={n.id} ref={reg(`node:${n.id}`)} className={`${tag} transition-opacity duration-150`} style={{ opacity: active === n.id ? 1 : 0, visibility: "hidden" }}>
+            <Label strong>
+              {n.label}
+              <span className={`ml-2 ${n.weak ? "text-gap" : "text-strength"}`}>{n.display ?? Math.round(n.value * 100)}</span>
+            </Label>
+          </div>
+        ))}
+        {props.destination && (
+          <div ref={reg("dest")} className={`${tag} text-center`} style={{ visibility: "hidden" }}>
+            <p className="eyebrow mb-1" style={{ color: c.accent }}>Destination</p>
+            <Label tone="text-primary">{props.destination}</Label>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

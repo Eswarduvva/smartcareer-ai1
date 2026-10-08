@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { StudentRecord } from "./api/types";
 import { SKILL_KEYS } from "./skills";
-import { recommend } from "./recommend";
+import { readinessScore, recommend } from "./recommend";
 
 /**
  * The student's own self-entered profile. Stored on this device only
@@ -50,7 +50,10 @@ export function clearProfile() {
 }
 
 export function toRecord(p: MyProfile): StudentRecord {
-  return { ...p, recommendation: p.skills ? recommend(p.skills, p.preferences?.primary_interest) : null };
+  return {
+    ...p,
+    goals: p.goals ? { ...p.goals, career_readiness_score: readinessScore(p.skills, p.experience) } : p.goals,
+    recommendation: p.skills ? recommend(p.skills, p.preferences?.primary_interest) : null };
 }
 
 /** undefined = not yet read (SSR / first paint), null = nothing saved. */
