@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EmptyState, Meter, PageHead } from "@/components/kit";
+import { EmptyState, Meter, PageHead, ScoreRing } from "@/components/kit";
 import { useRecommendationSource, useRecord } from "@/lib/use-record";
 import { rankTracks } from "@/lib/recommend";
 import { fmt, skillLabel, STRONG_THRESHOLD } from "@/lib/skills";
@@ -23,11 +23,44 @@ export function MatchView() {
         </p>
       </PageHead>
 
-      <ol className="border-t border-border">
+      <section className="glass gradient-border animate-page-in relative mb-8 overflow-hidden rounded-3xl p-6 md:p-8">
+        <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold/20 blur-3xl" />
+        <div className="relative flex flex-wrap items-center gap-8">
+          <ScoreRing value={ranked[0]!.match} size={150} label="match" />
+          <div className="min-w-0 flex-1">
+            <p className="eyebrow text-gold">Strongest match · {ranked[0]!.track.domain}</p>
+            <p className="mt-2 font-display text-3xl md:text-4xl">{ranked[0]!.track.role}</p>
+            <p className="mt-2 max-w-xl text-sm text-muted-foreground">{ranked[0]!.track.description}</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {ranked[0]!.track.skills.map((k) => {
+                const ok = (r.skills?.[k] ?? 0) >= STRONG_THRESHOLD;
+                return (
+                  <span key={k} className={cn("inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs", ok ? "border-strength/60 text-strength" : "border-dashed border-gap/60 text-gap")}>
+                    <span aria-hidden>{ok ? "✓" : "○"}</span>{skillLabel(k)}<span className="sr-only">{ok ? " (met)" : " (missing)"}</span>
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ul className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {ranked.slice(1).map((t) => (
+          <li key={t.track.id}>
+            <button onClick={() => setOpen(t.track.id)} className="glass lift flex w-full items-center gap-4 rounded-2xl p-4 text-left">
+              <ScoreRing value={t.match} size={64} tone="primary" />
+              <span className="min-w-0"><span className="block truncate font-medium">{t.track.role}</span><span className="block text-xs text-muted-foreground">{t.met.length}/{t.track.skills.length} key skills met</span></span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <ol className="glass overflow-hidden rounded-2xl">
         {ranked.map((t, i) => {
           const isOpen = current === t.track.id;
           return (
-            <li key={t.track.id} className={cn("border-b border-border transition-colors", isOpen && "bg-card")}>
+            <li key={t.track.id} className={cn("border-b border-border transition-colors last:border-b-0 hover:bg-muted/30", isOpen && "bg-accent/20")}>
               <button
                 onClick={() => setOpen(isOpen ? "__none" : t.track.id)}
                 aria-expanded={isOpen}
@@ -42,7 +75,7 @@ export function MatchView() {
                 <span className={cn("num text-2xl sm:text-3xl", i === 0 ? "text-primary" : "")}>{fmt(t.match, 0)}<span className="text-sm text-muted-foreground">%</span></span>
               </button>
               {isOpen && (
-                <div className="grid gap-8 px-2 pb-8 sm:px-4 md:grid-cols-3 md:pl-[72px]">
+                <div className="animate-page-in grid gap-8 px-2 pb-8 sm:px-4 md:grid-cols-3 md:pl-[72px]">
                   <div>
                     <p className="eyebrow mb-2">About this career</p>
                     <p className="text-sm">{t.track.description}</p>
@@ -67,7 +100,7 @@ export function MatchView() {
                     </ul>
                   </div>
                   <div>
-                    <p className="eyebrow mb-2">Why you match</p>
+                    <p className="eyebrow mb-2">Why this career matches you</p>
                     <p className="text-sm text-muted-foreground">
                       {t.met.length
                         ? <>You already meet the target in <span className="text-foreground">{t.met.map(skillLabel).join(", ")}</span>.</>

@@ -7,7 +7,7 @@ import { mockSampleProfileId } from "@/lib/mock";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { useReveal } from "@/lib/theme";
 import { useEffect, useRef } from "react";
-import { UserRound, Sparkles, Target, TrendingUp, Route as RouteIcon, ArrowRight } from "lucide-react";
+import { UserRound, Sparkles, Target, TrendingUp, Route as RouteIcon, ArrowRight, Code2, BarChart3, GraduationCap, Rocket, Trophy } from "lucide-react";
 import hero from "@/assets/hero-landscape.jpg";
 
 export const Route = createFileRoute("/")({
@@ -28,11 +28,11 @@ export const Route = createFileRoute("/")({
 const HERO_NODES = SKILLS.map((s, i) => ({ id: s.key, label: s.label, group: s.group, value: 0.35 + ((i * 37) % 50) / 100, weak: i % 6 === 4 }));
 
 const FEATURES = [
-  { icon: UserRound, t: "Profile", d: "Degree, branch, CGPA and background in five short steps." },
-  { icon: Sparkles, t: "Skills", d: "Rate 19 skills across technical, reasoning, communication and behaviour." },
-  { icon: Target, t: "Career Match", d: "The track your skills fit best, with a transparent score." },
-  { icon: TrendingUp, t: "Skill Gaps", d: "Every skill below the bar, how far it is and what to do." },
-  { icon: RouteIcon, t: "Roadmap", d: "Ordered milestones you can tick off as you grow." },
+  { icon: UserRound, t: "Profile", d: "Degree, branch, CGPA and background in five short steps.", to: "/build", cta: "Build profile" },
+  { icon: Sparkles, t: "Skill Assessment", d: "Rate 19 skills across technical, reasoning, communication and behaviour.", to: "/me/skills", cta: "See skills" },
+  { icon: Target, t: "Career Match", d: "The track your skills fit best, with a transparent score.", to: "/me/match", cta: "View matches" },
+  { icon: TrendingUp, t: "Skill Gaps", d: "Every skill below the bar, how far it is and what to do.", to: "/me/gaps", cta: "Find gaps" },
+  { icon: RouteIcon, t: "Roadmap", d: "Four stages of tasks you can tick off as you grow.", to: "/me/roadmap", cta: "Open roadmap" },
 ] as const;
 
 const EXAMPLE_GAPS = [["Statistics", 58, "gap"], ["Python", 66, "primary"], ["Communication", 71, "primary"]] as const;
@@ -63,7 +63,12 @@ function Landing() {
         </div>
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/20 to-background" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background/80 via-background/30 to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden mix-blend-screen">
+          <div className="animate-blob absolute -left-32 top-1/4 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,var(--color-primary),transparent_65%)] opacity-30 blur-2xl" />
+          <div className="animate-blob absolute right-0 top-10 h-[24rem] w-[24rem] rounded-full bg-[radial-gradient(circle,var(--color-glow),transparent_65%)] opacity-25 blur-2xl" style={{ animationDelay: "-8s" }} />
+        </div>
         <Particles />
+        <FloatingIcons />
 
         <header className="flex items-center justify-between gap-4 px-6 py-5 md:px-12">
           <span className="font-display text-2xl tracking-tight text-foreground">Smart<span className="text-gold-gradient italic">Career</span></span>
@@ -90,10 +95,10 @@ function Landing() {
           </p>
           <div className="animate-rise mt-10 flex flex-wrap items-center gap-4" style={{ animationDelay: "1150ms" }}>
             <Link to="/build" className="btn-gold inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold">
-              Discover My Career <ArrowRight className="h-4 w-4" />
+              Get Started <ArrowRight className="h-4 w-4" />
             </Link>
             <a href="#paths" className="glass inline-flex items-center rounded-full px-7 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-gold/50">
-              Explore Career Paths
+              Explore Careers
             </a>
           </div>
           <p className="animate-rise mt-6 text-xs text-muted-foreground" style={{ animationDelay: "1300ms" }}>5 steps · about 4 minutes · no sign-in · saved on your device</p>
@@ -106,14 +111,10 @@ function Landing() {
           <p className="eyebrow mb-3 text-gold">The experience</p>
           <h2 className="text-4xl md:text-5xl">Five steps from where you are to where you're going.</h2>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {FEATURES.map(({ icon: Icon, t, d }, i) => (
-            <li key={t} className="reveal glass lift rounded-2xl p-6" style={{ transitionDelay: `${i * 80}ms` }}>
-              <span className="grid h-11 w-11 place-items-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/20 to-primary/10 text-gold">
-                <Icon className="h-5 w-5" strokeWidth={1.5} />
-              </span>
-              <p className="mt-6 font-display text-xl">{t}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{d}</p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5" style={{ perspective: "1000px" }}>
+          {FEATURES.map((f, i) => (
+            <li key={f.t} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
+              <TiltCard {...f} />
             </li>
           ))}
         </ul>
@@ -239,5 +240,51 @@ function Particles() {
         />
       ))}
     </div>
+  );
+}
+
+const FLOAT = [
+  { Icon: Code2, x: "72%", y: "22%", d: 0, label: "Coding" },
+  { Icon: BarChart3, x: "86%", y: "44%", d: 1.5, label: "Analytics" },
+  { Icon: GraduationCap, x: "64%", y: "56%", d: 3, label: "Education" },
+  { Icon: Rocket, x: "90%", y: "18%", d: 2.2, label: "Career growth" },
+  { Icon: Trophy, x: "78%", y: "68%", d: 0.8, label: "Achievements" },
+];
+
+function FloatingIcons() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden md:block">
+      {FLOAT.map(({ Icon, x, y, d, label }) => (
+        <div key={label} className="animate-float absolute" style={{ left: x, top: y, animationDelay: `${d}s`, animationDuration: "9s" }}>
+          <div className="glass grid h-14 w-14 place-items-center rounded-2xl text-gold">
+            <Icon className="h-6 w-6" strokeWidth={1.4} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TiltCard({ icon: Icon, t, d, to, cta }: (typeof FEATURES)[number]) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const move = (e: React.PointerEvent) => {
+    const el = ref.current;
+    if (!el || e.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const b = el.getBoundingClientRect();
+    const px = (e.clientX - b.left) / b.width - 0.5;
+    const py = (e.clientY - b.top) / b.height - 0.5;
+    el.style.transform = `rotateX(${-py * 8}deg) rotateY(${px * 10}deg) translateY(-4px)`;
+  };
+  const leave = () => { if (ref.current) ref.current.style.transform = ""; };
+  return (
+    <Link ref={ref} to={to} onPointerMove={move} onPointerLeave={leave}
+      className="tilt-card glass gradient-border flex h-full flex-col rounded-2xl p-6 outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <span className="tilt-icon grid h-11 w-11 place-items-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/20 to-primary/10 text-gold">
+        <Icon className="h-5 w-5" strokeWidth={1.5} />
+      </span>
+      <span className="mt-6 font-display text-xl">{t}</span>
+      <span className="mt-2 text-sm text-muted-foreground">{d}</span>
+      <span className="tilt-more mt-auto inline-flex items-center gap-1.5 pt-5 text-xs font-semibold text-gold">{cta} <ArrowRight className="h-3.5 w-3.5" /></span>
+    </Link>
   );
 }
