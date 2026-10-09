@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { StudentRecord } from "./api/types";
 import { SKILL_KEYS } from "./skills";
 import { readinessScore, recommend } from "./recommend";
+import { loadAccount, saveAccount } from "./account";
 
 /**
  * The student's own self-entered profile. Stored on this device only
@@ -42,11 +43,13 @@ export function loadProfile(): { profile: MyProfile; complete: boolean } | null 
 export function saveProfile(profile: MyProfile, complete: boolean) {
   localStorage.setItem(KEY, JSON.stringify({ profile, complete }));
   window.dispatchEvent(new Event(EVT));
+  void saveAccount({ profile, complete });
 }
 
-export function clearProfile() {
+export function clearProfile(opts: { keepAccount?: boolean } = {}) {
   localStorage.removeItem(KEY);
   window.dispatchEvent(new Event(EVT));
+  if (!opts.keepAccount) void saveAccount({ profile: null, complete: false });
 }
 
 export function toRecord(p: MyProfile): StudentRecord {
@@ -62,6 +65,13 @@ export function useMyProfile() {
   useEffect(() => {
     const read = () => setV(loadProfile());
     read();
+    // The signed-in account is the source of truth; the device copy is a cache.
+    loadAccount().then((acc) => {
+      if (acc?.profile) {
+        localStorage.setItem(KEY, JSON.stringify({ profile: acc.profile, complete: acc.complete }));
+        read();
+      }
+    });
     window.addEventListener(EVT, read);
     window.addEventListener("storage", read);
     return () => {

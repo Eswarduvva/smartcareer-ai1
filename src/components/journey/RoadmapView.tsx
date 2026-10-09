@@ -1,3 +1,5 @@
+import { loadAccount, saveAccount } from "@/lib/account";
+import { MY_ID } from "@/lib/my-profile";
 import { useEffect, useState } from "react";
 import { Check, ChevronDown, Flag, HardDrive } from "lucide-react";
 import { toast } from "sonner";
@@ -107,6 +109,12 @@ function useDone(id: string) {
       } catch { setState({ key, done: [], available: false }); }
     };
     read();
+    if (id === MY_ID) loadAccount().then((acc) => {
+      if (acc && Array.isArray(acc.roadmap_done)) {
+        try { localStorage.setItem(key, JSON.stringify(acc.roadmap_done)); } catch { /* cache only */ }
+        setState({ key, done: acc.roadmap_done, available: true });
+      }
+    });
     const sync = (event: StorageEvent) => { if (event.key === key || event.key === null) read(); };
     window.addEventListener("storage", sync);
     return () => window.removeEventListener("storage", sync);
@@ -119,6 +127,7 @@ function useDone(id: string) {
     try {
       localStorage.setItem(key, JSON.stringify(next));
       setState({ key, done: next, available: true });
+      if (id === MY_ID) void saveAccount({ roadmap_done: next });
       return true;
     } catch {
       setState({ key, done: next, available: false });
