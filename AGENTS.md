@@ -21,3 +21,6 @@
 
 - Career catalog, skill guidance and all scoring rules (match, readiness, gap priority) live in `src/lib/careers.ts` and `src/lib/recommend.ts`. Why: one place to replace when a backend engine arrives.
 - 3D labels are DOM overlays positioned from scene anchors, not drei `<Html>`. Why: `<Html>` threw on unmount under React 19.
+
+- Career comparisons and skill exploration consume the active RecordProvider and existing ranking rules; education text is catalog guidance, not eligibility scoring. Why: preserve recorded recommendations and avoid invented personal scores.
+- Roadmap completion retains per-student device storage keys until the API adapter supports progress writes; collapsed stages and tasks unmount their controls. Why: preserve saved progress and keep hidden controls out of keyboard navigation.

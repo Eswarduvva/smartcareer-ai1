@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, Flag, HardDrive } from "lucide-react";
 import { toast } from "sonner";
 import { PageHead, ScoreRing } from "@/components/kit";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Proficiency } from "./Proficiency";
 import { useRecord } from "@/lib/use-record";
 import { SKILL_GUIDE, trackByRole } from "@/lib/careers";
 import { fmt, GAP_THRESHOLD, scoredSkills, STRONG_THRESHOLD } from "@/lib/skills";
@@ -94,129 +97,113 @@ const PROJECTS: Record<string, string> = {
 
 function useDone(id: string) {
   const key = `sc-roadmap-${id}`;
-  const [done, setDone] = useState<string[]>([]);
+  const [state, setState] = useState<{ key: string; done: string[]; available: boolean }>();
   useEffect(() => {
-    try { setDone(JSON.parse(localStorage.getItem(key) ?? "[]")); } catch { setDone([]); }
+    const read = () => {
+      try {
+        const raw: unknown = JSON.parse(localStorage.getItem(key) ?? "[]");
+        const done = Array.isArray(raw) ? raw.filter((v): v is string => typeof v === "string") : [];
+        setState({ key, done, available: true });
+      } catch { setState({ key, done: [], available: false }); }
+    };
+    read();
+    const sync = (event: StorageEvent) => { if (event.key === key || event.key === null) read(); };
+    window.addEventListener("storage", sync);
+    return () => window.removeEventListener("storage", sync);
   }, [key]);
-  const toggle = (s: string) =>
-    setDone((cur) => {
-      const next = cur.includes(s) ? cur.filter((x) => x !== s) : [...cur, s];
+  const ready = state?.key === key;
+  const done = ready ? state.done : [];
+  const toggle = (task: string) => {
+    if (!ready) return false;
+    const next = done.includes(task) ? done.filter((v) => v !== task) : [...done, task];
+    try {
       localStorage.setItem(key, JSON.stringify(next));
-      return next;
-    });
-  return [done, toggle] as const;
+      setState({ key, done: next, available: true });
+      return true;
+    } catch {
+      setState({ key, done: next, available: false });
+      toast.error("Progress could not be saved", { description: "Device storage is unavailable. This change lasts only while the page stays open." });
+      return false;
+    }
+  };
+  return { done, toggle, ready, available: state?.available ?? true };
 }
 
 export function RoadmapView() {
   const r = useRecord();
   const stages = buildRoadmap(r);
-  const [done, toggle] = useDone(r.student.student_id);
+  const { done, toggle, ready, available } = useDone(r.student.student_id);
   const dest = r.recommendation?.recommended_role;
   const allTasks = stages.flatMap((s) => s.tasks.map((t) => t.id));
   const doneCount = allTasks.filter((t) => done.includes(t)).length;
-  const pct = Math.round((doneCount / allTasks.length) * 100);
+  const pct = allTasks.length ? Math.round(doneCount / allTasks.length * 100) : 0;
   const stageDone = (s: Stage) => s.tasks.every((t) => done.includes(t.id));
   const nextStage = stages.find((s) => !stageDone(s));
   const [open, setOpen] = useState<string | null>(null);
+  const [expandedTasks, setExpandedTasks] = useState<string[]>([]);
   const [burst, setBurst] = useState<string | null>(null);
-  const current = open ?? nextStage?.id ?? stages[0]!.id;
-
+  const current = open ?? nextStage?.id ?? stages[0]?.id;
+  useEffect(() => {
+    if (!burst) return;
+    const timer = window.setTimeout(() => setBurst(null), 1400);
+    return () => window.clearTimeout(timer);
+  }, [burst]);
   const onToggle = (s: Stage, t: Task) => {
     const wasDone = done.includes(t.id);
-    toggle(t.id);
+    const saved = toggle(t.id);
     if (!wasDone && s.tasks.every((x) => x.id === t.id || done.includes(x.id))) {
       setBurst(s.id);
-      window.setTimeout(() => setBurst(null), 1400);
-      toast.success(`Milestone complete: ${s.title}`, { description: "Nice work — your progress is saved on this device." });
+      toast.success(`Milestone complete: ${s.title}`, { description: saved ? "Your progress is saved on this device." : "Keep this page open; device saving is unavailable." });
     }
   };
-
   return (
-    <div>
-      <PageHead eyebrow="Career roadmap · rule-based" title={dest ? `Your path to ${dest}` : "Your career roadmap"}>
-        <div className="flex items-center gap-4">
-          <ScoreRing value={pct} size={84} label="done" />
-          <p className="text-xs text-muted-foreground"><span className="num text-foreground">{doneCount}</span> of {allTasks.length} tasks</p>
-        </div>
+    <div className="animate-page-in">
+      <PageHead eyebrow="Personalized roadmap · rule-based" title={dest ? `Your path to ${dest}` : "Your career roadmap"}>
+        <div className="flex items-center gap-4"><ScoreRing value={pct} size={84} label="done" /><p className="text-sm text-muted-foreground" role="status">{doneCount} of {allTasks.length} tasks complete · {pct}%</p></div>
       </PageHead>
-
+      <div className="mb-8 flex items-start gap-3 border-y border-border py-4 text-xs text-muted-foreground"><HardDrive className="h-4 w-4 shrink-0 text-primary" /><p>{available ? "Progress is saved on this device only, not to your account. It will not sync across devices and is removed if you clear browser storage." : "Device saving is unavailable. Progress will be lost when you leave or reload this page."}</p></div>
       <ol className="relative max-w-4xl">
-        <span aria-hidden className="absolute bottom-6 left-[21px] top-6 w-px bg-border sm:left-[27px]" />
-        <span aria-hidden className="absolute left-[21px] top-6 w-px bg-gradient-to-b from-gold to-strength shadow-[0_0_12px_var(--color-gold)] transition-[height] duration-1000 sm:left-[27px]" style={{ height: `calc((100% - 3rem) * ${pct / 100})` }} />
         {stages.map((s, i) => {
           const isDone = stageDone(s);
           const isNext = nextStage?.id === s.id;
           const isOpen = current === s.id;
           const n = s.tasks.filter((t) => done.includes(t.id)).length;
-          return (
-            <li key={s.id} className="relative grid grid-cols-[44px_minmax(0,1fr)] gap-4 sm:grid-cols-[56px_minmax(0,1fr)] sm:gap-6">
-              <span
-                className={cn(
-                  "num relative z-10 flex h-11 w-11 items-center justify-center rounded-full border text-sm transition-all duration-500 sm:h-14 sm:w-14",
-                  isDone ? "border-strength bg-strength text-background shadow-[0_0_24px_-4px_var(--color-strength)]" : isNext ? "border-gold bg-background text-gold shadow-[0_0_24px_-6px_var(--color-gold)]" : "border-border bg-background text-muted-foreground",
-                )}
-              >
-                {isDone ? <Check className="h-5 w-5" /> : String(i + 1).padStart(2, "0")}
-                {burst === s.id && <Burst />}
-              </span>
-              <div className={cn("glass mb-6 overflow-hidden rounded-2xl transition-all", isOpen && "border-gold/40")}>
-                <button onClick={() => setOpen(isOpen ? "__none" : s.id)} aria-expanded={isOpen} className="flex w-full flex-wrap items-center justify-between gap-3 p-5 text-left">
-                  <span className="min-w-0">
-                    <span className="block font-display text-xl">Stage {i + 1} — {s.title}</span>
-                    <span className="mt-1 block text-sm text-muted-foreground">{s.objective}</span>
-                  </span>
-                  <span className="flex items-center gap-3">
-                    <span className={cn("font-mono text-[10px] uppercase tracking-wider", isDone ? "text-strength" : isNext ? "text-gold" : "text-muted-foreground")}>
-                      {isDone ? "Completed" : isNext ? "Up next" : "Not started"} · {n}/{s.tasks.length}
-                    </span>
-                    <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
-                  </span>
-                </button>
-                <div className="grid transition-[grid-template-rows] duration-500" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
-                  <div className="min-h-0 overflow-hidden">
-                    <div className="border-t border-border p-5">
-                      {s.skills.length > 0 && (
-                        <div className="mb-4 flex flex-wrap gap-1.5">{s.skills.map((k) => <span key={k} className="rounded-full border border-border px-2.5 py-0.5 text-xs">{k}</span>)}</div>
-                      )}
-                      <ul className="space-y-2">
-                        {s.tasks.map((t) => {
-                          const ok = done.includes(t.id);
-                          return (
-                            <li key={t.id}>
-                              <label className={cn("flex cursor-pointer items-start gap-3 rounded-xl border border-transparent p-2.5 transition-colors hover:border-border hover:bg-muted/40", ok && "opacity-70")}>
-                                <input type="checkbox" checked={ok} onChange={() => onToggle(s, t)} className="peer sr-only" />
-                                <span className={cn("mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md border transition-all duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-ring", ok ? "scale-110 border-strength bg-strength text-background" : "border-muted-foreground/50")}>
-                                  {ok && <Check className="h-3.5 w-3.5" />}
-                                </span>
-                                <span className="min-w-0">
-                                  <span className={cn("block text-sm", ok && "line-through decoration-strength/60")}>{t.label}</span>
-                                  {t.detail && <span className="block text-xs text-muted-foreground">{t.detail}</span>}
-                                </span>
-                              </label>
-                            </li>
-                          );
-                        })}
-                      </ul>
+          const stagePct = Math.round(n / s.tasks.length * 100);
+          return <li key={s.id} className="relative grid grid-cols-[36px_minmax(0,1fr)] gap-3 pb-8 sm:grid-cols-[48px_minmax(0,1fr)] sm:gap-6">
+            {i < stages.length - 1 && <span aria-hidden className={cn("absolute bottom-0 left-[17px] top-10 w-px sm:left-[23px] sm:top-12", isDone ? "bg-strength" : "bg-border")} />}
+            <span className={cn("num relative z-10 flex h-9 w-9 items-center justify-center rounded-full border text-xs sm:h-12 sm:w-12", isDone ? "border-strength bg-strength text-background" : isNext ? "border-primary bg-background text-primary" : "border-border bg-background text-muted-foreground")}>
+              {isDone ? <Check className="h-4 w-4" aria-label="Stage complete" /> : String(i + 1).padStart(2, "0")}{burst === s.id && <Burst />}
+            </span>
+            <section className="min-w-0 border-b border-border pb-5">
+              <Button variant="ghost" onClick={() => setOpen(isOpen ? "__none" : s.id)} aria-expanded={isOpen} aria-controls={`stage-${s.id}`} className="h-auto w-full items-start justify-between whitespace-normal p-0 text-left hover:bg-transparent">
+                <span className="min-w-0"><span className="eyebrow mb-2 block">Stage {i + 1} · {isDone ? "Completed" : isNext ? "Up next" : n ? "In progress" : "Not started"}</span><span className="block font-display text-xl sm:text-2xl">{s.title}</span></span><ChevronDown className={cn("mt-5 transition-transform", isOpen && "rotate-180")} />
+              </Button>
+              <p className="mt-3 text-sm text-muted-foreground">{s.objective}</p>
+              <div className="mt-4 flex items-center gap-3"><div className="min-w-0 flex-1"><Proficiency target={false} value={stagePct} label={`${s.title} completion`} /></div><span className="num w-10 text-right text-xs">{stagePct}%</span></div>
+              {isOpen && <div id={`stage-${s.id}`} className="animate-page-in pt-4">
+                {!!s.skills.length && <div className="mb-4 flex flex-wrap gap-2">{s.skills.map((k) => <span key={k} className="rounded-md border border-border px-2 py-1 text-xs">{k}</span>)}</div>}
+                <ul className="divide-y divide-border">{s.tasks.map((t) => {
+                  const ok = done.includes(t.id);
+                  const expanded = expandedTasks.includes(t.id);
+                  return <li key={t.id} className="py-3">
+                    <div className="flex items-start gap-3">
+                      <Checkbox id={`task-${t.id}`} checked={ok} disabled={!ready} onCheckedChange={() => onToggle(s, t)} aria-label={`Complete: ${t.label}`} className="mt-1 h-5 w-5 data-[state=checked]:border-strength data-[state=checked]:bg-strength" />
+                      <label htmlFor={`task-${t.id}`} className={cn("min-w-0 flex-1 cursor-pointer py-1 text-sm", ok && "text-muted-foreground line-through decoration-strength")}>{t.label}</label>
+                      <Button size="icon" variant="ghost" title={`Learning details: ${t.label}`} aria-label={`Learning details: ${t.label}`} aria-expanded={expanded} aria-controls={`detail-${t.id}`} onClick={() => setExpandedTasks((cur) => expanded ? cur.filter((id) => id !== t.id) : [...cur, t.id])}><ChevronDown className={cn("transition-transform", expanded && "rotate-180")} /></Button>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          );
+                    {expanded && <p id={`detail-${t.id}`} className="animate-page-in ml-8 mt-2 text-xs leading-relaxed text-muted-foreground">{t.detail ?? (t.id === "x-readme" ? "Describe the problem, setup steps and results. Include a short demonstration of your finished work." : t.id === "x-oss" ? "Choose a beginner-friendly issue, submit a focused contribution and respond to the maintainer’s feedback." : "Complete the task and keep a short record of your work.")}</p>}
+                  </li>;
+                })}</ul>
+                <div className={cn("mt-4 flex items-center gap-2 border-t border-border pt-4 text-xs", isDone ? "text-strength" : "text-muted-foreground")}><Flag className="h-4 w-4 shrink-0" /><span>Milestone: {s.title} {isDone ? "complete" : `· ${n}/${s.tasks.length} tasks complete`}</span></div>
+              </div>}
+            </section>
+          </li>;
         })}
       </ol>
-      <p className="mt-2 max-w-2xl text-xs text-muted-foreground">Stages come from fixed rules applied to the skill scores and experience. Progress is saved on this device.</p>
     </div>
   );
 }
 
 function Burst() {
-  return (
-    <span aria-hidden className="pointer-events-none absolute inset-0">
-      {Array.from({ length: 10 }, (_, i) => (
-        <span key={i} className="sc-spark absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full bg-gold" style={{ ["--a" as string]: `${i * 36}deg` }} />
-      ))}
-      <span className="sc-ring absolute inset-0 rounded-full border-2 border-strength" />
-    </span>
-  );
+  return <span aria-hidden className="pointer-events-none absolute inset-0"><span className="sc-ring absolute inset-0 rounded-full border-2 border-strength" /></span>;
 }
