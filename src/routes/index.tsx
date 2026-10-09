@@ -75,6 +75,7 @@ function Landing() {
           <div className="flex min-w-0 items-center gap-3 sm:gap-6">
             <Link to="/students" className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:inline">For mentors</Link>
             <Link to="/me" className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline">My results</Link>
+            <Link to="/auth" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Sign in</Link>
             <ThemeSelector />
           </div>
         </header>
