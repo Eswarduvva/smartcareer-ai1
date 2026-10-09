@@ -44,7 +44,7 @@ export function MatchView() {
       {comparing ? <section aria-label="Career comparison" className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full min-w-[600px] table-fixed text-left text-sm">
           <caption className="sr-only">Side-by-side career comparison based on your recorded skills</caption>
-          <thead><tr className="bg-muted/50"><th className="w-36 p-4">Your fit</th>{compare.map((t) => <th key={t.track.id} className="p-4 align-top font-medium">{t.track.role}</th>)}</tr></thead>
+          <thead><tr className="bg-muted/50"><th scope="col" className="w-36 p-4">Your fit</th>{compare.map((t) => <th scope="col" key={t.track.id} className="p-4 align-top font-medium">{t.track.role}</th>)}</tr></thead>
           <tbody>
             <tr className="border-t border-border"><th scope="row" className="p-4 font-medium">Skill match</th>{compare.map((t) => <td key={t.track.id} className="p-4"><span className="num text-xl text-primary">{fmt(t.match)}%</span></td>)}</tr>
             <tr className="border-t border-border"><th scope="row" className="p-4 font-medium">Description</th>{compare.map((t) => <td key={t.track.id} className="p-4 align-top">{t.track.description}</td>)}</tr>
