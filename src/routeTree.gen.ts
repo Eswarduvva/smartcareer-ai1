@@ -10,172 +10,179 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AnalyticsRouteImport } from './routes/analytics'
-import { Route as BuildRouteImport } from './routes/build'
-import { Route as MeRouteImport } from './routes/me'
-import { Route as StudentsRouteImport } from './routes/students'
-import { Route as MeIndexRouteImport } from './routes/me.index'
-import { Route as MeGapsRouteImport } from './routes/me.gaps'
-import { Route as MeMatchRouteImport } from './routes/me.match'
-import { Route as MeRoadmapRouteImport } from './routes/me.roadmap'
-import { Route as MeSkillsRouteImport } from './routes/me.skills'
-import { Route as StudentsIndexRouteImport } from './routes/students.index'
-import { Route as StudentsIdRouteImport } from './routes/students.$id'
-import { Route as StudentsIdIndexRouteImport } from './routes/students.$id.index'
-import { Route as StudentsIdGapsRouteImport } from './routes/students.$id.gaps'
-import { Route as StudentsIdMatchRouteImport } from './routes/students.$id.match'
-import { Route as StudentsIdProfileRouteImport } from './routes/students.$id.profile'
-import { Route as StudentsIdRoadmapRouteImport } from './routes/students.$id.roadmap'
-import { Route as StudentsIdSkillsRouteImport } from './routes/students.$id.skills'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
+import { Route as AuthenticatedBuildRouteImport } from './routes/_authenticated/build'
+import { Route as AuthenticatedMeRouteImport } from './routes/_authenticated/me'
+import { Route as AuthenticatedStudentsRouteImport } from './routes/_authenticated/students'
+import { Route as AuthenticatedMeIndexRouteImport } from './routes/_authenticated/me.index'
+import { Route as AuthenticatedMeGapsRouteImport } from './routes/_authenticated/me.gaps'
+import { Route as AuthenticatedMeMatchRouteImport } from './routes/_authenticated/me.match'
+import { Route as AuthenticatedMeRoadmapRouteImport } from './routes/_authenticated/me.roadmap'
+import { Route as AuthenticatedMeSkillsRouteImport } from './routes/_authenticated/me.skills'
+import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authenticated/students.index'
+import { Route as AuthenticatedStudentsIdRouteImport } from './routes/_authenticated/students.$id'
+import { Route as AuthenticatedStudentsIdIndexRouteImport } from './routes/_authenticated/students.$id.index'
+import { Route as AuthenticatedStudentsIdGapsRouteImport } from './routes/_authenticated/students.$id.gaps'
+import { Route as AuthenticatedStudentsIdMatchRouteImport } from './routes/_authenticated/students.$id.match'
+import { Route as AuthenticatedStudentsIdProfileRouteImport } from './routes/_authenticated/students.$id.profile'
+import { Route as AuthenticatedStudentsIdRoadmapRouteImport } from './routes/_authenticated/students.$id.roadmap'
+import { Route as AuthenticatedStudentsIdSkillsRouteImport } from './routes/_authenticated/students.$id.skills'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AnalyticsRoute = AnalyticsRouteImport.update({
-  id: '/analytics',
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/_authenticated/analytics',
   path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BuildRoute = BuildRouteImport.update({
-  id: '/build',
+const AuthenticatedBuildRoute = AuthenticatedBuildRouteImport.update({
+  id: '/_authenticated/build',
   path: '/build',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeRoute = MeRouteImport.update({
-  id: '/me',
+const AuthenticatedMeRoute = AuthenticatedMeRouteImport.update({
+  id: '/_authenticated/me',
   path: '/me',
   getParentRoute: () => rootRouteImport,
 } as any)
-const StudentsRoute = StudentsRouteImport.update({
-  id: '/students',
+const AuthenticatedStudentsRoute = AuthenticatedStudentsRouteImport.update({
+  id: '/_authenticated/students',
   path: '/students',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeIndexRoute = MeIndexRouteImport.update({
+const AuthenticatedMeIndexRoute = AuthenticatedMeIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => MeRoute,
+  getParentRoute: () => AuthenticatedMeRoute,
 } as any)
-const MeGapsRoute = MeGapsRouteImport.update({
+const AuthenticatedMeGapsRoute = AuthenticatedMeGapsRouteImport.update({
   id: '/gaps',
   path: '/gaps',
-  getParentRoute: () => MeRoute,
+  getParentRoute: () => AuthenticatedMeRoute,
 } as any)
-const MeMatchRoute = MeMatchRouteImport.update({
+const AuthenticatedMeMatchRoute = AuthenticatedMeMatchRouteImport.update({
   id: '/match',
   path: '/match',
-  getParentRoute: () => MeRoute,
+  getParentRoute: () => AuthenticatedMeRoute,
 } as any)
-const MeRoadmapRoute = MeRoadmapRouteImport.update({
+const AuthenticatedMeRoadmapRoute = AuthenticatedMeRoadmapRouteImport.update({
   id: '/roadmap',
   path: '/roadmap',
-  getParentRoute: () => MeRoute,
+  getParentRoute: () => AuthenticatedMeRoute,
 } as any)
-const MeSkillsRoute = MeSkillsRouteImport.update({
+const AuthenticatedMeSkillsRoute = AuthenticatedMeSkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
-  getParentRoute: () => MeRoute,
+  getParentRoute: () => AuthenticatedMeRoute,
 } as any)
-const StudentsIndexRoute = StudentsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => StudentsRoute,
-} as any)
-const StudentsIdRoute = StudentsIdRouteImport.update({
+const AuthenticatedStudentsIndexRoute =
+  AuthenticatedStudentsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedStudentsRoute,
+  } as any)
+const AuthenticatedStudentsIdRoute = AuthenticatedStudentsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => StudentsRoute,
+  getParentRoute: () => AuthenticatedStudentsRoute,
 } as any)
-const StudentsIdIndexRoute = StudentsIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => StudentsIdRoute,
-} as any)
-const StudentsIdGapsRoute = StudentsIdGapsRouteImport.update({
-  id: '/gaps',
-  path: '/gaps',
-  getParentRoute: () => StudentsIdRoute,
-} as any)
-const StudentsIdMatchRoute = StudentsIdMatchRouteImport.update({
-  id: '/match',
-  path: '/match',
-  getParentRoute: () => StudentsIdRoute,
-} as any)
-const StudentsIdProfileRoute = StudentsIdProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => StudentsIdRoute,
-} as any)
-const StudentsIdRoadmapRoute = StudentsIdRoadmapRouteImport.update({
-  id: '/roadmap',
-  path: '/roadmap',
-  getParentRoute: () => StudentsIdRoute,
-} as any)
-const StudentsIdSkillsRoute = StudentsIdSkillsRouteImport.update({
-  id: '/skills',
-  path: '/skills',
-  getParentRoute: () => StudentsIdRoute,
-} as any)
+const AuthenticatedStudentsIdIndexRoute =
+  AuthenticatedStudentsIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedStudentsIdRoute,
+  } as any)
+const AuthenticatedStudentsIdGapsRoute =
+  AuthenticatedStudentsIdGapsRouteImport.update({
+    id: '/gaps',
+    path: '/gaps',
+    getParentRoute: () => AuthenticatedStudentsIdRoute,
+  } as any)
+const AuthenticatedStudentsIdMatchRoute =
+  AuthenticatedStudentsIdMatchRouteImport.update({
+    id: '/match',
+    path: '/match',
+    getParentRoute: () => AuthenticatedStudentsIdRoute,
+  } as any)
+const AuthenticatedStudentsIdProfileRoute =
+  AuthenticatedStudentsIdProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedStudentsIdRoute,
+  } as any)
+const AuthenticatedStudentsIdRoadmapRoute =
+  AuthenticatedStudentsIdRoadmapRouteImport.update({
+    id: '/roadmap',
+    path: '/roadmap',
+    getParentRoute: () => AuthenticatedStudentsIdRoute,
+  } as any)
+const AuthenticatedStudentsIdSkillsRoute =
+  AuthenticatedStudentsIdSkillsRouteImport.update({
+    id: '/skills',
+    path: '/skills',
+    getParentRoute: () => AuthenticatedStudentsIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/build': typeof BuildRoute
-  '/me': typeof MeRouteWithChildren
-  '/students': typeof StudentsRouteWithChildren
-  '/me/gaps': typeof MeGapsRoute
-  '/me/match': typeof MeMatchRoute
-  '/me/roadmap': typeof MeRoadmapRoute
-  '/me/skills': typeof MeSkillsRoute
-  '/students/$id': typeof StudentsIdRouteWithChildren
-  '/me/': typeof MeIndexRoute
-  '/students/': typeof StudentsIndexRoute
-  '/students/$id/gaps': typeof StudentsIdGapsRoute
-  '/students/$id/match': typeof StudentsIdMatchRoute
-  '/students/$id/profile': typeof StudentsIdProfileRoute
-  '/students/$id/roadmap': typeof StudentsIdRoadmapRoute
-  '/students/$id/skills': typeof StudentsIdSkillsRoute
-  '/students/$id/': typeof StudentsIdIndexRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/build': typeof AuthenticatedBuildRoute
+  '/me': typeof AuthenticatedMeRouteWithChildren
+  '/students': typeof AuthenticatedStudentsRouteWithChildren
+  '/me/gaps': typeof AuthenticatedMeGapsRoute
+  '/me/match': typeof AuthenticatedMeMatchRoute
+  '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
+  '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
+  '/me/': typeof AuthenticatedMeIndexRoute
+  '/students/': typeof AuthenticatedStudentsIndexRoute
+  '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
+  '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
+  '/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
+  '/students/$id/roadmap': typeof AuthenticatedStudentsIdRoadmapRoute
+  '/students/$id/skills': typeof AuthenticatedStudentsIdSkillsRoute
+  '/students/$id/': typeof AuthenticatedStudentsIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/build': typeof BuildRoute
-  '/me/gaps': typeof MeGapsRoute
-  '/me/match': typeof MeMatchRoute
-  '/me/roadmap': typeof MeRoadmapRoute
-  '/me/skills': typeof MeSkillsRoute
-  '/me': typeof MeIndexRoute
-  '/students': typeof StudentsIndexRoute
-  '/students/$id/gaps': typeof StudentsIdGapsRoute
-  '/students/$id/match': typeof StudentsIdMatchRoute
-  '/students/$id/profile': typeof StudentsIdProfileRoute
-  '/students/$id/roadmap': typeof StudentsIdRoadmapRoute
-  '/students/$id/skills': typeof StudentsIdSkillsRoute
-  '/students/$id': typeof StudentsIdIndexRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/build': typeof AuthenticatedBuildRoute
+  '/me/gaps': typeof AuthenticatedMeGapsRoute
+  '/me/match': typeof AuthenticatedMeMatchRoute
+  '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
+  '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/me': typeof AuthenticatedMeIndexRoute
+  '/students': typeof AuthenticatedStudentsIndexRoute
+  '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
+  '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
+  '/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
+  '/students/$id/roadmap': typeof AuthenticatedStudentsIdRoadmapRoute
+  '/students/$id/skills': typeof AuthenticatedStudentsIdSkillsRoute
+  '/students/$id': typeof AuthenticatedStudentsIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/build': typeof BuildRoute
-  '/me': typeof MeRouteWithChildren
-  '/students': typeof StudentsRouteWithChildren
-  '/me/gaps': typeof MeGapsRoute
-  '/me/match': typeof MeMatchRoute
-  '/me/roadmap': typeof MeRoadmapRoute
-  '/me/skills': typeof MeSkillsRoute
-  '/students/$id': typeof StudentsIdRouteWithChildren
-  '/me/': typeof MeIndexRoute
-  '/students/': typeof StudentsIndexRoute
-  '/students/$id/gaps': typeof StudentsIdGapsRoute
-  '/students/$id/match': typeof StudentsIdMatchRoute
-  '/students/$id/profile': typeof StudentsIdProfileRoute
-  '/students/$id/roadmap': typeof StudentsIdRoadmapRoute
-  '/students/$id/skills': typeof StudentsIdSkillsRoute
-  '/students/$id/': typeof StudentsIdIndexRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
+  '/_authenticated/build': typeof AuthenticatedBuildRoute
+  '/_authenticated/me': typeof AuthenticatedMeRouteWithChildren
+  '/_authenticated/students': typeof AuthenticatedStudentsRouteWithChildren
+  '/_authenticated/me/gaps': typeof AuthenticatedMeGapsRoute
+  '/_authenticated/me/match': typeof AuthenticatedMeMatchRoute
+  '/_authenticated/me/roadmap': typeof AuthenticatedMeRoadmapRoute
+  '/_authenticated/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/_authenticated/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
+  '/_authenticated/me/': typeof AuthenticatedMeIndexRoute
+  '/_authenticated/students/': typeof AuthenticatedStudentsIndexRoute
+  '/_authenticated/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
+  '/_authenticated/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
+  '/_authenticated/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
+  '/_authenticated/students/$id/roadmap': typeof AuthenticatedStudentsIdRoadmapRoute
+  '/_authenticated/students/$id/skills': typeof AuthenticatedStudentsIdSkillsRoute
+  '/_authenticated/students/$id/': typeof AuthenticatedStudentsIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -218,31 +225,31 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/analytics'
-    | '/build'
-    | '/me'
-    | '/students'
-    | '/me/gaps'
-    | '/me/match'
-    | '/me/roadmap'
-    | '/me/skills'
-    | '/students/$id'
-    | '/me/'
-    | '/students/'
-    | '/students/$id/gaps'
-    | '/students/$id/match'
-    | '/students/$id/profile'
-    | '/students/$id/roadmap'
-    | '/students/$id/skills'
-    | '/students/$id/'
+    | '/_authenticated/analytics'
+    | '/_authenticated/build'
+    | '/_authenticated/me'
+    | '/_authenticated/students'
+    | '/_authenticated/me/gaps'
+    | '/_authenticated/me/match'
+    | '/_authenticated/me/roadmap'
+    | '/_authenticated/me/skills'
+    | '/_authenticated/students/$id'
+    | '/_authenticated/me/'
+    | '/_authenticated/students/'
+    | '/_authenticated/students/$id/gaps'
+    | '/_authenticated/students/$id/match'
+    | '/_authenticated/students/$id/profile'
+    | '/_authenticated/students/$id/roadmap'
+    | '/_authenticated/students/$id/skills'
+    | '/_authenticated/students/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AnalyticsRoute: typeof AnalyticsRoute
-  BuildRoute: typeof BuildRoute
-  MeRoute: typeof MeRouteWithChildren
-  StudentsRoute: typeof StudentsRouteWithChildren
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
+  AuthenticatedBuildRoute: typeof AuthenticatedBuildRoute
+  AuthenticatedMeRoute: typeof AuthenticatedMeRouteWithChildren
+  AuthenticatedStudentsRoute: typeof AuthenticatedStudentsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -254,188 +261,193 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/analytics': {
-      id: '/analytics'
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
       path: '/analytics'
       fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsRouteImport
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/build': {
-      id: '/build'
+    '/_authenticated/build': {
+      id: '/_authenticated/build'
       path: '/build'
       fullPath: '/build'
-      preLoaderRoute: typeof BuildRouteImport
+      preLoaderRoute: typeof AuthenticatedBuildRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/me': {
-      id: '/me'
+    '/_authenticated/me': {
+      id: '/_authenticated/me'
       path: '/me'
       fullPath: '/me'
-      preLoaderRoute: typeof MeRouteImport
+      preLoaderRoute: typeof AuthenticatedMeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/students': {
-      id: '/students'
+    '/_authenticated/students': {
+      id: '/_authenticated/students'
       path: '/students'
       fullPath: '/students'
-      preLoaderRoute: typeof StudentsRouteImport
+      preLoaderRoute: typeof AuthenticatedStudentsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/me/': {
-      id: '/me/'
+    '/_authenticated/me/': {
+      id: '/_authenticated/me/'
       path: '/'
       fullPath: '/me/'
-      preLoaderRoute: typeof MeIndexRouteImport
-      parentRoute: typeof MeRoute
+      preLoaderRoute: typeof AuthenticatedMeIndexRouteImport
+      parentRoute: typeof AuthenticatedMeRoute
     }
-    '/me/gaps': {
-      id: '/me/gaps'
+    '/_authenticated/me/gaps': {
+      id: '/_authenticated/me/gaps'
       path: '/gaps'
       fullPath: '/me/gaps'
-      preLoaderRoute: typeof MeGapsRouteImport
-      parentRoute: typeof MeRoute
+      preLoaderRoute: typeof AuthenticatedMeGapsRouteImport
+      parentRoute: typeof AuthenticatedMeRoute
     }
-    '/me/match': {
-      id: '/me/match'
+    '/_authenticated/me/match': {
+      id: '/_authenticated/me/match'
       path: '/match'
       fullPath: '/me/match'
-      preLoaderRoute: typeof MeMatchRouteImport
-      parentRoute: typeof MeRoute
+      preLoaderRoute: typeof AuthenticatedMeMatchRouteImport
+      parentRoute: typeof AuthenticatedMeRoute
     }
-    '/me/roadmap': {
-      id: '/me/roadmap'
+    '/_authenticated/me/roadmap': {
+      id: '/_authenticated/me/roadmap'
       path: '/roadmap'
       fullPath: '/me/roadmap'
-      preLoaderRoute: typeof MeRoadmapRouteImport
-      parentRoute: typeof MeRoute
+      preLoaderRoute: typeof AuthenticatedMeRoadmapRouteImport
+      parentRoute: typeof AuthenticatedMeRoute
     }
-    '/me/skills': {
-      id: '/me/skills'
+    '/_authenticated/me/skills': {
+      id: '/_authenticated/me/skills'
       path: '/skills'
       fullPath: '/me/skills'
-      preLoaderRoute: typeof MeSkillsRouteImport
-      parentRoute: typeof MeRoute
+      preLoaderRoute: typeof AuthenticatedMeSkillsRouteImport
+      parentRoute: typeof AuthenticatedMeRoute
     }
-    '/students/': {
-      id: '/students/'
+    '/_authenticated/students/': {
+      id: '/_authenticated/students/'
       path: '/'
       fullPath: '/students/'
-      preLoaderRoute: typeof StudentsIndexRouteImport
-      parentRoute: typeof StudentsRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIndexRouteImport
+      parentRoute: typeof AuthenticatedStudentsRoute
     }
-    '/students/$id': {
-      id: '/students/$id'
+    '/_authenticated/students/$id': {
+      id: '/_authenticated/students/$id'
       path: '/$id'
       fullPath: '/students/$id'
-      preLoaderRoute: typeof StudentsIdRouteImport
-      parentRoute: typeof StudentsRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdRouteImport
+      parentRoute: typeof AuthenticatedStudentsRoute
     }
-    '/students/$id/': {
-      id: '/students/$id/'
+    '/_authenticated/students/$id/': {
+      id: '/_authenticated/students/$id/'
       path: '/'
       fullPath: '/students/$id/'
-      preLoaderRoute: typeof StudentsIdIndexRouteImport
-      parentRoute: typeof StudentsIdRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdIndexRouteImport
+      parentRoute: typeof AuthenticatedStudentsIdRoute
     }
-    '/students/$id/gaps': {
-      id: '/students/$id/gaps'
+    '/_authenticated/students/$id/gaps': {
+      id: '/_authenticated/students/$id/gaps'
       path: '/gaps'
       fullPath: '/students/$id/gaps'
-      preLoaderRoute: typeof StudentsIdGapsRouteImport
-      parentRoute: typeof StudentsIdRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdGapsRouteImport
+      parentRoute: typeof AuthenticatedStudentsIdRoute
     }
-    '/students/$id/match': {
-      id: '/students/$id/match'
+    '/_authenticated/students/$id/match': {
+      id: '/_authenticated/students/$id/match'
       path: '/match'
       fullPath: '/students/$id/match'
-      preLoaderRoute: typeof StudentsIdMatchRouteImport
-      parentRoute: typeof StudentsIdRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdMatchRouteImport
+      parentRoute: typeof AuthenticatedStudentsIdRoute
     }
-    '/students/$id/profile': {
-      id: '/students/$id/profile'
+    '/_authenticated/students/$id/profile': {
+      id: '/_authenticated/students/$id/profile'
       path: '/profile'
       fullPath: '/students/$id/profile'
-      preLoaderRoute: typeof StudentsIdProfileRouteImport
-      parentRoute: typeof StudentsIdRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdProfileRouteImport
+      parentRoute: typeof AuthenticatedStudentsIdRoute
     }
-    '/students/$id/roadmap': {
-      id: '/students/$id/roadmap'
+    '/_authenticated/students/$id/roadmap': {
+      id: '/_authenticated/students/$id/roadmap'
       path: '/roadmap'
       fullPath: '/students/$id/roadmap'
-      preLoaderRoute: typeof StudentsIdRoadmapRouteImport
-      parentRoute: typeof StudentsIdRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdRoadmapRouteImport
+      parentRoute: typeof AuthenticatedStudentsIdRoute
     }
-    '/students/$id/skills': {
-      id: '/students/$id/skills'
+    '/_authenticated/students/$id/skills': {
+      id: '/_authenticated/students/$id/skills'
       path: '/skills'
       fullPath: '/students/$id/skills'
-      preLoaderRoute: typeof StudentsIdSkillsRouteImport
-      parentRoute: typeof StudentsIdRoute
+      preLoaderRoute: typeof AuthenticatedStudentsIdSkillsRouteImport
+      parentRoute: typeof AuthenticatedStudentsIdRoute
     }
   }
 }
 
-interface MeRouteChildren {
-  MeGapsRoute: typeof MeGapsRoute
-  MeMatchRoute: typeof MeMatchRoute
-  MeRoadmapRoute: typeof MeRoadmapRoute
-  MeSkillsRoute: typeof MeSkillsRoute
-  MeIndexRoute: typeof MeIndexRoute
+interface AuthenticatedMeRouteChildren {
+  AuthenticatedMeGapsRoute: typeof AuthenticatedMeGapsRoute
+  AuthenticatedMeMatchRoute: typeof AuthenticatedMeMatchRoute
+  AuthenticatedMeRoadmapRoute: typeof AuthenticatedMeRoadmapRoute
+  AuthenticatedMeSkillsRoute: typeof AuthenticatedMeSkillsRoute
+  AuthenticatedMeIndexRoute: typeof AuthenticatedMeIndexRoute
 }
 
-const MeRouteChildren: MeRouteChildren = {
-  MeGapsRoute: MeGapsRoute,
-  MeMatchRoute: MeMatchRoute,
-  MeRoadmapRoute: MeRoadmapRoute,
-  MeSkillsRoute: MeSkillsRoute,
-  MeIndexRoute: MeIndexRoute,
+const AuthenticatedMeRouteChildren: AuthenticatedMeRouteChildren = {
+  AuthenticatedMeGapsRoute: AuthenticatedMeGapsRoute,
+  AuthenticatedMeMatchRoute: AuthenticatedMeMatchRoute,
+  AuthenticatedMeRoadmapRoute: AuthenticatedMeRoadmapRoute,
+  AuthenticatedMeSkillsRoute: AuthenticatedMeSkillsRoute,
+  AuthenticatedMeIndexRoute: AuthenticatedMeIndexRoute,
 }
 
-const MeRouteWithChildren = MeRoute._addFileChildren(MeRouteChildren)
-
-interface StudentsIdRouteChildren {
-  StudentsIdGapsRoute: typeof StudentsIdGapsRoute
-  StudentsIdMatchRoute: typeof StudentsIdMatchRoute
-  StudentsIdProfileRoute: typeof StudentsIdProfileRoute
-  StudentsIdRoadmapRoute: typeof StudentsIdRoadmapRoute
-  StudentsIdSkillsRoute: typeof StudentsIdSkillsRoute
-  StudentsIdIndexRoute: typeof StudentsIdIndexRoute
-}
-
-const StudentsIdRouteChildren: StudentsIdRouteChildren = {
-  StudentsIdGapsRoute: StudentsIdGapsRoute,
-  StudentsIdMatchRoute: StudentsIdMatchRoute,
-  StudentsIdProfileRoute: StudentsIdProfileRoute,
-  StudentsIdRoadmapRoute: StudentsIdRoadmapRoute,
-  StudentsIdSkillsRoute: StudentsIdSkillsRoute,
-  StudentsIdIndexRoute: StudentsIdIndexRoute,
-}
-
-const StudentsIdRouteWithChildren = StudentsIdRoute._addFileChildren(
-  StudentsIdRouteChildren,
+const AuthenticatedMeRouteWithChildren = AuthenticatedMeRoute._addFileChildren(
+  AuthenticatedMeRouteChildren,
 )
 
-interface StudentsRouteChildren {
-  StudentsIdRoute: typeof StudentsIdRouteWithChildren
-  StudentsIndexRoute: typeof StudentsIndexRoute
+interface AuthenticatedStudentsIdRouteChildren {
+  AuthenticatedStudentsIdGapsRoute: typeof AuthenticatedStudentsIdGapsRoute
+  AuthenticatedStudentsIdMatchRoute: typeof AuthenticatedStudentsIdMatchRoute
+  AuthenticatedStudentsIdProfileRoute: typeof AuthenticatedStudentsIdProfileRoute
+  AuthenticatedStudentsIdRoadmapRoute: typeof AuthenticatedStudentsIdRoadmapRoute
+  AuthenticatedStudentsIdSkillsRoute: typeof AuthenticatedStudentsIdSkillsRoute
+  AuthenticatedStudentsIdIndexRoute: typeof AuthenticatedStudentsIdIndexRoute
 }
 
-const StudentsRouteChildren: StudentsRouteChildren = {
-  StudentsIdRoute: StudentsIdRouteWithChildren,
-  StudentsIndexRoute: StudentsIndexRoute,
+const AuthenticatedStudentsIdRouteChildren: AuthenticatedStudentsIdRouteChildren =
+  {
+    AuthenticatedStudentsIdGapsRoute: AuthenticatedStudentsIdGapsRoute,
+    AuthenticatedStudentsIdMatchRoute: AuthenticatedStudentsIdMatchRoute,
+    AuthenticatedStudentsIdProfileRoute: AuthenticatedStudentsIdProfileRoute,
+    AuthenticatedStudentsIdRoadmapRoute: AuthenticatedStudentsIdRoadmapRoute,
+    AuthenticatedStudentsIdSkillsRoute: AuthenticatedStudentsIdSkillsRoute,
+    AuthenticatedStudentsIdIndexRoute: AuthenticatedStudentsIdIndexRoute,
+  }
+
+const AuthenticatedStudentsIdRouteWithChildren =
+  AuthenticatedStudentsIdRoute._addFileChildren(
+    AuthenticatedStudentsIdRouteChildren,
+  )
+
+interface AuthenticatedStudentsRouteChildren {
+  AuthenticatedStudentsIdRoute: typeof AuthenticatedStudentsIdRouteWithChildren
+  AuthenticatedStudentsIndexRoute: typeof AuthenticatedStudentsIndexRoute
 }
 
-const StudentsRouteWithChildren = StudentsRoute._addFileChildren(
-  StudentsRouteChildren,
-)
+const AuthenticatedStudentsRouteChildren: AuthenticatedStudentsRouteChildren = {
+  AuthenticatedStudentsIdRoute: AuthenticatedStudentsIdRouteWithChildren,
+  AuthenticatedStudentsIndexRoute: AuthenticatedStudentsIndexRoute,
+}
+
+const AuthenticatedStudentsRouteWithChildren =
+  AuthenticatedStudentsRoute._addFileChildren(
+    AuthenticatedStudentsRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AnalyticsRoute: AnalyticsRoute,
-  BuildRoute: BuildRoute,
-  MeRoute: MeRouteWithChildren,
-  StudentsRoute: StudentsRouteWithChildren,
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
+  AuthenticatedBuildRoute: AuthenticatedBuildRoute,
+  AuthenticatedMeRoute: AuthenticatedMeRouteWithChildren,
+  AuthenticatedStudentsRoute: AuthenticatedStudentsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

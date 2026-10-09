@@ -1,3 +1,6 @@
+import { redirect } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
+import { fetchRoles } from "@/lib/auth";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -10,6 +13,11 @@ import { fmt, skillLabel, GAP_THRESHOLD, STRONG_THRESHOLD } from "@/lib/skills";
 const search = z.object({ degree: z.string().optional(), branch: z.string().optional() });
 
 export const Route = createFileRoute("/_authenticated/analytics")({
+  beforeLoad: async () => {
+    const { data } = await supabase.auth.getUser();
+    const roles = data.user ? await fetchRoles(data.user.id) : [];
+    if (!roles.includes("admin") && !roles.includes("mentor")) throw redirect({ to: "/me" });
+  },
   validateSearch: search,
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(analyticsQuery(deps)),
