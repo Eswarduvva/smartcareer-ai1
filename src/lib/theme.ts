@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 export const PALETTES = [
-  { id: "sapphire", name: "Ocean Sapphire", swatch: ["#0d1b3d", "#2f5bd8", "#d9b56b"] },
-  { id: "amethyst", name: "Royal Amethyst", swatch: ["#1e1033", "#8b4fd6", "#d9b56b"] },
-  { id: "emerald", name: "Emerald Prestige", swatch: ["#0a2622", "#14957a", "#dcbf72"] },
-  { id: "champagne", name: "Champagne Ivory", swatch: ["#f6efe2", "#b58a3c", "#2a2a3a"] },
-  { id: "obsidian", name: "Midnight Obsidian", swatch: ["#0b0b10", "#7d7fa8", "#e2c27e"] },
+  { id: "sapphire", name: "Ocean Blue", swatch: ["#0d1b3d", "#2f5bd8", "#d9b56b"] },
+  { id: "amethyst", name: "Royal Purple", swatch: ["#1e1033", "#8b4fd6", "#d9b56b"] },
+  { id: "emerald", name: "Emerald Growth", swatch: ["#0a2622", "#14957a", "#dcbf72"] },
+  { id: "champagne", name: "Warm Light", swatch: ["#f6efe2", "#b58a3c", "#2a2a3a"] },
+  { id: "obsidian", name: "Midnight Dark", swatch: ["#0b0b10", "#7d7fa8", "#e2c27e"] },
 ] as const;
 export type PaletteId = (typeof PALETTES)[number]["id"];
 

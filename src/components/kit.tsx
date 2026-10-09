@@ -1,5 +1,5 @@
 import { Link, useRouter } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { isPreviewData } from "@/lib/api/client";
 import { SCORE_MAX } from "@/lib/skills";
@@ -142,6 +142,31 @@ export function StudentNotFound() {
         <Link to="/students" className="font-mono text-xs uppercase tracking-wider text-primary underline-offset-4 hover:underline">
           Back to students
         </Link>
+      </div>
+    </div>
+  );
+}
+
+/** Animated circular indicator for a 0–100 value that already exists in the data. */
+export function ScoreRing({ value, size = 120, label, tone = "gold" }: { value: number; size?: number; label?: string; tone?: "gold" | "primary" | "strength" }) {
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setV(Math.max(0, Math.min(100, value))));
+    return () => cancelAnimationFrame(id);
+  }, [value]);
+  const r = 44;
+  const c = 2 * Math.PI * r;
+  const color = tone === "gold" ? "var(--color-gold)" : tone === "primary" ? "var(--color-primary)" : "var(--color-strength)";
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }} role="img" aria-label={`${Math.round(value)}%${label ? ` ${label}` : ""}`}>
+      <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+        <circle cx="50" cy="50" r={r} fill="none" stroke="var(--color-muted)" strokeWidth="6" />
+        <circle cx="50" cy="50" r={r} fill="none" stroke={color} strokeWidth="6" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - v / 100)}
+          style={{ transition: "stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1)", filter: `drop-shadow(0 0 6px ${color})` }} />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="num leading-none" style={{ fontSize: size * 0.26 }}>{Math.round(value)}<span className="text-muted-foreground" style={{ fontSize: size * 0.12 }}>%</span></span>
+        {label && <span className="eyebrow mt-0.5" style={{ fontSize: Math.max(9, size * 0.08) }}>{label}</span>}
       </div>
     </div>
   );

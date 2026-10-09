@@ -269,3 +269,25 @@ html.theme-anim, html.theme-anim * {
 .journey-line { stroke-dashoffset: 1; }
 .is-in .journey-line, ol:has(.is-in) .journey-line { animation: sc-draw 2.4s ease-out 300ms forwards; }
 @media (prefers-reduced-motion: reduce) { .journey-line { stroke-dashoffset: 0; animation: none !important; } }
+
+@keyframes sc-spark { from { transform: translate(-50%,-50%) rotate(var(--a)) translateY(0); opacity: 1; } to { transform: translate(-50%,-50%) rotate(var(--a)) translateY(-38px); opacity: 0; } }
+@keyframes sc-ring-out { from { transform: scale(1); opacity: .8; } to { transform: scale(1.9); opacity: 0; } }
+.sc-spark { animation: sc-spark 900ms ease-out forwards; }
+.sc-ring { animation: sc-ring-out 900ms ease-out forwards; }
+@keyframes sc-blob { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(6%,-4%) scale(1.1); } 66% { transform: translate(-5%,5%) scale(.95); } }
+@utility animate-blob { animation: sc-blob 22s ease-in-out infinite; }
+.tilt-card { transform-style: preserve-3d; transition: transform 300ms ease, box-shadow 400ms ease; }
+.tilt-card:hover, .tilt-card:focus-visible { box-shadow: var(--shadow-lift); }
+.tilt-card .tilt-icon { transition: transform 400ms cubic-bezier(.2,.7,.2,1); }
+.tilt-card:hover .tilt-icon, .tilt-card:focus-visible .tilt-icon { transform: translateZ(30px) rotate(-8deg) scale(1.12); }
+.tilt-card .tilt-more { opacity: 0; transform: translateY(6px); transition: opacity 300ms ease, transform 300ms ease; }
+.tilt-card:hover .tilt-more, .tilt-card:focus-visible .tilt-more { opacity: 1; transform: none; }
+.gradient-border { position: relative; }
+.gradient-border::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, color-mix(in oklab, var(--color-gold) 60%, transparent), transparent 40%, color-mix(in oklab, var(--color-primary) 50%, transparent)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .sc-spark, .sc-ring, .animate-blob { animation: none; }
+  .tilt-card .tilt-more { opacity: 1; transform: none; }
+}
+@media (hover: none) { .tilt-card .tilt-more { opacity: 1; transform: none; } }
