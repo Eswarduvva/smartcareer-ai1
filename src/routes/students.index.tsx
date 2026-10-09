@@ -17,6 +17,8 @@ export const Route = createFileRoute("/students/")({
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(studentsQuery({ ...deps, pageSize: 25 })),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Students — SmartCareer" },
       { name: "description", content: "Mentor view: search students and see readiness, career match and skill gaps." },
       { property: "og:title", content: "Students — SmartCareer" },

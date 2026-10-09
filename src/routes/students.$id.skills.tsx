@@ -4,6 +4,8 @@ import { SkillsView } from "@/components/journey/SkillsView";
 export const Route = createFileRoute("/students/$id/skills")({
   head: ({ params }) => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: `Skill intelligence ${params.id} — SmartCareer` },
       { name: "description", content: "All 19 skill scores, grouped into technical, reasoning, communication and behavioural." },
       { property: "og:title", content: `Skill intelligence ${params.id} — SmartCareer` },

@@ -9,6 +9,8 @@ import { fmt, GAP_THRESHOLD, GROUPS, SCORE_MAX, scoredSkills, sortDesc, STRONG_T
 export const Route = createFileRoute("/me/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "My career intelligence — SmartCareer" },
       { name: "description", content: "Your career match, recommended role, strengths, skill gaps and next steps on one page." },
       { property: "og:title", content: "My career intelligence — SmartCareer" },

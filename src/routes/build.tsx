@@ -13,6 +13,8 @@ import { mockSampleProfileId } from "@/lib/mock";
 export const Route = createFileRoute("/build")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Build my career profile — SmartCareer" },
       { name: "description", content: "Five short steps: about you, skills, experience, interests and goals. Then see your career match." },
       { property: "og:title", content: "Build my career profile — SmartCareer" },

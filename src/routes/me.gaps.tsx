@@ -4,6 +4,8 @@ import { GapsView } from "@/components/journey/GapsView";
 export const Route = createFileRoute("/me/gaps")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "My skill gaps — SmartCareer" },
       { name: "description", content: "Which of your skills sit below the bar, and how far each is from the next level." },
       { property: "og:title", content: "My skill gaps — SmartCareer" },
