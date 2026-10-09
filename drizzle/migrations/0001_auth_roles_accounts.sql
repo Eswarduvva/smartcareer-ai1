@@ -1,4 +1,3 @@
--- Accounts, roles, mentor assignments and per-account student data.
 CREATE TYPE public.app_role AS ENUM ('student', 'mentor', 'admin');
 
 CREATE TABLE public.profiles (
@@ -30,7 +29,6 @@ GRANT EXECUTE ON FUNCTION public.has_role(uuid, public.app_role) TO authenticate
 
 CREATE POLICY "read own roles" ON public.user_roles FOR SELECT TO authenticated
   USING (user_id = auth.uid() OR public.has_role(auth.uid(), 'admin'));
--- No INSERT/UPDATE/DELETE policies: roles are granted only by trusted server-side admin processes.
 
 CREATE POLICY "read own profile" ON public.profiles FOR SELECT TO authenticated
   USING (id = auth.uid() OR public.has_role(auth.uid(), 'admin'));
@@ -59,7 +57,6 @@ $$;
 REVOKE EXECUTE ON FUNCTION public.can_view_student(text) FROM anon, public;
 GRANT EXECUTE ON FUNCTION public.can_view_student(text) TO authenticated;
 
--- A signed-in student's own self-entered profile and roadmap progress (one row per account).
 CREATE TABLE public.student_accounts (
   user_id uuid PRIMARY KEY,
   profile jsonb,
@@ -74,7 +71,6 @@ CREATE POLICY "own account read" ON public.student_accounts FOR SELECT TO authen
 CREATE POLICY "own account insert" ON public.student_accounts FOR INSERT TO authenticated WITH CHECK (user_id = auth.uid());
 CREATE POLICY "own account update" ON public.student_accounts FOR UPDATE TO authenticated USING (user_id = auth.uid()) WITH CHECK (user_id = auth.uid());
 
--- New sign-ups: profile row + Student role. Idempotent so repeat events never duplicate.
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 BEGIN
@@ -88,7 +84,6 @@ END $$;
 CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
--- Replace the temporary public demo read on cohort tables with admin / assigned-mentor access.
 DO $$
 DECLARE t text;
 BEGIN
