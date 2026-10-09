@@ -1,4 +1,9 @@
-import { Link, useParams, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useParams, useRouterState } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { LogOut } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useRoles } from "@/lib/auth";
+import { clearProfile } from "@/lib/my-profile";
 import { useEffect, useState, type ReactNode } from "react";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -30,9 +35,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Link>
           <NavLinks />
           <div className="mt-auto hidden flex-col gap-3 md:flex">
-            <p className="text-[11px] leading-relaxed text-muted-foreground">
-              Your profile is saved privately on this device.
-            </p>
+            <Account />
           </div>
         </div>
       </aside>
@@ -46,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <div onClick={(e) => { if ((e.target as HTMLElement).closest("a")) setOpen(false); }}>
                   <NavLinks />
                 </div>
-                
+                <div className="mt-8"><Account /></div>
               </SheetContent>
             </Sheet>
             <Link to="/" className="font-mono text-sm font-semibold">SMART<span className="text-primary">CAREER</span></Link>
@@ -64,6 +67,8 @@ function NavLinks() {
   const id = params.id;
   const mine = useMyProfile();
   const done = !!mine?.complete;
+  const { roles } = useRoles();
+  const staff = !!roles && (roles.includes("mentor") || roles.includes("admin"));
   const studentLinks = [
     { to: "/students/$id", label: "Overview", exact: true },
     { to: "/students/$id/profile", label: "Profile" },
@@ -90,8 +95,8 @@ function NavLinks() {
                 </Link>
               ))}
             </div>
-            <div>
-              <p className="eyebrow mb-2">Mentor / Admin</p>
+            {staff && <div>
+              <p className="eyebrow mb-2">{roles?.includes("admin") ? "Admin" : "Mentor"}</p>
               <Link to="/students" className={linkCls} activeProps={activeCls} activeOptions={{ exact: true }}>
                 Student Directory
               </Link>
@@ -115,7 +120,29 @@ function NavLinks() {
                   ))}
                 </div>
               )}
-            </div>
+            </div>}
           </nav>
+  );
+}
+
+function Account() {
+  const { session, roles } = useRoles();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  if (!session) return null;
+  const role = roles?.includes("admin") ? "Admin" : roles?.includes("mentor") ? "Mentor" : "Student";
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    clearProfile({ keepAccount: true });
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+  return (
+    <div className="space-y-2 border-t border-border pt-4 text-[11px] text-muted-foreground">
+      <p className="truncate text-foreground" title={session.user.email}>{session.user.email}</p>
+      <p className="eyebrow">{role} account</p>
+      <button onClick={signOut} className="inline-flex items-center gap-2 rounded-lg py-1 hover:text-foreground"><LogOut className="h-3.5 w-3.5" />Sign out</button>
+    </div>
   );
 }
