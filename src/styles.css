@@ -266,3 +266,6 @@ html.theme-anim, html.theme-anim * {
   .reveal { opacity: 1; transform: none; }
   .animate-float, .animate-drift, .animate-rise { animation: none; }
 }
+.journey-line { stroke-dashoffset: 1; }
+.is-in .journey-line, ol:has(.is-in) .journey-line { animation: sc-draw 2.4s ease-out 300ms forwards; }
+@media (prefers-reduced-motion: reduce) { .journey-line { stroke-dashoffset: 0; animation: none !important; } }

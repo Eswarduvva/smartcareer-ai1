@@ -4,13 +4,18 @@ import { GROUPS, SKILLS } from "@/lib/skills";
 import { Meter } from "@/components/kit";
 import { CAREER_TRACKS } from "@/lib/careers";
 import { mockSampleProfileId } from "@/lib/mock";
+import { ThemeSelector } from "@/components/ThemeSelector";
+import { useReveal } from "@/lib/theme";
+import { useEffect, useRef } from "react";
+import { UserRound, Sparkles, Target, TrendingUp, Route as RouteIcon, ArrowRight } from "lucide-react";
+import hero from "@/assets/hero-landscape.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SmartCareer — Understand your skills, discover your career" },
-      { name: "description", content: "Build your career profile, see your career match, find your skill gaps and get a step-by-step roadmap." },
-      { property: "og:title", content: "SmartCareer — Understand your skills, discover your career" },
+      { title: "SmartCareer — Your Potential. Your Direction. Your Future." },
+      { name: "description", content: "Turn your skills, education, and ambitions into a personalized career journey." },
+      { property: "og:title", content: "SmartCareer — Your Potential. Your Direction. Your Future." },
       { property: "og:description", content: "A student career intelligence platform: profile, skills, career match, skill gaps, roadmap." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -22,156 +27,187 @@ export const Route = createFileRoute("/")({
 // Abstract hero: skill names only, uniform values — no student data implied.
 const HERO_NODES = SKILLS.map((s, i) => ({ id: s.key, label: s.label, group: s.group, value: 0.35 + ((i * 37) % 50) / 100, weak: i % 6 === 4 }));
 
-const BENEFITS = [
-  ["See your real position", "One clear readiness score and a breakdown of all 19 skills — strong, developing or still building."],
-  ["Know which career fits", "Compare five career tracks side by side and see exactly why one fits you best."],
-  ["Act on a plan", "Prioritised skill gaps and a five-step roadmap with projects and activities."],
+const FEATURES = [
+  { icon: UserRound, t: "Profile", d: "Degree, branch, CGPA and background in five short steps." },
+  { icon: Sparkles, t: "Skills", d: "Rate 19 skills across technical, reasoning, communication and behaviour." },
+  { icon: Target, t: "Career Match", d: "The track your skills fit best, with a transparent score." },
+  { icon: TrendingUp, t: "Skill Gaps", d: "Every skill below the bar, how far it is and what to do." },
+  { icon: RouteIcon, t: "Roadmap", d: "Ordered milestones you can tick off as you grow." },
 ] as const;
 
 const EXAMPLE_GAPS = [["Statistics", 58, "gap"], ["Python", 66, "primary"], ["Communication", 71, "primary"]] as const;
 
-const FLOW = [
-  ["01", "Profile", "Your degree, branch, CGPA and background — five short steps, about four minutes."],
-  ["02", "Skills", "Rate 19 skills across technical, reasoning, communication and behaviour."],
-  ["03", "Career match", "The career track your skills fit best, with a transparent match score."],
-  ["04", "Skill gaps", "Which skills sit below the bar, and exactly how far each one is."],
-  ["05", "Roadmap", "Ordered next steps: what to strengthen first, then what to build."],
-] as const;
-
 function Landing() {
+  useReveal();
+  const bg = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const on = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        if (bg.current) bg.current.style.transform = `translate3d(0, ${window.scrollY * 0.3}px, 0)`;
+      });
+    };
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+
+  const lineRef = "h-px flex-1 bg-gradient-to-r from-transparent via-gold/60 to-transparent";
   return (
-    <div className="min-h-screen">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4 md:px-12">
-        <span className="font-mono text-sm font-semibold">SMART<span className="text-primary">CAREER</span></span>
-        <div className="flex items-center gap-4 sm:gap-6">
-          <Link to="/students" className="hidden font-mono text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground sm:inline">For mentors</Link>
-          <Link to="/me" className="font-mono text-xs uppercase tracking-wider text-muted-foreground hover:text-foreground">My results</Link>
-          <Link to="/build" className="hidden font-mono text-xs uppercase tracking-wider hover:text-primary sm:inline">Build my profile →</Link>
+    <div className="min-h-screen overflow-x-hidden">
+      {/* HERO */}
+      <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
+        <div ref={bg} className="absolute inset-0 -z-10 will-change-transform">
+          <img src={hero} alt="" width={1920} height={1088} className="animate-drift h-full w-full object-cover" />
         </div>
-      </header>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/20 to-background" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-background/80 via-background/30 to-transparent" />
+        <Particles />
 
-      <section className="grid min-h-[80vh] lg:grid-cols-[5fr_7fr]">
-        <div className="flex flex-col justify-center gap-8 px-6 py-16 md:px-12">
-          <p className="eyebrow">Student career intelligence</p>
-          <h1 className="text-4xl font-medium leading-[1.08] md:text-[3.6rem]">
-            Understand your skills.<br />
-            <span className="text-primary">Discover</span> your career.<br />
-            Build your <span className="text-strength">path</span>.
-          </h1>
-          <p className="max-w-md text-muted-foreground">
-            Tell SmartCareer about your studies, skills, experience and goals. It shows which career fits you, what you are still missing, and the order to work on it.
+        <header className="flex items-center justify-between gap-4 px-6 py-5 md:px-12">
+          <span className="font-display text-2xl tracking-tight text-foreground">Smart<span className="text-gold-gradient italic">Career</span></span>
+          <div className="flex min-w-0 items-center gap-3 sm:gap-6">
+            <Link to="/students" className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:inline">For mentors</Link>
+            <Link to="/me" className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline">My results</Link>
+            <ThemeSelector />
+          </div>
+        </header>
+
+        <div className="flex flex-1 flex-col justify-center px-6 pb-24 pt-10 md:px-12">
+          <p className="animate-rise eyebrow mb-6 flex items-center gap-3 text-gold" style={{ animationDelay: "100ms" }}>
+            <span className="h-px w-10 bg-gold" /> Career intelligence
           </p>
-          <div className="flex flex-wrap items-center gap-6">
-            <Link to="/build" className="inline-block border border-foreground bg-foreground px-6 py-3 font-mono text-xs uppercase tracking-wider text-background hover:bg-transparent hover:text-foreground">
-              Build my career profile
+          <h1 className="max-w-4xl text-5xl leading-[1.02] tracking-tight text-foreground sm:text-6xl md:text-[5.5rem]">
+            {["Your Potential.", "Your Direction.", "Your Future."].map((w, i) => (
+              <span key={w} className="animate-rise block" style={{ animationDelay: `${250 + i * 220}ms` }}>
+                {i === 2 ? <em className="text-gold-gradient">{w}</em> : w}
+              </span>
+            ))}
+          </h1>
+          <p className="animate-rise mt-8 max-w-lg text-lg text-muted-foreground" style={{ animationDelay: "950ms" }}>
+            Turn your skills, education, and ambitions into a personalized career journey.
+          </p>
+          <div className="animate-rise mt-10 flex flex-wrap items-center gap-4" style={{ animationDelay: "1150ms" }}>
+            <Link to="/build" className="btn-gold inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold">
+              Discover My Career <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/students/$id" params={{ id: mockSampleProfileId }} className="font-mono text-xs uppercase tracking-wider text-foreground underline-offset-4 hover:text-primary hover:underline">
-              Explore a demo student →
-            </Link>
+            <a href="#paths" className="glass inline-flex items-center rounded-full px-7 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-gold/50">
+              Explore Career Paths
+            </a>
           </div>
-          <p className="text-xs text-muted-foreground">5 steps · about 4 minutes · no sign-in · saved on your device</p>
-        </div>
-        <div className="relative min-h-[460px] border-t border-border lg:border-l lg:border-t-0">
-          <div className="pointer-events-none absolute left-6 top-5 z-10 max-w-xs">
-            <p className="eyebrow">Career intelligence space</p>
-            <p className="mt-1 text-xs text-muted-foreground">You at the centre, your four skill families around you, your career destination ahead.</p>
-          </div>
-          <SkillSpaceLazy nodes={HERO_NODES} groups={GROUPS} destination="Career" variant="abstract" />
-          <p className="pointer-events-none absolute bottom-5 right-6 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Move your cursor · hover a node</p>
+          <p className="animate-rise mt-6 text-xs text-muted-foreground" style={{ animationDelay: "1300ms" }}>5 steps · about 4 minutes · no sign-in · saved on your device</p>
         </div>
       </section>
 
-      <section className="border-t border-border">
-        <div className="flex items-baseline justify-between px-6 pt-8 md:px-12">
-          <p className="eyebrow">How it works</p>
+      {/* FEATURES */}
+      <section className="px-6 py-24 md:px-12">
+        <div className="reveal mb-12 max-w-2xl">
+          <p className="eyebrow mb-3 text-gold">The experience</p>
+          <h2 className="text-4xl md:text-5xl">Five steps from where you are to where you're going.</h2>
         </div>
-        <ol className="grid md:grid-cols-5">
-          {FLOW.map(([n, t, d], i) => (
-            <li key={n} className="relative border-b border-border px-6 py-8 md:border-b-0 md:border-r md:last:border-r-0 md:first:pl-12">
-              <p className="num text-xs text-muted-foreground">{n}</p>
-              <p className="mt-6 font-mono text-lg">{t}{i < FLOW.length - 1 && <span className="ml-2 hidden text-muted-foreground md:inline">→</span>}</p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {FEATURES.map(({ icon: Icon, t, d }, i) => (
+            <li key={t} className="reveal glass lift rounded-2xl p-6" style={{ transitionDelay: `${i * 80}ms` }}>
+              <span className="grid h-11 w-11 place-items-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/20 to-primary/10 text-gold">
+                <Icon className="h-5 w-5" strokeWidth={1.5} />
+              </span>
+              <p className="mt-6 font-display text-xl">{t}</p>
               <p className="mt-2 text-sm text-muted-foreground">{d}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="grid gap-px border-t border-border bg-border md:grid-cols-3">
-        {BENEFITS.map(([t, d]) => (
-          <div key={t} className="bg-background px-6 py-10 md:px-12">
-            <p className="font-mono text-sm">{t}</p>
-            <p className="mt-3 text-sm text-muted-foreground">{d}</p>
-          </div>
-        ))}
-      </section>
-
-      <section className="border-t border-border px-6 py-14 md:px-12">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="eyebrow">Career categories</p>
-            <h2 className="mt-2 text-2xl font-medium md:text-3xl">Five career tracks, scored openly</h2>
-          </div>
-          <p className="max-w-sm text-sm text-muted-foreground">Each track lists five key skills with a target of 75. Your match is how close you are to those targets.</p>
-        </div>
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {CAREER_TRACKS.map((t) => (
-            <li key={t.id} className="flex flex-col border border-border bg-card p-5">
-              <p className="font-mono text-[11px] text-muted-foreground">{t.domain}</p>
-              <p className="mt-1 text-lg font-medium">{t.role}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{t.description}</p>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="grid gap-10 border-t border-border px-6 py-14 md:px-12 lg:grid-cols-3">
-        <div>
-          <p className="eyebrow mb-3">Example recommendation</p>
-          <div className="border border-border bg-card p-5">
-            <p className="font-mono text-[11px] text-muted-foreground">Data Analytics</p>
-            <p className="mt-1 text-xl font-medium">Data Analyst</p>
-            <p className="num mt-4 text-5xl text-primary">86<span className="text-lg text-muted-foreground">%</span></p>
+      {/* JOURNEY TIMELINE */}
+      <section className="px-6 py-20 md:px-12">
+        <p className="reveal eyebrow mb-10 text-center text-gold">Your journey</p>
+        <ol className="relative mx-auto grid max-w-5xl gap-10 md:grid-cols-5 md:gap-4">
+          <svg className="pointer-events-none absolute left-0 right-0 top-5 hidden h-2 w-full md:block" preserveAspectRatio="none" viewBox="0 0 100 2" aria-hidden>
+            <line x1="10" y1="1" x2="90" y2="1" pathLength={1} stroke="var(--color-gold)" strokeWidth="0.4" strokeDasharray="1" className="journey-line" vectorEffect="non-scaling-stroke" />
+          </svg>
+          {FEATURES.map(({ t }, i) => (
+            <li key={t} className="reveal relative flex flex-col items-center text-center" style={{ transitionDelay: `${200 + i * 150}ms` }}>
+              <span className="num relative grid h-10 w-10 place-items-center rounded-full border border-gold/60 bg-background text-xs text-gold shadow-[0_0_24px_-4px_var(--color-gold)]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p className="mt-4 font-display text-lg">{t}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* CAREER PATHS */}
+      <section id="paths" className="scroll-mt-10 px-6 py-24 md:px-12">
+        <div className="reveal mb-10 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow mb-3 text-gold">Career paths</p>
+            <h2 className="text-4xl md:text-5xl">Five tracks, scored openly.</h2>
+          </div>
+          <p className="max-w-sm text-sm text-muted-foreground">Each track lists five key skills with a target of 75. Your match is how close you are to those targets.</p>
+        </div>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {CAREER_TRACKS.map((t, i) => (
+            <li key={t.id} className="reveal glass lift flex flex-col rounded-2xl p-6" style={{ transitionDelay: `${i * 70}ms` }}>
+              <p className="eyebrow">{t.domain}</p>
+              <p className="mt-3 font-display text-2xl">{t.role}</p>
+              <p className="mt-3 text-sm text-muted-foreground">{t.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* SPACE + EXAMPLE */}
+      <section className="grid gap-6 px-6 py-20 md:px-12 lg:grid-cols-[7fr_5fr]">
+        <div className="reveal glass relative min-h-[440px] overflow-hidden rounded-3xl">
+          <div className="pointer-events-none absolute left-6 top-5 z-10 max-w-xs">
+            <p className="eyebrow text-gold">Career intelligence space</p>
+            <p className="mt-1 text-xs text-muted-foreground">You at the centre, your four skill families around you, your career ahead.</p>
+          </div>
+          <SkillSpaceLazy nodes={HERO_NODES} groups={GROUPS} destination="Career" variant="abstract" />
+        </div>
+        <div className="reveal grid gap-6">
+          <div className="glass rounded-3xl p-6">
+            <p className="eyebrow">Example recommendation · illustration</p>
+            <p className="mt-3 font-display text-2xl">Data Analyst</p>
+            <p className="num mt-4 text-5xl text-gold">86<span className="text-lg text-muted-foreground">%</span></p>
             <div className="mt-3"><Meter value={86} max={100} tone="primary" /></div>
-            <p className="mt-3 text-xs text-muted-foreground">Illustration — strong SQL and analysis, statistics still developing.</p>
+          </div>
+          <div className="glass rounded-3xl p-6">
+            <p className="eyebrow mb-4">Skill gaps, explained</p>
+            <ul className="space-y-3">
+              {EXAMPLE_GAPS.map(([l, v, tone]) => (
+                <li key={l}>
+                  <div className="mb-1 flex justify-between text-sm"><span>{l}</span><span className={`num ${tone === "gap" ? "text-gap" : "text-primary"}`}>{v} → 75</span></div>
+                  <Meter value={v} tone={tone} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div>
-          <p className="eyebrow mb-3">Skill gaps, explained</p>
-          <ul className="space-y-3">
-            {EXAMPLE_GAPS.map(([l, v, tone]) => (
-              <li key={l}>
-                <div className="mb-1 flex justify-between text-sm"><span>{l}</span><span className={`num ${tone === "gap" ? "text-gap" : "text-primary"}`}>{v} → 75</span></div>
-                <Meter value={v} tone={tone} />
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-sm text-muted-foreground">Every skill below 75 becomes a gap with a priority, why it matters, and one concrete action.</p>
-        </div>
-        <div>
-          <p className="eyebrow mb-3">A roadmap you can tick off</p>
-          <ol className="space-y-2 text-sm">
-            {["Strengthen fundamentals", "Build required skills", "Complete projects", "Gain experience", "Become job ready"].map((t, i) => (
-              <li key={t} className="flex items-center gap-3 border-b border-border pb-2"><span className="num w-6 text-primary">{String(i + 1).padStart(2, "0")}</span>{t}</li>
-            ))}
-          </ol>
-          <p className="mt-4 text-sm text-muted-foreground">Mark steps complete as you go — your progress is saved on your device.</p>
+      </section>
+
+      {/* HONEST */}
+      <section className="px-6 py-16 md:px-12">
+        <div className="reveal mx-auto flex max-w-4xl items-center gap-6"><span className={lineRef} /><p className="eyebrow text-gold">Honest by design</p><span className={lineRef} /></div>
+        <div className="reveal mx-auto mt-8 grid max-w-4xl gap-6 text-center text-sm text-muted-foreground md:grid-cols-2 md:text-left">
+          <p>Recommendations come from <span className="text-foreground">published, rule-based scoring</span>. Every number can be traced back to your own answers.</p>
+          <p>Mentors get a <Link to="/students" className="text-foreground underline-offset-4 hover:underline">student directory</Link> and <Link to="/analytics" className="text-foreground underline-offset-4 hover:underline">platform analytics</Link>, currently shown with demo data. Or <Link to="/students/$id" params={{ id: mockSampleProfileId }} className="text-foreground underline-offset-4 hover:underline">explore a demo student</Link>.</p>
         </div>
       </section>
 
-      <section className="grid gap-8 border-t border-border px-6 py-12 md:grid-cols-[5fr_7fr] md:px-12">
-        <p className="font-mono text-sm">Honest by design</p>
-        <div className="grid gap-6 text-sm text-muted-foreground md:grid-cols-2">
-          <p>Recommendations come from <span className="text-foreground">published, rule-based scoring</span>, not AI. Every number on your results page can be traced back to your own answers.</p>
-          <p>Mentors and admins get a <Link to="/students" className="text-foreground underline-offset-4 hover:underline">student directory</Link> and <Link to="/analytics" className="text-foreground underline-offset-4 hover:underline">platform analytics</Link>, currently shown with demo data.</p>
+      {/* CTA */}
+      <section className="px-6 pb-24 md:px-12">
+        <div className="reveal glass relative overflow-hidden rounded-3xl px-8 py-16 text-center">
+          <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-gold/20 blur-3xl" />
+          <h2 className="relative text-4xl md:text-5xl">Ready to see where you stand?</h2>
+          <Link to="/build" className="btn-gold relative mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold">
+            Discover My Career <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
-      <section className="flex flex-col items-start gap-6 border-t border-border px-6 py-14 md:flex-row md:items-center md:justify-between md:px-12">
-        <h2 className="text-2xl font-medium md:text-3xl">Ready to see where you stand?</h2>
-        <Link to="/build" className="inline-block border border-foreground bg-foreground px-6 py-3 font-mono text-xs uppercase tracking-wider text-background hover:bg-transparent hover:text-foreground">Build my career profile</Link>
-      </section>
-
-      <footer className="flex flex-wrap justify-between gap-4 border-t border-border px-6 py-6 font-mono text-[11px] text-muted-foreground md:px-12">
+      <footer className="flex flex-wrap justify-between gap-4 border-t border-border px-6 py-8 text-xs text-muted-foreground md:px-12">
         <span>© 2026 SmartCareer · Rule-based career recommendation</span>
         <span className="flex flex-wrap gap-x-6 gap-y-2">
           <Link to="/build" className="hover:text-foreground">Build profile</Link>
@@ -180,6 +216,28 @@ function Landing() {
           <Link to="/analytics" className="hover:text-foreground">Platform analytics</Link>
         </span>
       </footer>
+    </div>
+  );
+}
+
+const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
+  left: (i * 47) % 100,
+  top: 30 + ((i * 29) % 65),
+  size: 2 + (i % 3),
+  delay: (i % 7) * 0.9,
+  dur: 6 + (i % 5),
+}));
+
+function Particles() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      {PARTICLES.map((p, i) => (
+        <span
+          key={i}
+          className="animate-float absolute rounded-full bg-gold"
+          style={{ left: `${p.left}%`, top: `${p.top}%`, width: p.size, height: p.size, opacity: 0.6, boxShadow: "0 0 10px var(--color-gold)", animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s` }}
+        />
+      ))}
     </div>
   );
 }
