@@ -13,12 +13,12 @@ const PK = "sc-palette";
 const MK = "sc-theme";
 
 /** Inline script run before paint so the saved theme never flashes. */
-export const THEME_BOOT = `(function(){try{var d=document.documentElement;d.dataset.palette=localStorage.getItem("${PK}")||"sapphire";var m=localStorage.getItem("${MK}");if(m?m==="dark":true)d.classList.add("dark")}catch(e){}})()`;
+export const THEME_BOOT = `(function(){try{var d=document.documentElement;d.dataset["palette"]=localStorage.getItem("${PK}")||"sapphire";var m=localStorage.getItem("${MK}");if(m?m==="dark":true)d.classList.add("dark")}catch(e){}})()`;
 
 function apply(palette: PaletteId, dark: boolean) {
   const d = document.documentElement;
   d.classList.add("theme-anim");
-  d.dataset.palette = palette;
+  d.dataset["palette"] = palette;
   d.classList.toggle("dark", dark);
   localStorage.setItem(PK, palette);
   localStorage.setItem(MK, dark ? "dark" : "light");
@@ -31,7 +31,7 @@ export function useTheme() {
   useEffect(() => {
     const read = () => {
       const d = document.documentElement;
-      setState({ palette: (d.dataset.palette as PaletteId) || "sapphire", dark: d.classList.contains("dark") });
+      setState({ palette: (d.dataset["palette"] as PaletteId) || "sapphire", dark: d.classList.contains("dark") });
     };
     read();
     window.addEventListener("sc-theme", read);
