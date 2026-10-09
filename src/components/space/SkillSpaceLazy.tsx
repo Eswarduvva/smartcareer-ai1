@@ -8,9 +8,7 @@ const SkillSpace = lazy(() => import("./SkillSpace"));
 
 function Loading() {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <span className="eyebrow animate-pulse">Composing space…</span>
-    </div>
+    <div aria-hidden className="h-full w-full skeleton-cell opacity-40" />
   );
 }
 

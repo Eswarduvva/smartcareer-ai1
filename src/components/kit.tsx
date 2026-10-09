@@ -16,7 +16,7 @@ export function Tile({
   aside?: ReactNode;
 }) {
   return (
-    <section className={cn("relative flex flex-col border border-border bg-card p-5", className)}>
+    <section className={cn("glass relative flex flex-col rounded-2xl p-5", className)}>
       {(label || aside) && (
         <header className="mb-4 flex items-baseline justify-between gap-4">
           {label && <h2 className="eyebrow">{label}</h2>}
@@ -47,9 +47,9 @@ export function Big({ value, unit, tone }: { value: string; unit?: string; tone?
 export function Meter({ value, tone = "strength", max = SCORE_MAX }: { value: number; tone?: "strength" | "gap" | "primary"; max?: number }) {
   const pct = Math.max(0, Math.min(100, (value / max) * 100));
   return (
-    <div className="h-1 w-full bg-muted">
+    <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
       <div
-        className={cn("h-full transition-[width] duration-700", tone === "strength" && "bg-strength", tone === "gap" && "bg-gap", tone === "primary" && "bg-primary")}
+        className={cn("h-full rounded-full transition-[width] duration-1000", tone === "strength" && "bg-strength", tone === "gap" && "bg-gap", tone === "primary" && "bg-primary")}
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -74,10 +74,10 @@ export function PageHead({ eyebrow, title, children }: { eyebrow: string; title:
     <div className="mb-10 flex flex-wrap items-end justify-between gap-6 pb-2">
       <div>
         <p className="eyebrow mb-3 flex items-center gap-3">
-          <span className="h-px w-6 bg-primary" />
+          <span className="h-px w-6 bg-gold" />
           {eyebrow}
         </p>
-        <h1 className="text-3xl font-medium tracking-tight md:text-[2.6rem] md:leading-[1.05]">{title}</h1>
+        <h1 className="text-3xl tracking-tight md:text-[2.8rem] md:leading-[1.05]">{title}</h1>
       </div>
       {children}
     </div>
