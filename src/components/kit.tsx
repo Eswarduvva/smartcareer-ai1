@@ -151,8 +151,20 @@ export function StudentNotFound() {
 export function ScoreRing({ value, size = 120, label, tone = "gold" }: { value: number; size?: number; label?: string; tone?: "gold" | "primary" | "strength" }) {
   const [v, setV] = useState(0);
   useEffect(() => {
-    const id = requestAnimationFrame(() => setV(Math.max(0, Math.min(100, value))));
-    return () => cancelAnimationFrame(id);
+    const target = Math.max(0, Math.min(100, value));
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setV(target);
+      return;
+    }
+    let frame = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / 1000);
+      setV(target * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
   }, [value]);
   const r = 44;
   const c = 2 * Math.PI * r;
@@ -162,10 +174,10 @@ export function ScoreRing({ value, size = 120, label, tone = "gold" }: { value: 
       <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
         <circle cx="50" cy="50" r={r} fill="none" stroke="var(--color-muted)" strokeWidth="6" />
         <circle cx="50" cy="50" r={r} fill="none" stroke={color} strokeWidth="6" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - v / 100)}
-          style={{ transition: "stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1)", filter: `drop-shadow(0 0 6px ${color})` }} />
+          style={{ filter: `drop-shadow(0 0 6px ${color})` }} />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="num leading-none" style={{ fontSize: size * 0.26 }}>{Math.round(value)}<span className="text-muted-foreground" style={{ fontSize: size * 0.12 }}>%</span></span>
+        <span aria-hidden className="num leading-none" style={{ fontSize: size * 0.26 }}>{Math.round(v)}<span className="text-muted-foreground" style={{ fontSize: size * 0.12 }}>%</span></span>
         {label && <span className="eyebrow mt-0.5" style={{ fontSize: Math.max(9, size * 0.08) }}>{label}</span>}
       </div>
     </div>

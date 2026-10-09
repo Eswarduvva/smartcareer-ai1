@@ -12,6 +12,8 @@ export interface CareerTrack {
   description: string;
   outlook: string;
   dayToDay: string[];
+  /** General career guidance, not a verified employer eligibility requirement. */
+  education?: string;
 }
 
 export const CAREER_TRACKS: CareerTrack[] = [
@@ -23,6 +25,7 @@ export const CAREER_TRACKS: CareerTrack[] = [
     description: "Designs, writes and maintains the applications and services people use every day.",
     outlook: "Consistently one of the largest hiring categories for engineering graduates, from startups to large IT services firms.",
     dayToDay: ["Write and review code", "Fix bugs and ship features", "Work in a product team"],
+    education: "Computer science, IT or a related degree is a common route. Equivalent practical experience and a strong coding portfolio may also qualify; check each employer's requirements.",
   },
   {
     id: "data-analyst",
@@ -32,6 +35,7 @@ export const CAREER_TRACKS: CareerTrack[] = [
     description: "Turns raw business data into reports, dashboards and clear answers for decision makers.",
     outlook: "Strong entry-level demand across finance, e-commerce, consulting and healthcare.",
     dayToDay: ["Query and clean data", "Build dashboards", "Explain findings to teams"],
+    education: "A degree in statistics, mathematics, computing, business or a related field is common. SQL, analytical projects and clear reporting support applications.",
   },
   {
     id: "data-scientist",
@@ -41,6 +45,7 @@ export const CAREER_TRACKS: CareerTrack[] = [
     description: "Builds predictive models and experiments that help products and businesses learn from data.",
     outlook: "Growing demand, usually after strong projects or a first analytics role; higher study expectations.",
     dayToDay: ["Train and evaluate models", "Run experiments", "Prototype ML features"],
+    education: "A quantitative or computing degree with statistics and machine learning coursework is common. Some roles require postgraduate study; requirements vary by employer.",
   },
   {
     id: "ui-ux-designer",
@@ -50,6 +55,7 @@ export const CAREER_TRACKS: CareerTrack[] = [
     description: "Researches user needs and designs interfaces that are clear, usable and good to look at.",
     outlook: "Portfolio-driven hiring; product companies and agencies value a strong case-study portfolio.",
     dayToDay: ["Interview users", "Wireframe and prototype", "Test designs with real people"],
+    education: "Design, human-computer interaction or related study can help. Many employers emphasise a portfolio showing research, design decisions and usability testing.",
   },
   {
     id: "cloud-devops",
@@ -59,6 +65,7 @@ export const CAREER_TRACKS: CareerTrack[] = [
     description: "Keeps software running reliably: automates deployments, manages cloud systems and monitors uptime.",
     outlook: "High demand as companies move to the cloud; certifications carry real weight in hiring.",
     dayToDay: ["Automate deployments", "Manage cloud resources", "Monitor and fix incidents"],
+    education: "Computer science, IT or related study is a common route. Hands-on systems experience and relevant cloud certifications can support applications.",
   },
 ];
 
