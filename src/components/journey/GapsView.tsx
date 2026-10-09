@@ -25,7 +25,7 @@ export function GapsView() {
   return <div className="animate-page-in">
     <PageHead eyebrow="Skill gap analysis" title="Build on your strengths" />
     <div className="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
-      <div><p className="text-sm text-muted-foreground">Career focus</p><Select value={track?.id} onValueChange={setCareer}><SelectTrigger className="mt-2 w-full min-w-60 max-w-full" aria-label="Career focus"><SelectValue /></SelectTrigger><SelectContent>{CAREER_TRACKS.map((t) => <SelectItem key={t.id} value={t.id}>{t.role}</SelectItem>)}</SelectContent></Select></div>
+      <div><p className="text-sm text-muted-foreground">Career focus</p><Select value={track?.id ?? ""} onValueChange={setCareer}><SelectTrigger className="mt-2 w-full min-w-60 max-w-full" aria-label="Career focus"><SelectValue /></SelectTrigger><SelectContent>{CAREER_TRACKS.map((t) => <SelectItem key={t.id} value={t.id}>{t.role}</SelectItem>)}</SelectContent></Select></div>
       <p className="text-xs text-muted-foreground">Skill target <span className="num text-foreground">{STRONG_THRESHOLD}/{SCORE_MAX}</span></p>
     </div>
     <div className="mb-7 grid grid-cols-3 divide-x divide-border border-y border-border py-5">
