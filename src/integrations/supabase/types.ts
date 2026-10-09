@@ -119,6 +119,53 @@ export type Database = {
           },
         ]
       }
+      mentor_assignments: {
+        Row: {
+          created_at: string
+          mentor_id: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          mentor_id: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          mentor_id?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mentor_assignments_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["student_id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       smartcareer_staging: {
         Row: {
           id: number
@@ -134,6 +181,30 @@ export type Database = {
           id?: number
           imported_at?: string
           raw?: Json
+        }
+        Relationships: []
+      }
+      student_accounts: {
+        Row: {
+          complete: boolean
+          profile: Json | null
+          roadmap_done: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          complete?: boolean
+          profile?: Json | null
+          roadmap_done?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          complete?: boolean
+          profile?: Json | null
+          roadmap_done?: Json
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -294,18 +365,44 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      can_view_student: { Args: { _student_id: string }; Returns: boolean }
       get_analytics: {
         Args: { p_branch?: string; p_degree?: string }
         Returns: Json
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "mentor" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -432,6 +529,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "mentor", "admin"],
+    },
   },
 } as const
