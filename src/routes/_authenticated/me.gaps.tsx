@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GapsView } from "@/components/journey/GapsView";
 
-export const Route = createFileRoute("/me/gaps")({
+export const Route = createFileRoute("/_authenticated/me/gaps")({
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },

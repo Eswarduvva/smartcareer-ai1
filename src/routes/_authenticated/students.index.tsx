@@ -11,7 +11,7 @@ const search = z.object({
   page: z.number().int().min(1).optional(),
 });
 
-export const Route = createFileRoute("/students/")({
+export const Route = createFileRoute("/_authenticated/students/")({
   validateSearch: search,
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(studentsQuery({ ...deps, pageSize: 25 })),

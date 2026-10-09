@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 
-export const Route = createFileRoute("/students")({
+export const Route = createFileRoute("/_authenticated/students")({
   component: () => (
     <AppShell>
       <Outlet />

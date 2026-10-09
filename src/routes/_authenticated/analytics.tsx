@@ -9,7 +9,7 @@ import { fmt, skillLabel, GAP_THRESHOLD, STRONG_THRESHOLD } from "@/lib/skills";
 
 const search = z.object({ degree: z.string().optional(), branch: z.string().optional() });
 
-export const Route = createFileRoute("/analytics")({
+export const Route = createFileRoute("/_authenticated/analytics")({
   validateSearch: search,
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(analyticsQuery(deps)),

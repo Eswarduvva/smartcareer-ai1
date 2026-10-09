@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { RoadmapView } from "@/components/journey/RoadmapView";
 
-export const Route = createFileRoute("/me/roadmap")({
+export const Route = createFileRoute("/_authenticated/me/roadmap")({
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },

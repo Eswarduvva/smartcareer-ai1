@@ -5,7 +5,7 @@ import { ErrorState, LoadingState, StudentNotFound } from "@/components/kit";
 import { RecordProvider } from "@/lib/use-record";
 import type { StudentRecord } from "@/lib/api/types";
 
-export const Route = createFileRoute("/students/$id")({
+export const Route = createFileRoute("/_authenticated/students/$id")({
   loader: async ({ context, params }) => {
     const rec = await context.queryClient.ensureQueryData(studentRecordQuery(params.id));
     if (!rec) throw notFound();

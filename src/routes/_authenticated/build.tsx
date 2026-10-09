@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { INTEREST_OPTIONS, ROLE_OPTIONS } from "@/lib/careers";
 import { mockSampleProfileId } from "@/lib/mock";
 
-export const Route = createFileRoute("/build")({
+export const Route = createFileRoute("/_authenticated/build")({
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },

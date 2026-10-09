@@ -4,7 +4,7 @@ import { SkillSpaceLazy } from "@/components/space/SkillSpaceLazy";
 import { useRecord } from "@/lib/use-record";
 import { fmt, GAP_THRESHOLD, GROUPS, SCORE_MAX, scoredSkills, sortDesc } from "@/lib/skills";
 
-export const Route = createFileRoute("/students/$id/")({
+export const Route = createFileRoute("/_authenticated/students/$id/")({
   head: ({ params }) => ({
     meta: [
       { property: "og:type", content: "website" },

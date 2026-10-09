@@ -162,7 +162,7 @@ export function RoadmapView() {
     const saved = toggle(t.id);
     if (!wasDone && s.tasks.every((x) => x.id === t.id || done.includes(x.id))) {
       setBurst(s.id);
-      toast.success(`Milestone complete: ${s.title}`, { description: saved ? "Your progress is saved on this device." : "Keep this page open; device saving is unavailable." });
+      toast.success(`Milestone complete: ${s.title}`, { description: saved ? "Your progress has been saved." : "Keep this page open; device saving is unavailable." });
     }
   };
   return (
@@ -170,7 +170,7 @@ export function RoadmapView() {
       <PageHead eyebrow="Personalized roadmap · rule-based" title={dest ? `Your path to ${dest}` : "Your career roadmap"}>
         <div className="flex items-center gap-4"><ScoreRing value={pct} size={84} label="done" /><p className="text-sm text-muted-foreground" role="status">{doneCount} of {allTasks.length} tasks complete · {pct}%</p></div>
       </PageHead>
-      <div className="mb-8 flex items-start gap-3 border-y border-border py-4 text-xs text-muted-foreground"><HardDrive className="h-4 w-4 shrink-0 text-primary" /><p>{available ? "Progress is saved on this device only, not to your account. It will not sync across devices and is removed if you clear browser storage." : "Device saving is unavailable. Progress will be lost when you leave or reload this page."}</p></div>
+      <div className="mb-8 flex items-start gap-3 border-y border-border py-4 text-xs text-muted-foreground"><HardDrive className="h-4 w-4 shrink-0 text-primary" /><p>{available ? (r.student.student_id === MY_ID ? "Progress is saved to your SmartCareer account and kept on this device for quick loading." : "Progress for this student is saved on this device only, not to their account.") : "Device saving is unavailable. Progress will be lost when you leave or reload this page."}</p></div>
       <ol className="relative max-w-4xl">
         {stages.map((s, i) => {
           const isDone = stageDone(s);

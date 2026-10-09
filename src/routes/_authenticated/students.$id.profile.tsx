@@ -3,7 +3,7 @@ import { PageHead, Tile } from "@/components/kit";
 import { useRecord } from "@/lib/use-record";
 import { fmt } from "@/lib/skills";
 
-export const Route = createFileRoute("/students/$id/profile")({
+export const Route = createFileRoute("/_authenticated/students/$id/profile")({
   head: ({ params }) => ({
     meta: [
       { property: "og:type", content: "website" },

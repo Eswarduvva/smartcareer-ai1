@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MatchView } from "@/components/journey/MatchView";
 
-export const Route = createFileRoute("/me/match")({
+export const Route = createFileRoute("/_authenticated/me/match")({
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },

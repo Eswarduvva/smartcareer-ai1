@@ -6,7 +6,7 @@ import { useRecord } from "@/lib/use-record";
 import { CAREER_TRACKS } from "@/lib/recommend";
 import { fmt, GAP_THRESHOLD, GROUPS, SCORE_MAX, scoredSkills, sortDesc, STRONG_THRESHOLD } from "@/lib/skills";
 
-export const Route = createFileRoute("/me/")({
+export const Route = createFileRoute("/_authenticated/me/")({
   head: () => ({
     meta: [
       { property: "og:type", content: "website" },

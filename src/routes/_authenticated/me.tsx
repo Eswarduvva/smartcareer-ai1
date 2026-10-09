@@ -4,7 +4,7 @@ import { LoadingState } from "@/components/kit";
 import { RecordProvider } from "@/lib/use-record";
 import { toRecord, useMyProfile } from "@/lib/my-profile";
 
-export const Route = createFileRoute("/me")({
+export const Route = createFileRoute("/_authenticated/me")({
   component: MeLayout,
 });
 

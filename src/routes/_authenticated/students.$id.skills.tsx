@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SkillsView } from "@/components/journey/SkillsView";
 
-export const Route = createFileRoute("/students/$id/skills")({
+export const Route = createFileRoute("/_authenticated/students/$id/skills")({
   head: ({ params }) => ({
     meta: [
       { property: "og:type", content: "website" },
