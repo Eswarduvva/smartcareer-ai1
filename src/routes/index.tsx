@@ -6,6 +6,7 @@ import { CAREER_TRACKS } from "@/lib/careers";
 import { mockSampleProfileId } from "@/lib/mock";
 import { ThemeSelector } from "@/components/ThemeSelector";
 import { useReveal } from "@/lib/theme";
+import { SiteFooter } from "@/components/PublicLayout";
 import { useEffect, useRef } from "react";
 import { UserRound, Sparkles, Target, TrendingUp, Route as RouteIcon, ArrowRight, Code2, BarChart3, GraduationCap, Rocket, Trophy } from "lucide-react";
 import hero from "@/assets/hero-landscape.jpg";
@@ -209,15 +210,7 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="flex flex-wrap justify-between gap-4 border-t border-border px-6 py-8 text-xs text-muted-foreground md:px-12">
-        <span>© 2026 SmartCareer · Rule-based career recommendation</span>
-        <span className="flex flex-wrap gap-x-6 gap-y-2">
-          <Link to="/build" className="hover:text-foreground">Build profile</Link>
-          <Link to="/me" className="hover:text-foreground">My results</Link>
-          <Link to="/students" className="hover:text-foreground">Student directory</Link>
-          <Link to="/analytics" className="hover:text-foreground">Platform analytics</Link>
-        </span>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
