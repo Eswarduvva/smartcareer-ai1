@@ -34,7 +34,7 @@ function Users() {
   const mentors = users.filter((u) => u.roles.includes("mentor"));
   const label = (id: string) => { const u = users.find((x) => x.id === id); return u ? u.full_name || u.email : id; };
 
-  async function toggle(u: U, role: string) {
+  async function toggle(u: U, role: string): Promise<unknown> {
     const has = u.roles.includes(role);
     if (has && u.id === me && role === "admin") return toast.error("You can't remove your own admin role.");
     const { error } = has
@@ -43,7 +43,7 @@ function Users() {
     if (error) return toast.error("Role change failed.");
     toast.success(`${has ? "Removed" : "Granted"} ${role}.`); refresh();
   }
-  async function assign(e: React.FormEvent) {
+  async function assign(e: React.FormEvent): Promise<unknown> {
     e.preventDefault();
     const sid = student.trim();
     if (!mentor || !sid) return toast.error("Choose a mentor and enter a student ID.");

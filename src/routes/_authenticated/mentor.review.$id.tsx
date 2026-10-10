@@ -37,7 +37,7 @@ function Review() {
   if (q.error) return <ErrorState error={q.error} />;
   if (!q.data!.allowed) return <EmptyState title="Student not available" body="This student isn't assigned to you, or doesn't exist." />;
 
-  async function add(e: React.FormEvent) {
+  async function add(e: React.FormEvent): Promise<unknown> {
     e.preventDefault();
     const v = text.trim();
     if (v.length < 2 || v.length > 2000) return toast.error("Feedback must be 2–2000 characters.");

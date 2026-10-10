@@ -25,7 +25,7 @@ function AccountPage() {
     db.from("profiles").select("full_name").eq("id", uid).maybeSingle().then(({ data }: { data: { full_name: string | null } | null }) => setName(data?.full_name ?? ""));
   }, [uid]);
 
-  async function saveName(e: React.FormEvent) {
+  async function saveName(e: React.FormEvent): Promise<unknown> {
     e.preventDefault();
     const v = name.trim();
     if (!v || v.length > 120) return toast.error("Name must be 1–120 characters.");
@@ -35,7 +35,7 @@ function AccountPage() {
     error ? toast.error("Could not save your name. Please try again.") : toast.success("Name saved.");
   }
 
-  async function changePassword(e: React.FormEvent<HTMLFormElement>) {
+  async function changePassword(e: React.FormEvent<HTMLFormElement>): Promise<unknown> {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const current = String(f.get("current") ?? "");
