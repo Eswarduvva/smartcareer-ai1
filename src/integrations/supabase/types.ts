@@ -145,6 +145,41 @@ export type Database = {
           },
         ]
       }
+      mentor_feedback: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          mentor_id: string
+          note: string
+          student_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          mentor_id?: string
+          note: string
+          student_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          mentor_id?: string
+          note?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mentor_feedback_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["student_id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -365,6 +400,45 @@ export type Database = {
         }
         Relationships: []
       }
+      support_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          kind: string
+          message: string
+          name: string
+          rating: number | null
+          status: string
+          subject: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          kind: string
+          message: string
+          name: string
+          rating?: number | null
+          status?: string
+          subject?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          kind?: string
+          message?: string
+          name?: string
+          rating?: number | null
+          status?: string
+          subject?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -388,6 +462,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_users: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          roles: string[]
+        }[]
+      }
       can_view_student: { Args: { _student_id: string }; Returns: boolean }
       get_analytics: {
         Args: { p_branch?: string; p_degree?: string }
