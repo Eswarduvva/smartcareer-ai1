@@ -2,27 +2,55 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { ThemeSelector } from "./ThemeSelector";
 
-const INFO = [
-  { to: "/about", label: "About" },
-  { to: "/how-it-works", label: "How it works" },
-  { to: "/faq", label: "FAQ" },
-  { to: "/contact", label: "Contact" },
-  { to: "/feedback", label: "Feedback" },
-  { to: "/privacy", label: "Privacy" },
-  { to: "/terms", label: "Terms" },
+
+const FOOTER_COLS = [
+  { title: "Quick links", links: [
+    { to: "/", label: "Home" }, { to: "/build", label: "Build Profile" }, { to: "/me", label: "My Results" },
+    { to: "/me/gaps", label: "Skill Gaps" }, { to: "/me/roadmap", label: "Career Roadmap" },
+  ] },
+  { title: "Portals", links: [
+    { to: "/me", label: "Student Portal" }, { to: "/mentor", label: "Mentor / Trainer Portal" }, { to: "/admin", label: "Admin / Owner Portal" },
+  ] },
+  { title: "Company", links: [
+    { to: "/about", label: "About SmartCareer" }, { to: "/how-it-works", label: "How It Works" }, { to: "/contact", label: "Contact Us" },
+    { to: "/faq", label: "FAQ" }, { to: "/feedback", label: "Feedback" },
+  ] },
 ] as const;
+
+const linkCls = "text-muted-foreground transition-colors hover:text-gold focus-visible:text-gold outline-none";
 
 export function SiteFooter() {
   return (
-    <footer className="flex flex-wrap justify-between gap-4 border-t border-border px-6 py-8 text-xs text-muted-foreground md:px-12">
-      <span>© 2026 SmartCareer · Rule-based career recommendation</span>
-      <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2">
-        <Link to="/build" className="hover:text-foreground">Build profile</Link>
-        <Link to="/me" className="hover:text-foreground">My results</Link>
-        {INFO.map((l) => (
-          <Link key={l.to} to={l.to} className="hover:text-foreground">{l.label}</Link>
+    <footer className="border-t border-border px-6 pt-14 pb-8 text-sm md:px-12">
+      <div className="mx-auto grid max-w-7xl gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1.2fr_1fr_1.3fr]">
+        <div className="space-y-4">
+          <Link to="/" className="font-display text-2xl tracking-tight text-foreground">Smart<span className="text-gold-gradient italic">Career</span></Link>
+          <p className="max-w-xs leading-relaxed text-muted-foreground">A career guidance platform using rule-based career recommendation to help students understand their skills, explore suitable career paths, and plan their professional growth.</p>
+          <p className="text-xs text-muted-foreground">Operated by Y. Gopi Krishna, Eeswar Duvva and Akhil · Hyderabad, India</p>
+        </div>
+        {FOOTER_COLS.map((c) => (
+          <nav key={c.title} aria-label={c.title}>
+            <p className="eyebrow mb-4 text-gold">{c.title}</p>
+            <ul className="space-y-2.5">
+              {c.links.map((l) => <li key={l.label}><Link to={l.to} className={linkCls}>{l.label}</Link></li>)}
+            </ul>
+          </nav>
         ))}
-      </nav>
+        <nav aria-label="Support and legal">
+          <p className="eyebrow mb-4 text-gold">Support &amp; legal</p>
+          <ul className="space-y-2.5">
+            <li><Link to="/privacy" className={linkCls}>Privacy Policy</Link></li>
+            <li><Link to="/terms" className={linkCls}>Terms &amp; Conditions</Link></li>
+            <li><a href="mailto:y.gopikrishna0214@gmail.com" className={`${linkCls} break-all`}>y.gopikrishna0214@gmail.com</a></li>
+            <li><a href="tel:+917981511588" className={linkCls}>Phone: +91 79815 11588</a></li>
+            <li><a href="https://wa.me/919746463687" target="_blank" rel="noopener noreferrer" className={linkCls}>WhatsApp: +91 97464 63687</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div className="mx-auto mt-12 flex max-w-7xl flex-wrap justify-between gap-3 border-t border-border/60 pt-6 text-xs text-muted-foreground">
+        <span>© {new Date().getFullYear()} SmartCareer. All rights reserved.</span>
+        <span>Rule-based career recommendation</span>
+      </div>
     </footer>
   );
 }
