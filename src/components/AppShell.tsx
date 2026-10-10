@@ -94,9 +94,20 @@ function NavLinks() {
                   {l.label}
                 </Link>
               ))}
+              <Link to="/account" className={linkCls} activeProps={activeCls}>
+                <span className="num w-4 text-[10px] opacity-60">⚙</span>Account settings
+              </Link>
             </div>
             {staff && <div>
               <p className="eyebrow mb-2">{roles?.includes("admin") ? "Admin" : "Mentor"}</p>
+              <Link to="/mentor" className={linkCls} activeProps={activeCls}>
+                Mentor portal
+              </Link>
+              {roles?.includes("admin") && (
+                <Link to="/admin" className={linkCls} activeProps={activeCls}>
+                  Admin portal
+                </Link>
+              )}
               <Link to="/students" className={linkCls} activeProps={activeCls} activeOptions={{ exact: true }}>
                 Student Directory
               </Link>
