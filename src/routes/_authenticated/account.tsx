@@ -25,28 +25,28 @@ function AccountPage() {
     db.from("profiles").select("full_name").eq("id", uid).maybeSingle().then(({ data }: { data: { full_name: string | null } | null }) => setName(data?.full_name ?? ""));
   }, [uid]);
 
-  async function saveName(e: React.FormEvent): Promise<unknown> {
+  async function saveName(e: React.FormEvent) {
     e.preventDefault();
     const v = name.trim();
-    if (!v || v.length > 120) return toast.error("Name must be 1–120 characters.");
+    if (!v || v.length > 120) { toast.error("Name must be 1–120 characters."); return; }
     setBusy(true);
     const { error } = await db.from("profiles").update({ full_name: v, updated_at: new Date().toISOString() }).eq("id", uid);
     setBusy(false);
     error ? toast.error("Could not save your name. Please try again.") : toast.success("Name saved.");
   }
 
-  async function changePassword(e: React.FormEvent<HTMLFormElement>): Promise<unknown> {
+  async function changePassword(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const current = String(f.get("current") ?? "");
     const a = String(f.get("a") ?? "");
     const b = String(f.get("b") ?? "");
-    if (a.length < 8) return toast.error("New password must be at least 8 characters.");
-    if (a !== b) return toast.error("Passwords don't match.");
+    if (a.length < 8) { toast.error("New password must be at least 8 characters."); return; }
+    if (a !== b) { toast.error("Passwords don't match."); return; }
     setBusy(true);
     const { error } = await supabase.auth.updateUser({ password: a, current_password: current } as never);
     setBusy(false);
-    if (error) return toast.error(error.message || "Password not changed.");
+    if (error) { toast.error(error.message || "Password not changed."); return; }
     (e.target as HTMLFormElement).reset();
     toast.success("Password changed.");
   }

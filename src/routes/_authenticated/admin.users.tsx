@@ -34,21 +34,21 @@ function Users() {
   const mentors = users.filter((u) => u.roles.includes("mentor"));
   const label = (id: string) => { const u = users.find((x) => x.id === id); return u ? u.full_name || u.email : id; };
 
-  async function toggle(u: U, role: string): Promise<unknown> {
+  async function toggle(u: U, role: string) {
     const has = u.roles.includes(role);
-    if (has && u.id === me && role === "admin") return toast.error("You can't remove your own admin role.");
+    if (has && u.id === me && role === "admin") { toast.error("You can't remove your own admin role."); return; }
     const { error } = has
       ? await db.from("user_roles").delete().eq("user_id", u.id).eq("role", role)
       : await db.from("user_roles").insert({ user_id: u.id, role });
-    if (error) return toast.error("Role change failed.");
+    if (error) { toast.error("Role change failed."); return; }
     toast.success(`${has ? "Removed" : "Granted"} ${role}.`); refresh();
   }
-  async function assign(e: React.FormEvent): Promise<unknown> {
+  async function assign(e: React.FormEvent) {
     e.preventDefault();
     const sid = student.trim();
-    if (!mentor || !sid) return toast.error("Choose a mentor and enter a student ID.");
+    if (!mentor || !sid) { toast.error("Choose a mentor and enter a student ID."); return; }
     const { error } = await db.from("mentor_assignments").insert({ mentor_id: mentor, student_id: sid });
-    if (error) return toast.error(error.code === "23503" ? "No student with that ID in the dataset." : error.code === "23505" ? "Already assigned." : "Assignment failed.");
+    if (error) { toast.error(error.code === "23503" ? "No student with that ID in the dataset." : error.code === "23505" ? "Already assigned." : "Assignment failed."); return; }
     setStudent(""); toast.success("Student assigned."); refresh();
   }
   async function unassign(a: A) {

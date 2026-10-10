@@ -37,14 +37,14 @@ function Review() {
   if (q.error) return <ErrorState error={q.error} />;
   if (!q.data!.allowed) return <EmptyState title="Student not available" body="This student isn't assigned to you, or doesn't exist." />;
 
-  async function add(e: React.FormEvent): Promise<unknown> {
+  async function add(e: React.FormEvent) {
     e.preventDefault();
     const v = text.trim();
-    if (v.length < 2 || v.length > 2000) return toast.error("Feedback must be 2–2000 characters.");
+    if (v.length < 2 || v.length > 2000) { toast.error("Feedback must be 2–2000 characters."); return; }
     setBusy(true);
     const { error } = await db.from("mentor_feedback").insert({ student_id: id, category: cat, note: v });
     setBusy(false);
-    if (error) return toast.error("Feedback was not saved. Please try again.");
+    if (error) { toast.error("Feedback was not saved. Please try again."); return; }
     setText(""); toast.success("Feedback saved."); qc.invalidateQueries({ queryKey: key });
   }
   async function remove(nid: string) {
