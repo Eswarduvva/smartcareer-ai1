@@ -21,17 +21,25 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
 import { Route as AuthenticatedBuildRouteImport } from './routes/_authenticated/build'
 import { Route as AuthenticatedMeRouteImport } from './routes/_authenticated/me'
+import { Route as AuthenticatedMentorRouteImport } from './routes/_authenticated/mentor'
 import { Route as AuthenticatedStudentsRouteImport } from './routes/_authenticated/students'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedMeIndexRouteImport } from './routes/_authenticated/me.index'
 import { Route as AuthenticatedMeGapsRouteImport } from './routes/_authenticated/me.gaps'
 import { Route as AuthenticatedMeMatchRouteImport } from './routes/_authenticated/me.match'
 import { Route as AuthenticatedMeRoadmapRouteImport } from './routes/_authenticated/me.roadmap'
 import { Route as AuthenticatedMeSkillsRouteImport } from './routes/_authenticated/me.skills'
+import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenticated/mentor.index'
 import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authenticated/students.index'
 import { Route as AuthenticatedStudentsIdRouteImport } from './routes/_authenticated/students.$id'
+import { Route as AuthenticatedMentorReviewIdRouteImport } from './routes/_authenticated/mentor.review.$id'
 import { Route as AuthenticatedStudentsIdIndexRouteImport } from './routes/_authenticated/students.$id.index'
 import { Route as AuthenticatedStudentsIdGapsRouteImport } from './routes/_authenticated/students.$id.gaps'
 import { Route as AuthenticatedStudentsIdMatchRouteImport } from './routes/_authenticated/students.$id.match'
@@ -98,6 +106,16 @@ const UnauthorizedRoute = UnauthorizedRouteImport.update({
   path: '/unauthorized',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -113,10 +131,31 @@ const AuthenticatedMeRoute = AuthenticatedMeRouteImport.update({
   path: '/me',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMentorRoute = AuthenticatedMentorRouteImport.update({
+  id: '/mentor',
+  path: '/mentor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedStudentsRoute = AuthenticatedStudentsRouteImport.update({
   id: '/students',
   path: '/students',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminMessagesRoute =
+  AuthenticatedAdminMessagesRouteImport.update({
+    id: '/messages',
+    path: '/messages',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedMeIndexRoute = AuthenticatedMeIndexRouteImport.update({
   id: '/',
@@ -143,6 +182,12 @@ const AuthenticatedMeSkillsRoute = AuthenticatedMeSkillsRouteImport.update({
   path: '/skills',
   getParentRoute: () => AuthenticatedMeRoute,
 } as any)
+const AuthenticatedMentorIndexRoute =
+  AuthenticatedMentorIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedMentorRoute,
+  } as any)
 const AuthenticatedStudentsIndexRoute =
   AuthenticatedStudentsIndexRouteImport.update({
     id: '/',
@@ -154,6 +199,12 @@ const AuthenticatedStudentsIdRoute = AuthenticatedStudentsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AuthenticatedStudentsRoute,
 } as any)
+const AuthenticatedMentorReviewIdRoute =
+  AuthenticatedMentorReviewIdRouteImport.update({
+    id: '/review/$id',
+    path: '/review/$id',
+    getParentRoute: () => AuthenticatedMentorRoute,
+  } as any)
 const AuthenticatedStudentsIdIndexRoute =
   AuthenticatedStudentsIdIndexRouteImport.update({
     id: '/',
@@ -203,17 +254,25 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/analytics': typeof AuthenticatedAnalyticsRoute
   '/build': typeof AuthenticatedBuildRoute
   '/me': typeof AuthenticatedMeRouteWithChildren
+  '/mentor': typeof AuthenticatedMentorRouteWithChildren
   '/students': typeof AuthenticatedStudentsRouteWithChildren
+  '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/me/gaps': typeof AuthenticatedMeGapsRoute
   '/me/match': typeof AuthenticatedMeMatchRoute
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
   '/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/me/': typeof AuthenticatedMeIndexRoute
+  '/mentor/': typeof AuthenticatedMentorIndexRoute
   '/students/': typeof AuthenticatedStudentsIndexRoute
+  '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
   '/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
@@ -233,14 +292,20 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/account': typeof AuthenticatedAccountRoute
   '/analytics': typeof AuthenticatedAnalyticsRoute
   '/build': typeof AuthenticatedBuildRoute
+  '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/me/gaps': typeof AuthenticatedMeGapsRoute
   '/me/match': typeof AuthenticatedMeMatchRoute
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/me': typeof AuthenticatedMeIndexRoute
+  '/mentor': typeof AuthenticatedMentorIndexRoute
   '/students': typeof AuthenticatedStudentsIndexRoute
+  '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
   '/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
@@ -262,17 +327,25 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
   '/_authenticated/build': typeof AuthenticatedBuildRoute
   '/_authenticated/me': typeof AuthenticatedMeRouteWithChildren
+  '/_authenticated/mentor': typeof AuthenticatedMentorRouteWithChildren
   '/_authenticated/students': typeof AuthenticatedStudentsRouteWithChildren
+  '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/me/gaps': typeof AuthenticatedMeGapsRoute
   '/_authenticated/me/match': typeof AuthenticatedMeMatchRoute
   '/_authenticated/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/_authenticated/me/skills': typeof AuthenticatedMeSkillsRoute
   '/_authenticated/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/me/': typeof AuthenticatedMeIndexRoute
+  '/_authenticated/mentor/': typeof AuthenticatedMentorIndexRoute
   '/_authenticated/students/': typeof AuthenticatedStudentsIndexRoute
+  '/_authenticated/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/_authenticated/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/_authenticated/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
   '/_authenticated/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
@@ -294,17 +367,25 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/unauthorized'
+    | '/account'
+    | '/admin'
     | '/analytics'
     | '/build'
     | '/me'
+    | '/mentor'
     | '/students'
+    | '/admin/messages'
+    | '/admin/users'
     | '/me/gaps'
     | '/me/match'
     | '/me/roadmap'
     | '/me/skills'
     | '/students/$id'
+    | '/admin/'
     | '/me/'
+    | '/mentor/'
     | '/students/'
+    | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
     | '/students/$id/profile'
@@ -324,14 +405,20 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/unauthorized'
+    | '/account'
     | '/analytics'
     | '/build'
+    | '/admin/messages'
+    | '/admin/users'
     | '/me/gaps'
     | '/me/match'
     | '/me/roadmap'
     | '/me/skills'
+    | '/admin'
     | '/me'
+    | '/mentor'
     | '/students'
+    | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
     | '/students/$id/profile'
@@ -352,17 +439,25 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/unauthorized'
+    | '/_authenticated/account'
+    | '/_authenticated/admin'
     | '/_authenticated/analytics'
     | '/_authenticated/build'
     | '/_authenticated/me'
+    | '/_authenticated/mentor'
     | '/_authenticated/students'
+    | '/_authenticated/admin/messages'
+    | '/_authenticated/admin/users'
     | '/_authenticated/me/gaps'
     | '/_authenticated/me/match'
     | '/_authenticated/me/roadmap'
     | '/_authenticated/me/skills'
     | '/_authenticated/students/$id'
+    | '/_authenticated/admin/'
     | '/_authenticated/me/'
+    | '/_authenticated/mentor/'
     | '/_authenticated/students/'
+    | '/_authenticated/mentor/review/$id'
     | '/_authenticated/students/$id/gaps'
     | '/_authenticated/students/$id/match'
     | '/_authenticated/students/$id/profile'
@@ -472,6 +567,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthorizedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/analytics': {
       id: '/_authenticated/analytics'
       path: '/analytics'
@@ -493,12 +602,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mentor': {
+      id: '/_authenticated/mentor'
+      path: '/mentor'
+      fullPath: '/mentor'
+      preLoaderRoute: typeof AuthenticatedMentorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/students': {
       id: '/_authenticated/students'
       path: '/students'
       fullPath: '/students'
       preLoaderRoute: typeof AuthenticatedStudentsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/messages': {
+      id: '/_authenticated/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/me/': {
       id: '/_authenticated/me/'
@@ -535,6 +672,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMeSkillsRouteImport
       parentRoute: typeof AuthenticatedMeRoute
     }
+    '/_authenticated/mentor/': {
+      id: '/_authenticated/mentor/'
+      path: '/'
+      fullPath: '/mentor/'
+      preLoaderRoute: typeof AuthenticatedMentorIndexRouteImport
+      parentRoute: typeof AuthenticatedMentorRoute
+    }
     '/_authenticated/students/': {
       id: '/_authenticated/students/'
       path: '/'
@@ -548,6 +692,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/students/$id'
       preLoaderRoute: typeof AuthenticatedStudentsIdRouteImport
       parentRoute: typeof AuthenticatedStudentsRoute
+    }
+    '/_authenticated/mentor/review/$id': {
+      id: '/_authenticated/mentor/review/$id'
+      path: '/review/$id'
+      fullPath: '/mentor/review/$id'
+      preLoaderRoute: typeof AuthenticatedMentorReviewIdRouteImport
+      parentRoute: typeof AuthenticatedMentorRoute
     }
     '/_authenticated/students/$id/': {
       id: '/_authenticated/students/$id/'
@@ -594,6 +745,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedMeRouteChildren {
   AuthenticatedMeGapsRoute: typeof AuthenticatedMeGapsRoute
   AuthenticatedMeMatchRoute: typeof AuthenticatedMeMatchRoute
@@ -613,6 +779,19 @@ const AuthenticatedMeRouteChildren: AuthenticatedMeRouteChildren = {
 const AuthenticatedMeRouteWithChildren = AuthenticatedMeRoute._addFileChildren(
   AuthenticatedMeRouteChildren,
 )
+
+interface AuthenticatedMentorRouteChildren {
+  AuthenticatedMentorIndexRoute: typeof AuthenticatedMentorIndexRoute
+  AuthenticatedMentorReviewIdRoute: typeof AuthenticatedMentorReviewIdRoute
+}
+
+const AuthenticatedMentorRouteChildren: AuthenticatedMentorRouteChildren = {
+  AuthenticatedMentorIndexRoute: AuthenticatedMentorIndexRoute,
+  AuthenticatedMentorReviewIdRoute: AuthenticatedMentorReviewIdRoute,
+}
+
+const AuthenticatedMentorRouteWithChildren =
+  AuthenticatedMentorRoute._addFileChildren(AuthenticatedMentorRouteChildren)
 
 interface AuthenticatedStudentsIdRouteChildren {
   AuthenticatedStudentsIdGapsRoute: typeof AuthenticatedStudentsIdGapsRoute
@@ -654,16 +833,22 @@ const AuthenticatedStudentsRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
   AuthenticatedBuildRoute: typeof AuthenticatedBuildRoute
   AuthenticatedMeRoute: typeof AuthenticatedMeRouteWithChildren
+  AuthenticatedMentorRoute: typeof AuthenticatedMentorRouteWithChildren
   AuthenticatedStudentsRoute: typeof AuthenticatedStudentsRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
   AuthenticatedBuildRoute: AuthenticatedBuildRoute,
   AuthenticatedMeRoute: AuthenticatedMeRouteWithChildren,
+  AuthenticatedMentorRoute: AuthenticatedMentorRouteWithChildren,
   AuthenticatedStudentsRoute: AuthenticatedStudentsRouteWithChildren,
 }
 
