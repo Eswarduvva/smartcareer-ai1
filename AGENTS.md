@@ -25,3 +25,5 @@
 
 - Career comparisons and skill exploration consume the active RecordProvider and existing ranking rules; education text is catalog guidance, not eligibility scoring. Why: preserve recorded recommendations and avoid invented personal scores.
 - Roadmap completion retains per-student device storage keys until the API adapter supports progress writes; collapsed stages and tasks unmount their controls. Why: preserve saved progress and keep hidden controls out of keyboard navigation.
+- Public info pages share `src/components/PublicLayout.tsx` (header, footer, `publicHead`); contact/feedback write to `support_messages` (anon insert-only, admin read). Why: one footer and an honest, stored submission path.
+- Mentor portal is `/mentor/*` (mentor or admin) and admin portal `/admin/*` (admin), guarded by `requireAnyRole` in `src/lib/role-guard.ts`; role grants, mentor assignments and the user list (`admin_list_users`) are allowed only by admin RLS/definer checks. Why: navigation hides, the database enforces.
