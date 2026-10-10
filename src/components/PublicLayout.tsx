@@ -6,7 +6,7 @@ import { ThemeSelector } from "./ThemeSelector";
 const FOOTER_COLS = [
   { title: "Quick links", links: [
     { to: "/", label: "Home" }, { to: "/build", label: "Build Profile" }, { to: "/me", label: "My Results" },
-    { to: "/me/gaps", label: "Skill Gaps" }, { to: "/me/roadmap", label: "Career Roadmap" }, { to: "/learn", label: "Learning" },
+    { to: "/me/gaps", label: "Skill Gaps" }, { to: "/me/roadmap", label: "Career Roadmap" },
   ] },
   { title: "Portals", links: [
     { to: "/me", label: "Student Portal" }, { to: "/mentor", label: "Mentor / Trainer Portal" }, { to: "/admin", label: "Admin / Owner Portal" },
