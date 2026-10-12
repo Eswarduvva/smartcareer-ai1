@@ -23,7 +23,7 @@ function ExploreVideos() {
             <h2 className="text-xl tracking-normal">{video.title}</h2>
             <p className="mt-3 text-xs text-muted-foreground">{video.provider}</p>
             <p className="mb-6 mt-4 text-sm leading-relaxed text-muted-foreground">{video.description}</p>
-            <Button asChild className="mt-auto self-start"><Link to="/learn/watch/" search={{ video: video.id }}>Watch lesson <ArrowRight aria-hidden="true" /></Link></Button>
+            <Button asChild className="mt-auto self-start"><Link to="/learn/watch" search={{ video: video.id }}>Watch lesson <ArrowRight aria-hidden="true" /></Link></Button>
           </li>
         ))}
       </ul>
