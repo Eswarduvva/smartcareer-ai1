@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
+- Educational video pages share a static, source-verified catalog and LearnLayout; lesson selection uses URL search state without account storage. Why: keep watch and explore navigation consistent without backend integration.
 - Data flows only through `src/lib/api/` (ApiAdapter); demo records live only in `src/lib/mock/` and are read solely by the preview adapter. The source is chosen at build time in `client.ts`, never as a runtime fallback. Why: connecting a real backend means swapping the adapter, not rewriting pages.
 - Cohort analytics are computed in the database by `get_analytics(degree, branch)`. Why: no totals hardcoded or computed over partial client data.
 - Cohort tables are readable only by admins or assigned mentors (`can_view_student`); roles live in `user_roles`, granted server-side only, signups default to student. Why: access must be enforced by the database, not navigation.
