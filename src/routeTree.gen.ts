@@ -28,6 +28,7 @@ import { Route as AuthenticatedBuildRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedMeRouteImport } from './routes/_authenticated/me'
 import { Route as AuthenticatedMentorRouteImport } from './routes/_authenticated/mentor'
 import { Route as AuthenticatedStudentsRouteImport } from './routes/_authenticated/students'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
@@ -39,6 +40,7 @@ import { Route as AuthenticatedMeSkillsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenticated/mentor.index'
 import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authenticated/students.index'
 import { Route as AuthenticatedStudentsIdRouteImport } from './routes/_authenticated/students.$id'
+import { Route as LearnWatchIndexRouteImport } from './routes/learn.watch.index'
 import { Route as AuthenticatedMentorReviewIdRouteImport } from './routes/_authenticated/mentor.review.$id'
 import { Route as AuthenticatedStudentsIdIndexRouteImport } from './routes/_authenticated/students.$id.index'
 import { Route as AuthenticatedStudentsIdGapsRouteImport } from './routes/_authenticated/students.$id.gaps'
@@ -141,6 +143,11 @@ const AuthenticatedStudentsRoute = AuthenticatedStudentsRouteImport.update({
   path: '/students',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/learn/',
+  path: '/learn/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -198,6 +205,11 @@ const AuthenticatedStudentsIdRoute = AuthenticatedStudentsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => AuthenticatedStudentsRoute,
+} as any)
+const LearnWatchIndexRoute = LearnWatchIndexRouteImport.update({
+  id: '/learn/watch/',
+  path: '/learn/watch/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedMentorReviewIdRoute =
   AuthenticatedMentorReviewIdRouteImport.update({
@@ -261,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/me': typeof AuthenticatedMeRouteWithChildren
   '/mentor': typeof AuthenticatedMentorRouteWithChildren
   '/students': typeof AuthenticatedStudentsRouteWithChildren
+  '/learn/': typeof LearnIndexRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/me/gaps': typeof AuthenticatedMeGapsRoute
@@ -272,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/me/': typeof AuthenticatedMeIndexRoute
   '/mentor/': typeof AuthenticatedMentorIndexRoute
   '/students/': typeof AuthenticatedStudentsIndexRoute
+  '/learn/watch/': typeof LearnWatchIndexRoute
   '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
@@ -295,6 +309,7 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountRoute
   '/analytics': typeof AuthenticatedAnalyticsRoute
   '/build': typeof AuthenticatedBuildRoute
+  '/learn': typeof LearnIndexRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/me/gaps': typeof AuthenticatedMeGapsRoute
@@ -305,6 +320,7 @@ export interface FileRoutesByTo {
   '/me': typeof AuthenticatedMeIndexRoute
   '/mentor': typeof AuthenticatedMentorIndexRoute
   '/students': typeof AuthenticatedStudentsIndexRoute
+  '/learn/watch': typeof LearnWatchIndexRoute
   '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
@@ -334,6 +350,7 @@ export interface FileRoutesById {
   '/_authenticated/me': typeof AuthenticatedMeRouteWithChildren
   '/_authenticated/mentor': typeof AuthenticatedMentorRouteWithChildren
   '/_authenticated/students': typeof AuthenticatedStudentsRouteWithChildren
+  '/learn/': typeof LearnIndexRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/me/gaps': typeof AuthenticatedMeGapsRoute
@@ -345,6 +362,7 @@ export interface FileRoutesById {
   '/_authenticated/me/': typeof AuthenticatedMeIndexRoute
   '/_authenticated/mentor/': typeof AuthenticatedMentorIndexRoute
   '/_authenticated/students/': typeof AuthenticatedStudentsIndexRoute
+  '/learn/watch/': typeof LearnWatchIndexRoute
   '/_authenticated/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/_authenticated/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/_authenticated/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
@@ -374,6 +392,7 @@ export interface FileRouteTypes {
     | '/me'
     | '/mentor'
     | '/students'
+    | '/learn/'
     | '/admin/messages'
     | '/admin/users'
     | '/me/gaps'
@@ -385,6 +404,7 @@ export interface FileRouteTypes {
     | '/me/'
     | '/mentor/'
     | '/students/'
+    | '/learn/watch/'
     | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -408,6 +428,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/analytics'
     | '/build'
+    | '/learn'
     | '/admin/messages'
     | '/admin/users'
     | '/me/gaps'
@@ -418,6 +439,7 @@ export interface FileRouteTypes {
     | '/me'
     | '/mentor'
     | '/students'
+    | '/learn/watch'
     | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -446,6 +468,7 @@ export interface FileRouteTypes {
     | '/_authenticated/me'
     | '/_authenticated/mentor'
     | '/_authenticated/students'
+    | '/learn/'
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/users'
     | '/_authenticated/me/gaps'
@@ -457,6 +480,7 @@ export interface FileRouteTypes {
     | '/_authenticated/me/'
     | '/_authenticated/mentor/'
     | '/_authenticated/students/'
+    | '/learn/watch/'
     | '/_authenticated/mentor/review/$id'
     | '/_authenticated/students/$id/gaps'
     | '/_authenticated/students/$id/match'
@@ -479,6 +503,8 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermsRoute: typeof TermsRoute
   UnauthorizedRoute: typeof UnauthorizedRoute
+  LearnIndexRoute: typeof LearnIndexRoute
+  LearnWatchIndexRoute: typeof LearnWatchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -616,6 +642,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStudentsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/learn/': {
+      id: '/learn/'
+      path: '/learn'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -692,6 +725,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/students/$id'
       preLoaderRoute: typeof AuthenticatedStudentsIdRouteImport
       parentRoute: typeof AuthenticatedStudentsRoute
+    }
+    '/learn/watch/': {
+      id: '/learn/watch/'
+      path: '/learn/watch'
+      fullPath: '/learn/watch/'
+      preLoaderRoute: typeof LearnWatchIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/mentor/review/$id': {
       id: '/_authenticated/mentor/review/$id'
@@ -868,6 +908,8 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   TermsRoute: TermsRoute,
   UnauthorizedRoute: UnauthorizedRoute,
+  LearnIndexRoute: LearnIndexRoute,
+  LearnWatchIndexRoute: LearnWatchIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
