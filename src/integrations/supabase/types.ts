@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_invites: {
+        Row: {
+          claimed_at: string | null
+          created_at: string
+          email: string
+          invited_by: string | null
+        }
+        Insert: {
+          claimed_at?: string | null
+          created_at?: string
+          email: string
+          invited_by?: string | null
+        }
+        Update: {
+          claimed_at?: string | null
+          created_at?: string
+          email?: string
+          invited_by?: string | null
+        }
+        Relationships: []
+      }
       career_goals: {
         Row: {
           career_goal: string | null
@@ -477,6 +498,7 @@ export type Database = {
         Args: { p_branch?: string; p_degree?: string }
         Returns: Json
       }
+      get_data_quality: { Args: never; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
