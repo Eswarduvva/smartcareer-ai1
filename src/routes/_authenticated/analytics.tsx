@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { AppShell } from "@/components/AppShell";
 import { EmptyState, ErrorState, LoadingState, PageHead } from "@/components/kit";
+import { DataQuality } from "@/components/admin/DataQuality";
 import { analyticsQuery } from "@/lib/api/queries";
 import { fmt, skillLabel, GAP_THRESHOLD, STRONG_THRESHOLD } from "@/lib/skills";
 
@@ -73,6 +74,8 @@ function Analytics() {
           <Select label="Branch" value={s.branch} options={a.branches ?? []} onChange={(branch) => navigate({ search: (p) => ({ ...p, branch }) })} />
         </div>
       </PageHead>
+
+      <DataQuality />
 
       {a.student_count === 0 ? (
         <EmptyState title="No students match these filters" body="Try clearing the degree or branch filter." />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { EmptyState, ErrorState, LoadingState, PageHead } from "@/components/kit";
 import { db } from "@/lib/auth";
+import { AdminInvites } from "@/components/admin/AdminInvites";
 
 export const Route = createFileRoute("/_authenticated/admin/users")({
   head: () => ({ meta: [{ title: "Users & roles — SmartCareer" }, { name: "description", content: "Grant roles and assign students to mentors." }, { property: "og:title", content: "Users & roles — SmartCareer" }, { property: "og:description", content: "User and role management." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
@@ -99,6 +100,7 @@ function Users() {
           ))}
         </ul>
       )}
+      <AdminInvites />
     </>
   );
 }
