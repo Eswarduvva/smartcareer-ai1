@@ -33,7 +33,9 @@ export const supabaseAdapter: ApiAdapter = {
   async listStudents(p) {
     const size = p.pageSize ?? 25;
     const page = p.page ?? 1;
-    let q = supabase.from("students").select("*", { count: "exact" });
+    let q = supabase
+      .from("students")
+      .select("*, career_recommendations(recommended_role, career_match_score), career_goals(career_readiness_score)", { count: "exact" });
     if (p.q) {
       const t = p.q.replace(/[,%()]/g, " ").trim();
       if (t) q = q.or(`student_id.ilike.%${t}%,branch.ilike.%${t}%,city.ilike.%${t}%,degree.ilike.%${t}%`);
@@ -44,7 +46,20 @@ export const supabaseAdapter: ApiAdapter = {
     const { data, error, count } = await q.order("student_id").range((page - 1) * size, page * size - 1);
     if (error) fail(error);
     return {
-      items: (data ?? []).map((s) => ({ ...s, cgpa: num(s.cgpa), readiness: null, match: null, role: null, top_skills: [], gap_count: null })),
+      items: (data ?? []).map((row) => {
+        const { career_recommendations, career_goals, ...s } = row as Record<string, unknown> & typeof row;
+        const rec = one(career_recommendations as never) as { recommended_role?: string; career_match_score?: unknown } | null;
+        const g = one(career_goals as never) as { career_readiness_score?: unknown } | null;
+        return {
+          ...(s as typeof row),
+          cgpa: num(s.cgpa),
+          readiness: num(g?.career_readiness_score),
+          match: num(rec?.career_match_score),
+          role: rec?.recommended_role ?? null,
+          top_skills: [],
+          gap_count: null,
+        };
+      }),
       total: count ?? 0,
       page,
       pageSize: size,
