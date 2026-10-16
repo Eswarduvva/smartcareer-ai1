@@ -8,6 +8,7 @@ export const Route = createFileRoute("/unauthorized")({
       <div className="flex flex-wrap gap-4">
         <Link to="/me" className="border border-foreground bg-foreground px-6 py-3 font-mono text-xs uppercase tracking-wider text-background hover:bg-transparent hover:text-foreground">Go to my dashboard</Link>
         <Link to="/contact" className="border border-border px-6 py-3 font-mono text-xs uppercase tracking-wider hover:border-foreground">Contact support</Link>
+        <Link to="/setup-admin" className="border border-border px-6 py-3 font-mono text-xs uppercase tracking-wider hover:border-foreground">Project owner? Set up admin</Link>
       </div>
     </PublicLayout>
   ),
