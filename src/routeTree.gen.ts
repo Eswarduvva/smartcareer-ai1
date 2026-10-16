@@ -27,6 +27,7 @@ import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authentica
 import { Route as AuthenticatedBuildRouteImport } from './routes/_authenticated/build'
 import { Route as AuthenticatedMeRouteImport } from './routes/_authenticated/me'
 import { Route as AuthenticatedMentorRouteImport } from './routes/_authenticated/mentor'
+import { Route as AuthenticatedSetupAdminRouteImport } from './routes/_authenticated/setup-admin'
 import { Route as AuthenticatedStudentsRouteImport } from './routes/_authenticated/students'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -136,6 +137,11 @@ const AuthenticatedMeRoute = AuthenticatedMeRouteImport.update({
 const AuthenticatedMentorRoute = AuthenticatedMentorRouteImport.update({
   id: '/mentor',
   path: '/mentor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSetupAdminRoute = AuthenticatedSetupAdminRouteImport.update({
+  id: '/setup-admin',
+  path: '/setup-admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedStudentsRoute = AuthenticatedStudentsRouteImport.update({
@@ -272,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/build': typeof AuthenticatedBuildRoute
   '/me': typeof AuthenticatedMeRouteWithChildren
   '/mentor': typeof AuthenticatedMentorRouteWithChildren
+  '/setup-admin': typeof AuthenticatedSetupAdminRoute
   '/students': typeof AuthenticatedStudentsRouteWithChildren
   '/learn/': typeof LearnIndexRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
@@ -309,6 +316,7 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountRoute
   '/analytics': typeof AuthenticatedAnalyticsRoute
   '/build': typeof AuthenticatedBuildRoute
+  '/setup-admin': typeof AuthenticatedSetupAdminRoute
   '/learn': typeof LearnIndexRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -349,6 +357,7 @@ export interface FileRoutesById {
   '/_authenticated/build': typeof AuthenticatedBuildRoute
   '/_authenticated/me': typeof AuthenticatedMeRouteWithChildren
   '/_authenticated/mentor': typeof AuthenticatedMentorRouteWithChildren
+  '/_authenticated/setup-admin': typeof AuthenticatedSetupAdminRoute
   '/_authenticated/students': typeof AuthenticatedStudentsRouteWithChildren
   '/learn/': typeof LearnIndexRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
@@ -391,6 +400,7 @@ export interface FileRouteTypes {
     | '/build'
     | '/me'
     | '/mentor'
+    | '/setup-admin'
     | '/students'
     | '/learn/'
     | '/admin/messages'
@@ -428,6 +438,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/analytics'
     | '/build'
+    | '/setup-admin'
     | '/learn'
     | '/admin/messages'
     | '/admin/users'
@@ -467,6 +478,7 @@ export interface FileRouteTypes {
     | '/_authenticated/build'
     | '/_authenticated/me'
     | '/_authenticated/mentor'
+    | '/_authenticated/setup-admin'
     | '/_authenticated/students'
     | '/learn/'
     | '/_authenticated/admin/messages'
@@ -633,6 +645,13 @@ declare module '@tanstack/react-router' {
       path: '/mentor'
       fullPath: '/mentor'
       preLoaderRoute: typeof AuthenticatedMentorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/setup-admin': {
+      id: '/_authenticated/setup-admin'
+      path: '/setup-admin'
+      fullPath: '/setup-admin'
+      preLoaderRoute: typeof AuthenticatedSetupAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/students': {
@@ -879,6 +898,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBuildRoute: typeof AuthenticatedBuildRoute
   AuthenticatedMeRoute: typeof AuthenticatedMeRouteWithChildren
   AuthenticatedMentorRoute: typeof AuthenticatedMentorRouteWithChildren
+  AuthenticatedSetupAdminRoute: typeof AuthenticatedSetupAdminRoute
   AuthenticatedStudentsRoute: typeof AuthenticatedStudentsRouteWithChildren
 }
 
@@ -889,6 +909,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBuildRoute: AuthenticatedBuildRoute,
   AuthenticatedMeRoute: AuthenticatedMeRouteWithChildren,
   AuthenticatedMentorRoute: AuthenticatedMentorRouteWithChildren,
+  AuthenticatedSetupAdminRoute: AuthenticatedSetupAdminRoute,
   AuthenticatedStudentsRoute: AuthenticatedStudentsRouteWithChildren,
 }
 
