@@ -1,0 +1,22 @@
+import { z } from 'zod';
+import { SKILL_KEYS } from '@/lib/skills';
+const skill = z.string().refine(v => SKILL_KEYS.some(k => k === v), 'Choose a valid skill');
+export const questionSchema = z.object({ prompt: z.string().trim().min(1).max(1000), options: z.array(z.string().trim().min(1).max(500)).min(2).max(6) });
+export const activitySchema = z.object({ title: z.string().trim().min(1).max(160), description: z.string().trim().min(1).max(4000), skill, difficulty: z.enum(['beginner','intermediate','advanced']), career: z.string().max(100), kind: z.enum(['lesson','quiz','coding','assignment','project']), resource_id: z.string().uuid().or(z.literal('')).default(''), content: z.object({ questions: z.array(questionSchema).max(30).optional(), rubric: z.string().max(4000).optional() }), answers: z.array(z.number().int().min(0).max(5)).optional(), points: z.number().int().min(0).max(1000), evidence_weight: z.number().positive().max(10), due_at: z.string().datetime().or(z.literal('')).default('') }).superRefine((a,c) => {
+ if(a.kind==='quiz' && (!a.content.questions?.length || a.answers?.length!==a.content.questions.length || a.answers?.some((n,i)=>n >= (a.content.questions?.[i]?.options.length ?? 0)))) c.addIssue({code:'custom',message:'Quiz answers must match every question'});
+ if(['coding','assignment','project'].includes(a.kind) && !a.content.rubric?.trim()) c.addIssue({code:'custom',message:'A review rubric is required'});
+});
+const https = z.string().url().max(2000).refine(v=>new URL(v).protocol==='https:','Use an HTTPS link');
+export const adminSchema=z.discriminatedUnion('command',[
+ z.object({command:z.literal('link'),data:z.object({user_id:z.string().uuid(),student_id:z.string().trim().min(1).max(40)})}),
+ z.object({command:z.literal('resource'),data:z.object({title:z.string().trim().min(1).max(160),provider:z.string().trim().min(1).max(120),url:https})}),
+ z.object({command:z.literal('activity'),data:activitySchema}),
+ z.object({command:z.literal('session'),data:z.object({title:z.string().trim().min(1).max(160),starts_at:z.string().datetime(),ends_at:z.string().datetime(),meeting_url:https.or(z.literal(''))}).refine(v=>v.ends_at>v.starts_at,'End must follow start')}),
+ z.object({command:z.literal('attendance'),data:z.object({user_id:z.string().uuid(),session_id:z.string().uuid()})}),
+ z.object({command:z.literal('policy'),data:z.object({mastery_weight:z.number().min(0).max(1),assessment_weight:z.number().min(0).max(1),project_weight:z.number().min(0).max(1),project_target:z.number().int().min(1).max(100)}).refine(v=>Math.abs(v.mastery_weight+v.assessment_weight+v.project_weight-1)<0.00001,'Weights must total 1')})
+]);
+export const submitSchema=z.object({activity:z.string().uuid(),submission:z.object({reflection:z.string().trim().max(4000).optional(),work:z.string().trim().max(12000).optional(),answers:z.record(z.string(),z.number().int().min(0).max(5)).optional()})});
+export const gradeSchema=z.object({progress:z.string().uuid(),score:z.number().min(0).max(100),feedback:z.string().trim().min(1).max(4000)});
+export const snapshotSchema=z.object({user_id:z.string(),student_id:z.string().nullable(),baseline:z.record(z.string(),z.unknown()),goal:z.string().nullable(),baseline_source:z.string(),activities:z.array(activitySchema.innerType().omit({answers:true,due_at:true}).extend({id:z.string(),due_at:z.string().nullable(),created_at:z.string()})),resources:z.array(z.object({id:z.string(),title:z.string(),provider:z.string(),url:https})),progress:z.array(z.object({id:z.string(),user_id:z.string(),activity_id:z.string(),submission:z.record(z.string(),z.unknown()),status:z.string(),points:z.number(),created_at:z.string()})),assessments:z.array(z.object({id:z.string(),progress_id:z.string(),skill:z.string(),score:z.number(),weight:z.number(),feedback:z.string(),created_at:z.string()})),history:z.array(z.object({id:z.string(),skill:z.string(),score:z.number(),created_at:z.string()})),sessions:z.array(z.object({id:z.string(),title:z.string(),starts_at:z.string(),ends_at:z.string(),meeting_url:z.string().nullable()})),attendance:z.array(z.object({id:z.string(),session_id:z.string(),created_at:z.string()})),policy:z.object({version:z.number(),mastery_weight:z.number(),assessment_weight:z.number(),project_weight:z.number(),project_target:z.number()})});
+export type LearningSnapshot=z.infer<typeof snapshotSchema>;
+export type LearningActivity=LearningSnapshot['activities'][number];
