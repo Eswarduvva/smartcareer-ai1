@@ -29,6 +29,13 @@
       "when": 1792148002819,
       "tag": "0003_admin_invites_and_data_quality",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792233966798,
+      "tag": "0004_learning_activities_private_evidence",
+      "breakpoints": true
     }
   ]
 }
