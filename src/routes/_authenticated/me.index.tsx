@@ -154,6 +154,7 @@ function Intelligence() {
         <Link to="/me/match" className="hover:text-primary">Career match →</Link>
         <Link to="/me/gaps" className="hover:text-primary">Skill gaps →</Link>
         <Link to="/me/roadmap" className="hover:text-primary">Roadmap →</Link>
+        <Link to="/learning" className="hover:text-primary">Learning & Activities →</Link>
       </nav>
     </div>
   );

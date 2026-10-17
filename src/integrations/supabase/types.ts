@@ -140,6 +140,261 @@ export type Database = {
           },
         ]
       }
+      class_attendance: {
+        Row: {
+          created_at: string
+          id: string
+          recorded_by: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recorded_by: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recorded_by?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "class_attendance_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "class_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      class_sessions: {
+        Row: {
+          created_by: string
+          ends_at: string
+          id: string
+          meeting_url: string | null
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          created_by: string
+          ends_at: string
+          id?: string
+          meeting_url?: string | null
+          starts_at: string
+          title: string
+        }
+        Update: {
+          created_by?: string
+          ends_at?: string
+          id?: string
+          meeting_url?: string | null
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      learning_account_links: {
+        Row: {
+          approved_at: string
+          approved_by: string
+          student_id: string
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string
+          approved_by: string
+          student_id: string
+          user_id: string
+        }
+        Update: {
+          approved_at?: string
+          approved_by?: string
+          student_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_account_links_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: true
+            referencedRelation: "students"
+            referencedColumns: ["student_id"]
+          },
+          {
+            foreignKeyName: "learning_account_links_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_activities: {
+        Row: {
+          career: string
+          content: Json
+          created_at: string
+          created_by: string
+          description: string
+          difficulty: string
+          due_at: string | null
+          evidence_weight: number
+          id: string
+          kind: string
+          points: number
+          resource_id: string | null
+          skill: string
+          title: string
+        }
+        Insert: {
+          career: string
+          content?: Json
+          created_at?: string
+          created_by: string
+          description: string
+          difficulty: string
+          due_at?: string | null
+          evidence_weight?: number
+          id?: string
+          kind: string
+          points?: number
+          resource_id?: string | null
+          skill: string
+          title: string
+        }
+        Update: {
+          career?: string
+          content?: Json
+          created_at?: string
+          created_by?: string
+          description?: string
+          difficulty?: string
+          due_at?: string | null
+          evidence_weight?: number
+          id?: string
+          kind?: string
+          points?: number
+          resource_id?: string | null
+          skill?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_activities_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "learning_resources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_answer_keys: {
+        Row: {
+          activity_id: string
+          answers: Json
+        }
+        Insert: {
+          activity_id: string
+          answers: Json
+        }
+        Update: {
+          activity_id?: string
+          answers?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_answer_keys_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: true
+            referencedRelation: "learning_activities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_link_audit: {
+        Row: {
+          approved_by: string
+          created_at: string
+          id: string
+          student_id: string
+          user_id: string
+        }
+        Insert: {
+          approved_by: string
+          created_at?: string
+          id?: string
+          student_id: string
+          user_id: string
+        }
+        Update: {
+          approved_by?: string
+          created_at?: string
+          id?: string
+          student_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      learning_resources: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          provider: string
+          title: string
+          url: string
+          verified: boolean
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          id?: string
+          provider: string
+          title: string
+          url: string
+          verified?: boolean
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          provider?: string
+          title?: string
+          url?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
+      learning_scoring_policies: {
+        Row: {
+          assessment_weight: number
+          mastery_weight: number
+          project_target: number
+          project_weight: number
+          version: number
+        }
+        Insert: {
+          assessment_weight?: number
+          mastery_weight?: number
+          project_target?: number
+          project_weight?: number
+          version?: number
+        }
+        Update: {
+          assessment_weight?: number
+          mastery_weight?: number
+          project_target?: number
+          project_weight?: number
+          version?: number
+        }
+        Relationships: []
+      }
       mentor_assignments: {
         Row: {
           created_at: string
@@ -222,6 +477,53 @@ export type Database = {
         }
         Relationships: []
       }
+      skill_assessment_results: {
+        Row: {
+          created_at: string
+          feedback: string
+          graded_by: string
+          id: string
+          policy_version: number
+          progress_id: string
+          score: number
+          skill: string
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          created_at?: string
+          feedback: string
+          graded_by: string
+          id?: string
+          policy_version: number
+          progress_id: string
+          score: number
+          skill: string
+          user_id: string
+          weight: number
+        }
+        Update: {
+          created_at?: string
+          feedback?: string
+          graded_by?: string
+          id?: string
+          policy_version?: number
+          progress_id?: string
+          score?: number
+          skill?: string
+          user_id?: string
+          weight?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "skill_assessment_results_progress_id_fkey"
+            columns: ["progress_id"]
+            isOneToOne: true
+            referencedRelation: "student_activity_progress"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       smartcareer_staging: {
         Row: {
           id: number
@@ -264,6 +566,44 @@ export type Database = {
         }
         Relationships: []
       }
+      student_activity_progress: {
+        Row: {
+          activity_id: string
+          created_at: string
+          id: string
+          points: number
+          status: string
+          submission: Json
+          user_id: string
+        }
+        Insert: {
+          activity_id: string
+          created_at?: string
+          id?: string
+          points?: number
+          status?: string
+          submission: Json
+          user_id: string
+        }
+        Update: {
+          activity_id?: string
+          created_at?: string
+          id?: string
+          points?: number
+          status?: string
+          submission?: Json
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_activity_progress_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "learning_activities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       student_experience: {
         Row: {
           certification_count: number | null
@@ -293,6 +633,44 @@ export type Database = {
             isOneToOne: true
             referencedRelation: "students"
             referencedColumns: ["student_id"]
+          },
+        ]
+      }
+      student_skill_history: {
+        Row: {
+          assessment_id: string
+          created_at: string
+          id: string
+          policy_version: number
+          score: number
+          skill: string
+          user_id: string
+        }
+        Insert: {
+          assessment_id: string
+          created_at?: string
+          id?: string
+          policy_version: number
+          score: number
+          skill: string
+          user_id: string
+        }
+        Update: {
+          assessment_id?: string
+          created_at?: string
+          id?: string
+          policy_version?: number
+          score?: number
+          skill?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_skill_history_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: true
+            referencedRelation: "skill_assessment_results"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -493,6 +871,7 @@ export type Database = {
           roles: string[]
         }[]
       }
+      can_read_learning: { Args: { p_user: string }; Returns: boolean }
       can_view_student: { Args: { _student_id: string }; Returns: boolean }
       get_analytics: {
         Args: { p_branch?: string; p_degree?: string }
@@ -505,6 +884,19 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      learning_admin: {
+        Args: { p_command: string; p_data: Json }
+        Returns: string
+      }
+      learning_grade: {
+        Args: { p_feedback: string; p_progress: string; p_score: number }
+        Returns: string
+      }
+      learning_snapshot: { Args: { p_user?: string }; Returns: Json }
+      learning_submit: {
+        Args: { p_activity: string; p_submission: Json }
+        Returns: string
       }
     }
     Enums: {

@@ -21,6 +21,7 @@ const JOURNEY = [
   { to: "/me/match", label: "Career Match", exact: false },
   { to: "/me/gaps", label: "Skill Gaps", exact: false },
   { to: "/me/roadmap", label: "Roadmap", exact: false },
+  { to: "/learning", label: "Learning & Activities", exact: false },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -103,6 +104,7 @@ function NavLinks() {
               <Link to="/mentor" className={linkCls} activeProps={activeCls}>
                 Mentor portal
               </Link>
+              <Link to="/mentor/learning" className={linkCls} activeProps={activeCls}>Learning reviews</Link>
               {roles?.includes("admin") && (
                 <Link to="/admin" className={linkCls} activeProps={activeCls}>
                   Admin portal
@@ -111,6 +113,7 @@ function NavLinks() {
               <Link to="/students" className={linkCls} activeProps={activeCls} activeOptions={{ exact: true }}>
                 Student Directory
               </Link>
+              {roles?.includes("admin") && <Link to="/admin/learning" className={linkCls} activeProps={activeCls}>Learning management</Link>}
               <Link to="/analytics" className={linkCls} activeProps={activeCls}>
                 Platform Analytics
               </Link>

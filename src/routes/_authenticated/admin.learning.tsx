@@ -1,0 +1,3 @@
+import {createFileRoute} from '@tanstack/react-router';
+import {LearningManagement} from '@/components/learn/LearningManagement';
+export const Route=createFileRoute('/_authenticated/admin/learning')({head:()=>({meta:[{title:'Learning administration — SmartCareer'},{name:'description',content:'Manage verified resources, activities, account links and assessments.'},{property:'og:title',content:'Learning administration — SmartCareer'},{property:'og:description',content:'Private learning management for administrators.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]}),component:LearningManagement});

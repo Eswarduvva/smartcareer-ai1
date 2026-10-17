@@ -1,0 +1,3 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { LearningDashboard } from '@/components/learn/LearningDashboard';
+export const Route=createFileRoute('/_authenticated/learning/')({head:()=>({meta:[{title:'Learning & Activities — SmartCareer'},{name:'description',content:'Private learning activities, validated skill progress, classes and learning guidance.'},{property:'og:title',content:'Learning & Activities — SmartCareer'},{property:'og:description',content:'Your evidence-based learning journey.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]}),component:LearningDashboard});
