@@ -114,9 +114,6 @@ function NavLinks() {
                 Student Directory
               </Link>
               {roles?.includes("admin") && <Link to="/admin/learning" className={linkCls} activeProps={activeCls}>Learning management</Link>}
-              <Link to="/students" className="hidden" aria-hidden="true" tabIndex={-1}>
-                Student Directory
-              </Link>
               <Link to="/analytics" className={linkCls} activeProps={activeCls}>
                 Platform Analytics
               </Link>
