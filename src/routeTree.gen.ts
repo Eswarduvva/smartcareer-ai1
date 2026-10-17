@@ -31,6 +31,7 @@ import { Route as AuthenticatedSetupAdminRouteImport } from './routes/_authentic
 import { Route as AuthenticatedStudentsRouteImport } from './routes/_authenticated/students'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminLearningRouteImport } from './routes/_authenticated/admin.learning'
 import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedLearningIndexRouteImport } from './routes/_authenticated/learning.index'
@@ -41,6 +42,7 @@ import { Route as AuthenticatedMeMatchRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedMeRoadmapRouteImport } from './routes/_authenticated/me.roadmap'
 import { Route as AuthenticatedMeSkillsRouteImport } from './routes/_authenticated/me.skills'
 import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenticated/mentor.index'
+import { Route as AuthenticatedMentorLearningRouteImport } from './routes/_authenticated/mentor.learning'
 import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authenticated/students.index'
 import { Route as AuthenticatedStudentsIdRouteImport } from './routes/_authenticated/students.$id'
 import { Route as LearnWatchIndexRouteImport } from './routes/learn.watch.index'
@@ -161,6 +163,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminLearningRoute =
+  AuthenticatedAdminLearningRouteImport.update({
+    id: '/learning',
+    path: '/learning',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminMessagesRoute =
   AuthenticatedAdminMessagesRouteImport.update({
     id: '/messages',
@@ -212,6 +220,12 @@ const AuthenticatedMentorIndexRoute =
   AuthenticatedMentorIndexRouteImport.update({
     id: '/',
     path: '/',
+    getParentRoute: () => AuthenticatedMentorRoute,
+  } as any)
+const AuthenticatedMentorLearningRoute =
+  AuthenticatedMentorLearningRouteImport.update({
+    id: '/learning',
+    path: '/learning',
     getParentRoute: () => AuthenticatedMentorRoute,
   } as any)
 const AuthenticatedStudentsIndexRoute =
@@ -294,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/setup-admin': typeof AuthenticatedSetupAdminRoute
   '/students': typeof AuthenticatedStudentsRouteWithChildren
   '/learn/': typeof LearnIndexRoute
+  '/admin/learning': typeof AuthenticatedAdminLearningRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/learning/$id': typeof AuthenticatedLearningIdRoute
@@ -301,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/me/match': typeof AuthenticatedMeMatchRoute
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/learning/': typeof AuthenticatedLearningIndexRoute
@@ -333,6 +349,7 @@ export interface FileRoutesByTo {
   '/build': typeof AuthenticatedBuildRoute
   '/setup-admin': typeof AuthenticatedSetupAdminRoute
   '/learn': typeof LearnIndexRoute
+  '/admin/learning': typeof AuthenticatedAdminLearningRoute
   '/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/learning/$id': typeof AuthenticatedLearningIdRoute
@@ -340,6 +357,7 @@ export interface FileRoutesByTo {
   '/me/match': typeof AuthenticatedMeMatchRoute
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/learning': typeof AuthenticatedLearningIndexRoute
   '/me': typeof AuthenticatedMeIndexRoute
@@ -377,6 +395,7 @@ export interface FileRoutesById {
   '/_authenticated/setup-admin': typeof AuthenticatedSetupAdminRoute
   '/_authenticated/students': typeof AuthenticatedStudentsRouteWithChildren
   '/learn/': typeof LearnIndexRoute
+  '/_authenticated/admin/learning': typeof AuthenticatedAdminLearningRoute
   '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/learning/$id': typeof AuthenticatedLearningIdRoute
@@ -384,6 +403,7 @@ export interface FileRoutesById {
   '/_authenticated/me/match': typeof AuthenticatedMeMatchRoute
   '/_authenticated/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/_authenticated/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/_authenticated/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/_authenticated/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/learning/': typeof AuthenticatedLearningIndexRoute
@@ -422,6 +442,7 @@ export interface FileRouteTypes {
     | '/setup-admin'
     | '/students'
     | '/learn/'
+    | '/admin/learning'
     | '/admin/messages'
     | '/admin/users'
     | '/learning/$id'
@@ -429,6 +450,7 @@ export interface FileRouteTypes {
     | '/me/match'
     | '/me/roadmap'
     | '/me/skills'
+    | '/mentor/learning'
     | '/students/$id'
     | '/admin/'
     | '/learning/'
@@ -461,6 +483,7 @@ export interface FileRouteTypes {
     | '/build'
     | '/setup-admin'
     | '/learn'
+    | '/admin/learning'
     | '/admin/messages'
     | '/admin/users'
     | '/learning/$id'
@@ -468,6 +491,7 @@ export interface FileRouteTypes {
     | '/me/match'
     | '/me/roadmap'
     | '/me/skills'
+    | '/mentor/learning'
     | '/admin'
     | '/learning'
     | '/me'
@@ -504,6 +528,7 @@ export interface FileRouteTypes {
     | '/_authenticated/setup-admin'
     | '/_authenticated/students'
     | '/learn/'
+    | '/_authenticated/admin/learning'
     | '/_authenticated/admin/messages'
     | '/_authenticated/admin/users'
     | '/_authenticated/learning/$id'
@@ -511,6 +536,7 @@ export interface FileRouteTypes {
     | '/_authenticated/me/match'
     | '/_authenticated/me/roadmap'
     | '/_authenticated/me/skills'
+    | '/_authenticated/mentor/learning'
     | '/_authenticated/students/$id'
     | '/_authenticated/admin/'
     | '/_authenticated/learning/'
@@ -700,6 +726,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/learning': {
+      id: '/_authenticated/admin/learning'
+      path: '/learning'
+      fullPath: '/admin/learning'
+      preLoaderRoute: typeof AuthenticatedAdminLearningRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/messages': {
       id: '/_authenticated/admin/messages'
       path: '/messages'
@@ -768,6 +801,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/mentor/'
       preLoaderRoute: typeof AuthenticatedMentorIndexRouteImport
+      parentRoute: typeof AuthenticatedMentorRoute
+    }
+    '/_authenticated/mentor/learning': {
+      id: '/_authenticated/mentor/learning'
+      path: '/learning'
+      fullPath: '/mentor/learning'
+      preLoaderRoute: typeof AuthenticatedMentorLearningRouteImport
       parentRoute: typeof AuthenticatedMentorRoute
     }
     '/_authenticated/students/': {
@@ -844,12 +884,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminLearningRoute: typeof AuthenticatedAdminLearningRoute
   AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminLearningRoute: AuthenticatedAdminLearningRoute,
   AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
@@ -879,11 +921,13 @@ const AuthenticatedMeRouteWithChildren = AuthenticatedMeRoute._addFileChildren(
 )
 
 interface AuthenticatedMentorRouteChildren {
+  AuthenticatedMentorLearningRoute: typeof AuthenticatedMentorLearningRoute
   AuthenticatedMentorIndexRoute: typeof AuthenticatedMentorIndexRoute
   AuthenticatedMentorReviewIdRoute: typeof AuthenticatedMentorReviewIdRoute
 }
 
 const AuthenticatedMentorRouteChildren: AuthenticatedMentorRouteChildren = {
+  AuthenticatedMentorLearningRoute: AuthenticatedMentorLearningRoute,
   AuthenticatedMentorIndexRoute: AuthenticatedMentorIndexRoute,
   AuthenticatedMentorReviewIdRoute: AuthenticatedMentorReviewIdRoute,
 }
