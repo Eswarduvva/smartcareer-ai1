@@ -57,7 +57,7 @@ function AdminDashboard() {
       </div>
       <h2 className="mb-2 text-xl">Student dataset</h2>
       <p className="mb-4 max-w-2xl text-sm text-muted-foreground">
-        Record counts in the cohort tables. The cleaned dataset hasn't been imported yet. Imports are run by the SmartCareer team, not from the browser, so student records can't be edited or overwritten by accident.
+        Record counts in the cohort tables. Imports are run by the SmartCareer team, not from the browser, so student records can't be edited or overwritten by accident.
       </p>
       <div className="max-w-xl border border-border">
         {d.tables.map(([t, c]) => (
