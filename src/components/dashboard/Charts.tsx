@@ -33,7 +33,7 @@ export function ChartCard({ title, desc, children }: { title: string; desc?: str
 
 const Empty = () => <p className="py-10 text-center text-sm text-muted-foreground">No data for this selection.</p>;
 
-export function HBarChart({ data, dataKey = "count", name = "Students", color = "var(--color-chart-1)", domain }: { data: Record<string, unknown>[]; dataKey?: string; name?: string; color?: string; domain?: [number, number] }) {
+export function HBarChart({ data, dataKey = "count", name = "Students", color = "var(--color-chart-1)", domain }: { data: object[]; dataKey?: string; name?: string; color?: string; domain?: [number, number] }) {
   if (!data.length) return <Empty />;
   return (
     <div style={{ height: data.length * 30 + 30 }}>
@@ -50,7 +50,7 @@ export function HBarChart({ data, dataKey = "count", name = "Students", color = 
   );
 }
 
-export function ColumnChart({ data, bars, domain }: { data: Record<string, unknown>[]; bars: { key: string; name: string; color: string }[]; domain?: [number, number] }) {
+export function ColumnChart({ data, bars, domain }: { data: object[]; bars: { key: string; name: string; color: string }[]; domain?: [number, number] }) {
   if (!data.length) return <Empty />;
   return (
     <div className="h-64">
