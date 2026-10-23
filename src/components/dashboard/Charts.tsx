@@ -57,7 +57,7 @@ export function ColumnChart({ data, bars, domain }: { data: object[]; bars: { ke
       <ResponsiveContainer>
         <BarChart data={data} margin={{ left: -12, right: 8 }}>
           <CartesianGrid vertical={false} stroke="var(--color-border)" />
-          <XAxis dataKey="label" tick={data.length > 4 ? { ...axis, angle: -25, textAnchor: "end" } : axis} height={data.length > 4 ? 64 : 30} axisLine={false} tickLine={false} interval={0} />
+          <XAxis dataKey="label" tick={data.length > 4 ? { ...axis, angle: -25, textAnchor: "end" as const } : axis} height={data.length > 4 ? 64 : 30} axisLine={false} tickLine={false} interval={0} />
           <YAxis tick={axis} axisLine={false} tickLine={false} {...(domain ? { domain } : {})} />
           <Tooltip {...tip} />
           {bars.length > 1 && <Legend wrapperStyle={{ fontSize: 12 }} />}
