@@ -1,9 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { z } from "zod";
 import { ErrorState, LoadingState, PageHead, Tile } from "@/components/kit";
+import { CohortDashboard } from "@/components/dashboard/CohortDashboard";
 import { db } from "@/lib/auth";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
+  validateSearch: z.object({ degree: z.string().optional(), branch: z.string().optional() }),
   head: () => ({ meta: [{ title: "Admin dashboard — SmartCareer" }, { name: "description", content: "Platform overview, accounts and student dataset status." }, { property: "og:title", content: "Admin dashboard — SmartCareer" }, { property: "og:description", content: "Platform overview." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: AdminDashboard,
 });
