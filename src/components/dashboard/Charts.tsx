@@ -43,7 +43,7 @@ export function HBarChart({ data, dataKey = "count", name = "Students", color = 
           <XAxis type="number" tick={axis} axisLine={false} tickLine={false} allowDecimals={false} {...(domain ? { domain } : {})} />
           <YAxis type="category" dataKey="label" tick={axis} axisLine={false} tickLine={false} width={150} />
           <Tooltip {...tip} />
-          <Bar dataKey={dataKey} name={name} fill={color} barSize={14} radius={[0, 4, 4, 0]} />
+          <Bar dataKey={dataKey} name={name} fill={color} barSize={14} radius={[0, 4, 4, 0]} isAnimationActive={false} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -57,11 +57,11 @@ export function ColumnChart({ data, bars, domain }: { data: object[]; bars: { ke
       <ResponsiveContainer>
         <BarChart data={data} margin={{ left: -12, right: 8 }}>
           <CartesianGrid vertical={false} stroke="var(--color-border)" />
-          <XAxis dataKey="label" tick={axis} axisLine={false} tickLine={false} interval={0} />
+          <XAxis dataKey="label" tick={axis} axisLine={false} tickLine={false} interval={0} {...(data.length > 4 ? { angle: -25, textAnchor: "end", height: 64 } : {})} />
           <YAxis tick={axis} axisLine={false} tickLine={false} {...(domain ? { domain } : {})} />
           <Tooltip {...tip} />
           {bars.length > 1 && <Legend wrapperStyle={{ fontSize: 12 }} />}
-          {bars.map((b) => <Bar key={b.key} dataKey={b.key} name={b.name} fill={b.color} radius={[4, 4, 0, 0]} maxBarSize={44} />)}
+          {bars.map((b) => <Bar key={b.key} dataKey={b.key} name={b.name} fill={b.color} radius={[4, 4, 0, 0]} maxBarSize={44} isAnimationActive={false} />)}
         </BarChart>
       </ResponsiveContainer>
     </div>
