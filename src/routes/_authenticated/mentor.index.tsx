@@ -55,7 +55,7 @@ function MentorDashboard() {
   if (q.error) return <ErrorState error={q.error} />;
   const rows = q.data!.rows;
 
-  const byDegree = [...new Set(rows.map((r) => r.degree).filter(Boolean) as string[])].sort().map((d) => ({ label: d, value: Number(f2(avg(rows.filter((r) => r.degree === d).map((r) => r.readiness))) === "—" ? 0 : avg(rows.filter((r) => r.degree === d).map((r) => r.readiness))!.toFixed(2)) }));
+  const byDegree = [...new Set(rows.map((r) => r.degree).filter(Boolean) as string[])].sort().map((d) => ({ label: d, value: Number((avg(rows.filter((r) => r.degree === d).map((r) => r.readiness)) ?? 0).toFixed(2)) }));
   const skills = DASHBOARD_SKILLS.map((k) => ({ label: skillLabel(k), value: Number((avg(rows.map((r) => r.skills[k] ?? null)) ?? 0).toFixed(2)) }));
   const compare = rows.slice(0, 20).map((r) => ({ label: r.id, readiness: r.readiness ?? 0, match: r.match ?? 0, gap: r.gap ?? 0 }));
 
