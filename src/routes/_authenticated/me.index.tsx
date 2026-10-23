@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Meter } from "@/components/kit";
+import { StudentKpis } from "@/components/dashboard/StudentKpis";
 import { SkillSpaceLazy } from "@/components/space/SkillSpaceLazy";
 import { buildSteps } from "@/components/journey/RoadmapView";
 import { useRecord } from "@/lib/use-record";
@@ -41,6 +42,8 @@ function Intelligence() {
         Career intelligence
         <span className="border border-border px-1.5 py-0.5 text-[9px]">Rule-based recommendation · not AI</span>
       </p>
+
+      <StudentKpis />
 
       {/* result */}
       <section className="grid border-y border-border lg:grid-cols-[5fr_7fr]">
