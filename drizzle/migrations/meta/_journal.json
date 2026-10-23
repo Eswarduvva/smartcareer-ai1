@@ -43,6 +43,13 @@
       "when": 1792234336795,
       "tag": "0005_learning_evidence_validation",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792767523591,
+      "tag": "0006_role_dashboards",
+      "breakpoints": true
     }
   ]
 }

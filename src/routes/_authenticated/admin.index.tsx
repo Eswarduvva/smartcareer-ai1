@@ -1,9 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { z } from "zod";
 import { ErrorState, LoadingState, PageHead, Tile } from "@/components/kit";
+import { CohortDashboard } from "@/components/dashboard/CohortDashboard";
 import { db } from "@/lib/auth";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
+  validateSearch: z.object({ degree: z.string().optional(), branch: z.string().optional() }),
   head: () => ({ meta: [{ title: "Admin dashboard — SmartCareer" }, { name: "description", content: "Platform overview, accounts and student dataset status." }, { property: "og:title", content: "Admin dashboard — SmartCareer" }, { property: "og:description", content: "Platform overview." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: AdminDashboard,
 });
@@ -35,12 +38,17 @@ function AdminDashboard() {
       };
     },
   });
-  if (q.isLoading) return <LoadingState />;
-  if (q.error) return <ErrorState error={q.error} />;
+  const s = Route.useSearch();
+  const navigate = useNavigate({ from: "/admin/" });
+  const cohort = <CohortDashboard degree={s.degree} branch={s.branch} onFilter={(f) => navigate({ search: f, replace: true })} />;
+  if (q.isLoading) return <><PageHead eyebrow="Admin portal" title="Admin dashboard" />{cohort}<LoadingState /></>;
+  if (q.error) return <><PageHead eyebrow="Admin portal" title="Admin dashboard" />{cohort}<ErrorState error={q.error} /></>;
   const d = q.data!;
   return (
     <>
       <PageHead eyebrow="Admin portal" title="Admin dashboard" />
+      {cohort}
+      <h2 className="mb-4 text-xl">Platform</h2>
       <div className="mb-12 grid gap-px border border-border bg-border sm:grid-cols-4">
         <Tile label="Accounts"><p className="num text-3xl">{d.users}</p></Tile>
         <Tile label="Mentors"><p className="num text-3xl">{d.mentors}</p></Tile>

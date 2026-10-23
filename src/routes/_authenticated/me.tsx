@@ -1,8 +1,11 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { AppShell } from "@/components/AppShell";
-import { LoadingState } from "@/components/kit";
+import { ErrorState, LoadingState } from "@/components/kit";
 import { RecordProvider } from "@/lib/use-record";
 import { toRecord, useMyProfile } from "@/lib/my-profile";
+import { useSession } from "@/lib/auth";
+import { myCohortQuery } from "@/lib/api/dashboards";
 
 export const Route = createFileRoute("/_authenticated/me")({
   component: MeLayout,
@@ -10,8 +13,18 @@ export const Route = createFileRoute("/_authenticated/me")({
 
 function MeLayout() {
   const mine = useMyProfile();
+  const session = useSession();
+  // An admin-approved cohort link takes precedence over the self-entered profile.
+  const cohort = useQuery(myCohortQuery(session?.user.id));
   let body;
-  if (mine === undefined) body = <LoadingState />;
+  if (mine === undefined || session === undefined || cohort.isLoading) body = <LoadingState />;
+  else if (cohort.error) body = <ErrorState error={cohort.error} />;
+  else if (cohort.data?.linked)
+    body = (
+      <RecordProvider record={cohort.data.record} source="database">
+        <Outlet />
+      </RecordProvider>
+    );
   else if (!mine || !mine.complete) body = <NoProfile started={!!mine} />;
   else
     body = (

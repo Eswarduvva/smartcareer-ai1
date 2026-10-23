@@ -877,7 +877,12 @@ export type Database = {
         Args: { p_branch?: string; p_degree?: string }
         Returns: Json
       }
+      get_dashboard_analytics: {
+        Args: { p_branch?: string; p_degree?: string }
+        Returns: Json
+      }
       get_data_quality: { Args: never; Returns: Json }
+      get_my_cohort_dashboard: { Args: never; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
