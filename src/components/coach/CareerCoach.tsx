@@ -19,7 +19,8 @@ import {
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import { useSession } from "@/lib/auth";
 import { getCoachHistory, clearCoachHistory } from "@/lib/api/coach.functions";
-import { coachHistorySchema, type CoachMessage } from "@/lib/api/coach-schema";
+import { type CoachMessage } from "@/lib/api/coach-schema";
+import { clearPrivateCoachCache } from "@/lib/api/coach-cache";
 import { supabase } from "@/integrations/supabase/client";
 import emblem from "@/assets/coach-emblem.png";
 
@@ -133,7 +134,11 @@ function CoachConversation({ userId }: { userId: string }) {
     let done = false;
     try {
       const { data } = await supabase.auth.getSession();
-      if (!data.session) throw new Error("Please sign in again.");
+      if (!data.session) {
+        clearPrivateCoachCache(qc);
+        setMessages([]);
+        throw new Error("Please sign in again.");
+      }
       const response = await fetch("/api/public/career-coach", {
         method: "POST",
         headers: {
@@ -144,6 +149,11 @@ function CoachConversation({ userId }: { userId: string }) {
         signal: control.signal,
       });
       if (!response.ok) {
+        if (response.status === 401) {
+          clearPrivateCoachCache(qc);
+          setMessages([]);
+          await supabase.auth.signOut({ scope: "local" });
+        }
         const body = await response.json();
         throw new Error(
           typeof body.error === "string" ? body.error : "Unable to reach your coach.",
@@ -189,6 +199,9 @@ function CoachConversation({ userId }: { userId: string }) {
       );
       setStatus("error");
       if (!output) setDraft(text);
+      // Partial output is never presented as a saved assistant response.
+      setMessages((m) => m.filter((x) => x.id !== assistantId));
+      if (!control.signal.aborted) await qc.invalidateQueries({ queryKey: ["career-coach", userId] });
     } finally {
       abort.current = null;
       input.current?.focus();

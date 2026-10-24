@@ -6,9 +6,9 @@ export const coachMessageSchema = z.object({
 });
 export const coachHistorySchema = z.array(coachMessageSchema);
 export const coachRequestSchema = z.object({
-  requestId: z.string().uuid(),
+  requestId: z.string().uuid().refine((id) => id !== "00000000-0000-0000-0000-000000000000"),
   text: z.string().trim().min(1).max(2000),
-});
+}).strict();
 export type CoachMessage = z.infer<typeof coachMessageSchema>;
 const object = (value: unknown): Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value)

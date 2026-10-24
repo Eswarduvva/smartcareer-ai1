@@ -931,15 +931,19 @@ export type Database = {
       }
       can_read_learning: { Args: { p_user: string }; Returns: boolean }
       can_view_student: { Args: { _student_id: string }; Returns: boolean }
-      coach_begin: {
-        Args: { p_request: string; p_text: string }
-        Returns: Json
-      }
+      coach_begin:
+        | { Args: { p_request: string; p_text: string }; Returns: Json }
+        | {
+            Args: { p_request: string; p_text: string; p_user: string }
+            Returns: Json
+          }
       coach_clear: { Args: never; Returns: undefined }
-      coach_finish: {
-        Args: { p_request: string; p_text: string }
-        Returns: undefined
-      }
+      coach_finish:
+        | { Args: { p_request: string; p_text: string }; Returns: undefined }
+        | {
+            Args: { p_request: string; p_text: string; p_user: string }
+            Returns: undefined
+          }
       get_analytics: {
         Args: { p_branch?: string; p_degree?: string }
         Returns: Json
