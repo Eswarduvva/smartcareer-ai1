@@ -5,7 +5,9 @@ import { coachRequestSchema } from "@/lib/api/coach-schema";
 
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(), rpc: vi.fn(), adminRpc: vi.fn(), from: vi.fn(), stream: vi.fn(),
+  retrieve: vi.fn(),
 }));
+vi.mock("@/lib/api/coach-retrieval.server", () => ({ retrieveCoachKnowledge: mocks.retrieve }));
 vi.mock("@supabase/supabase-js", () => ({ createClient: () => ({ auth: { getUser: mocks.getUser }, rpc: mocks.rpc, from: mocks.from }) }));
 vi.mock("@/integrations/supabase/client.server", () => ({ supabaseAdmin: { rpc: mocks.adminRpc } }));
 vi.mock("@lovable.dev/ai-gateway", () => ({ streamResponse: mocks.stream, GatewayError: class extends Error {} }));
@@ -27,6 +29,7 @@ describe("coach server security", () => {
     expect(mocks.getUser).not.toHaveBeenCalled();
     expect(mocks.adminRpc).not.toHaveBeenCalled();
     expect(mocks.stream).not.toHaveBeenCalled();
+    expect(mocks.retrieve).not.toHaveBeenCalled();
   });
   it("rejects invalid tokens before reserving a request", async () => {
     mocks.getUser.mockResolvedValue({ data: { user: null }, error: new Error("invalid") });
@@ -48,6 +51,7 @@ describe("coach server security", () => {
     expect(mocks.rpc).not.toHaveBeenCalled();
     expect(mocks.from).not.toHaveBeenCalled();
     expect(mocks.stream).not.toHaveBeenCalled();
+    expect(mocks.retrieve).not.toHaveBeenCalled();
   });
   it("uses a server-generated lock for the verified account and releases malformed history", async () => {
     mocks.adminRpc.mockResolvedValueOnce({ data: { invalid: true }, error: null }).mockResolvedValue({ error: null });
