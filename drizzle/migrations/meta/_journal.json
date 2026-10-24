@@ -64,6 +64,13 @@
       "when": 1792821437244,
       "tag": "0008_coach_restrict_default_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792822765527,
+      "tag": "0009_harden_coach_server_requests",
+      "breakpoints": true
     }
   ]
 }
