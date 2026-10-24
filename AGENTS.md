@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
+- External coach knowledge retrieval lives in a server-only API helper, runs only after verified auth and quota reservation, and stays disabled until endpoint, credential and explicit owner-review gate are configured; only a fixed vocabulary and bounded nonpersonal knowledge contract cross the external boundary. Why: preserve coach security without opening student data or assuming external RLS access.
 - Career coach uses owner-read/clear history and service-role-only account-bound begin/finish RPCs after bearer verification; server-generated request IDs, atomic quotas before context reads, bounded leases and cleanup protect writes. All context reads remain user-scoped; session loss cancels/removes coach caches. Why: prevent forged assistant history, cross-account disclosure and duplicate generations.
 - Educational video pages share a static, source-verified catalog and LearnLayout; lesson selection uses URL search state without account storage. Why: keep watch and explore navigation consistent without backend integration.
 - Data flows only through `src/lib/api/` (ApiAdapter); demo records live only in `src/lib/mock/` and are read solely by the preview adapter. The source is chosen at build time in `client.ts`, never as a runtime fallback. Why: connecting a real backend means swapping the adapter, not rewriting pages.
