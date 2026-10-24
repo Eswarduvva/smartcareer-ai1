@@ -199,6 +199,64 @@ export type Database = {
         }
         Relationships: []
       }
+      coach_conversations: {
+        Row: {
+          active_request: string | null
+          messages: Json
+          started_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active_request?: string | null
+          messages?: Json
+          started_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active_request?: string | null
+          messages?: Json
+          started_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_conversations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_request_limits: {
+        Row: {
+          requests: number
+          user_id: string
+          window_start: string
+        }
+        Insert: {
+          requests?: number
+          user_id: string
+          window_start?: string
+        }
+        Update: {
+          requests?: number
+          user_id?: string
+          window_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_request_limits_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       learning_account_links: {
         Row: {
           approved_at: string
@@ -873,6 +931,15 @@ export type Database = {
       }
       can_read_learning: { Args: { p_user: string }; Returns: boolean }
       can_view_student: { Args: { _student_id: string }; Returns: boolean }
+      coach_begin: {
+        Args: { p_request: string; p_text: string }
+        Returns: Json
+      }
+      coach_clear: { Args: never; Returns: undefined }
+      coach_finish: {
+        Args: { p_request: string; p_text: string }
+        Returns: undefined
+      }
       get_analytics: {
         Args: { p_branch?: string; p_degree?: string }
         Returns: Json
