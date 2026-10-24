@@ -87,6 +87,17 @@ describe.skipIf(!enabled)("live coach database security", () => {
     expect((await a.rpc("coach_clear")).error).toBeNull();
     expect((await a.from("coach_conversations").select("messages").single()).data?.messages).toEqual([]);
   });
+  it("expires leaked locks and rejects stale completions without releasing a newer lock", async () => {
+    const stale = crypto.randomUUID();
+    expect((await admin.rpc("coach_begin", { p_user: user(0), p_request: stale, p_text: "expiry test" })).error).toBeNull();
+    expect((await admin.from("coach_conversations").update({ started_at: new Date(Date.now()-181000).toISOString() }).eq("user_id",user(0))).error).toBeNull();
+    expect((await admin.rpc("coach_finish", { p_user: user(0), p_request: stale, p_text: "expired answer" })).error).not.toBeNull();
+    const next = crypto.randomUUID();
+    expect((await admin.rpc("coach_begin", { p_user: user(0), p_request: next, p_text: "replacement test" })).error).toBeNull();
+    expect((await admin.rpc("coach_finish", { p_user: user(0), p_request: stale, p_text: "" })).error).not.toBeNull();
+    expect((await admin.from("coach_conversations").select("active_request").eq("user_id",user(0)).single()).data?.active_request).toBe(next);
+    expect((await admin.rpc("coach_finish", { p_user: user(0), p_request: next, p_text: "" })).error).toBeNull();
+  });
   it("rejects SQL null inputs and enforces the 20-request hourly limit", async () => {
     const url = process.env["SUPABASE_URL"];
     const key = process.env["SUPABASE_SERVICE_ROLE_KEY"];
