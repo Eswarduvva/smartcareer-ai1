@@ -52,7 +52,9 @@ describe("coach server security", () => {
   it("uses a server-generated lock for the verified account and releases malformed history", async () => {
     mocks.adminRpc.mockResolvedValueOnce({ data: { invalid: true }, error: null }).mockResolvedValue({ error: null });
     expect((await careerCoachStream(request("token"))).status).toBe(503);
-    const args = mocks.adminRpc.mock.calls[0][1];
+    const call = mocks.adminRpc.mock.calls[0];
+    if (!call) throw new Error("Request was not reserved");
+    const args = call[1];
     expect(args.p_user).toBe(id);
     expect(args.p_request).not.toBe(id);
     expect(mocks.adminRpc).toHaveBeenLastCalledWith("coach_finish", { p_user: id, p_request: args.p_request, p_text: "" });
