@@ -45,6 +45,7 @@ import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedMentorLearningRouteImport } from './routes/_authenticated/mentor.learning'
 import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authenticated/students.index'
 import { Route as AuthenticatedStudentsIdRouteImport } from './routes/_authenticated/students.$id'
+import { Route as ApiPublicCareerCoachRouteImport } from './routes/api/public/career-coach'
 import { Route as LearnWatchIndexRouteImport } from './routes/learn.watch.index'
 import { Route as AuthenticatedMentorReviewIdRouteImport } from './routes/_authenticated/mentor.review.$id'
 import { Route as AuthenticatedStudentsIdIndexRouteImport } from './routes/_authenticated/students.$id.index'
@@ -239,6 +240,11 @@ const AuthenticatedStudentsIdRoute = AuthenticatedStudentsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AuthenticatedStudentsRoute,
 } as any)
+const ApiPublicCareerCoachRoute = ApiPublicCareerCoachRouteImport.update({
+  id: '/api/public/career-coach',
+  path: '/api/public/career-coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LearnWatchIndexRoute = LearnWatchIndexRouteImport.update({
   id: '/learn/watch/',
   path: '/learn/watch/',
@@ -318,6 +324,7 @@ export interface FileRoutesByFullPath {
   '/me/skills': typeof AuthenticatedMeSkillsRoute
   '/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
+  '/api/public/career-coach': typeof ApiPublicCareerCoachRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/learning/': typeof AuthenticatedLearningIndexRoute
   '/me/': typeof AuthenticatedMeIndexRoute
@@ -358,6 +365,7 @@ export interface FileRoutesByTo {
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
   '/mentor/learning': typeof AuthenticatedMentorLearningRoute
+  '/api/public/career-coach': typeof ApiPublicCareerCoachRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/learning': typeof AuthenticatedLearningIndexRoute
   '/me': typeof AuthenticatedMeIndexRoute
@@ -405,6 +413,7 @@ export interface FileRoutesById {
   '/_authenticated/me/skills': typeof AuthenticatedMeSkillsRoute
   '/_authenticated/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/_authenticated/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
+  '/api/public/career-coach': typeof ApiPublicCareerCoachRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/learning/': typeof AuthenticatedLearningIndexRoute
   '/_authenticated/me/': typeof AuthenticatedMeIndexRoute
@@ -452,6 +461,7 @@ export interface FileRouteTypes {
     | '/me/skills'
     | '/mentor/learning'
     | '/students/$id'
+    | '/api/public/career-coach'
     | '/admin/'
     | '/learning/'
     | '/me/'
@@ -492,6 +502,7 @@ export interface FileRouteTypes {
     | '/me/roadmap'
     | '/me/skills'
     | '/mentor/learning'
+    | '/api/public/career-coach'
     | '/admin'
     | '/learning'
     | '/me'
@@ -538,6 +549,7 @@ export interface FileRouteTypes {
     | '/_authenticated/me/skills'
     | '/_authenticated/mentor/learning'
     | '/_authenticated/students/$id'
+    | '/api/public/career-coach'
     | '/_authenticated/admin/'
     | '/_authenticated/learning/'
     | '/_authenticated/me/'
@@ -567,6 +579,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   UnauthorizedRoute: typeof UnauthorizedRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  ApiPublicCareerCoachRoute: typeof ApiPublicCareerCoachRoute
   LearnWatchIndexRoute: typeof LearnWatchIndexRoute
 }
 
@@ -824,6 +837,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStudentsIdRouteImport
       parentRoute: typeof AuthenticatedStudentsRoute
     }
+    '/api/public/career-coach': {
+      id: '/api/public/career-coach'
+      path: '/api/public/career-coach'
+      fullPath: '/api/public/career-coach'
+      preLoaderRoute: typeof ApiPublicCareerCoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/watch/': {
       id: '/learn/watch/'
       path: '/learn/watch'
@@ -1017,6 +1037,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   UnauthorizedRoute: UnauthorizedRoute,
   LearnIndexRoute: LearnIndexRoute,
+  ApiPublicCareerCoachRoute: ApiPublicCareerCoachRoute,
   LearnWatchIndexRoute: LearnWatchIndexRoute,
 }
 export const routeTree = rootRouteImport
