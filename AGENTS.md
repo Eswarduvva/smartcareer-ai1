@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
+- Career coach uses one account-owned conversation, authenticated server streaming and database-atomic request limits; model context is server-allowlisted from own profile and validated evidence only. Why: prevent cross-account history, cohort disclosure and concurrent duplicate generations.
 - Educational video pages share a static, source-verified catalog and LearnLayout; lesson selection uses URL search state without account storage. Why: keep watch and explore navigation consistent without backend integration.
 - Data flows only through `src/lib/api/` (ApiAdapter); demo records live only in `src/lib/mock/` and are read solely by the preview adapter. The source is chosen at build time in `client.ts`, never as a runtime fallback. Why: connecting a real backend means swapping the adapter, not rewriting pages.
 - Cohort analytics are computed in the database by `get_analytics(degree, branch)`. Why: no totals hardcoded or computed over partial client data.
