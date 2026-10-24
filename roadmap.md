@@ -1,4 +1,5 @@
 # Review brief (Oct 10)
+- [ ] Harden coach server-only writes, atomic request locks, session cache cleanup and security regression tests.
 - [x] Add SmartCareer AI Coach: floating chat, private account history, safe personalized streaming; real response, reload, mobile and own-history access verified.
 - [ ] Add Learning & Activities: implement approved private learning module and verify live flows. Skill scale confirmed 0–100; account links admin-approved.
 - [x] Add the simple video watch page, verified official lessons, and working Explore Videos return navigation.
