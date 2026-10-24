@@ -31,7 +31,27 @@ export async function careerCoachStream(request: Request) {
   const parsed = coachRequestSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success)
     return Response.json({ error: "Enter a question of up to 2,000 characters." }, { status: 400 });
-  const { requestId, text } = parsed.data;
+  const { text } = parsed.data;
+  // The client never chooses the database lock or supplies assistant history.
+  const requestId = crypto.randomUUID();
+  const userId = auth.user.id;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: history, error: beginError } = await supabaseAdmin.rpc("coach_begin", {
+    p_user: userId,
+    p_request: requestId,
+    p_text: text,
+  });
+  if (beginError)
+    return Response.json({ error: "The coach is busy or your request limit was reached. Try again later." }, { status: 429 });
+  const release = async () => {
+    const result = await supabaseAdmin.rpc("coach_finish", {
+      p_user: userId, p_request: requestId, p_text: "",
+    });
+    if (result.error) console.error("Unable to release coach request");
+  };
+  const signal = AbortSignal.any([request.signal, AbortSignal.timeout(120_000)]);
+  try {
+  const messages = coachHistorySchema.parse(history);
   const [learning, account, cohort] = await Promise.all([
     client.rpc("learning_snapshot", { p_user: auth.user.id }),
     client
@@ -42,10 +62,7 @@ export async function careerCoachStream(request: Request) {
     client.rpc("get_my_cohort_dashboard"),
   ]);
   if (learning.error || account.error || cohort.error)
-    return Response.json(
-      { error: "Unable to read your learning context. Please try later." },
-      { status: 503 },
-    );
+    throw new Error("Unable to read learning context");
   const s = snapshotSchema.parse(learning.data);
   const summary = learningSummary(s);
   const own =
@@ -82,17 +99,14 @@ export async function careerCoachStream(request: Request) {
       ...EDUCATIONAL_VIDEOS.map((v) => ({ title: v.title, url: v.providerUrl })),
     ],
   };
-  const { data: history, error: beginError } = await client.rpc("coach_begin", {
-    p_request: requestId,
-    p_text: text,
-  });
-  if (beginError) return Response.json({ error: beginError.message }, { status: 429 });
-  const messages = coachHistorySchema.parse(history);
+  signal.throwIfAborted();
   const encoder = new TextEncoder();
+  let cancelled = false;
   const body = new ReadableStream<Uint8Array>({
+    cancel() { cancelled = true; },
     async start(controller) {
       const send = (event: object) => {
-        if (!request.signal.aborted)
+        if (!signal.aborted && !cancelled)
           controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
       };
       let output = "";
@@ -110,7 +124,7 @@ export async function careerCoachStream(request: Request) {
               content: m.parts.map((p) => p.text).join("\n"),
             })),
           },
-          { signal: request.signal },
+          { signal },
         );
         for await (const event of stream) {
           if (
@@ -122,8 +136,9 @@ export async function careerCoachStream(request: Request) {
           }
           if (event.type === "response.completed") completed = true;
         }
-        if (!completed || !output) throw new Error("The coach did not complete a response.");
-        const saved = await client.rpc("coach_finish", { p_request: requestId, p_text: output });
+        signal.throwIfAborted();
+        if (!completed || !output || cancelled) throw new Error("The coach did not complete a response.");
+        const saved = await supabaseAdmin.rpc("coach_finish", { p_user: userId, p_request: requestId, p_text: output });
         if (saved.error) throw new Error("Your answer could not be saved.");
         send({ type: "done" });
       } catch (error) {
@@ -133,8 +148,7 @@ export async function careerCoachStream(request: Request) {
             outcome: error.outcome,
             ids: error.ids,
           });
-        const released = await client.rpc("coach_finish", { p_request: requestId, p_text: "" });
-        if (released.error) console.error("Unable to release coach request");
+        await release();
         const message =
           error instanceof GatewayError && error.code === "payment_required"
             ? "The coach needs workspace credits. Your question is saved."
@@ -143,11 +157,15 @@ export async function careerCoachStream(request: Request) {
               : "The coach could not finish. Your question is saved; you can try again later.";
         send({ type: "error", message });
       } finally {
-        controller.close();
+        if (!cancelled) controller.close();
       }
     },
   });
   return new Response(body, {
     headers: { "Content-Type": "application/x-ndjson", "Cache-Control": "no-store" },
   });
+  } catch {
+    await release();
+    return Response.json({ error: "Unable to prepare your coach. Please try later." }, { status: 503 });
+  }
 }
