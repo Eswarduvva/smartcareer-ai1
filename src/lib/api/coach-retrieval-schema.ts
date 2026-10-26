@@ -3,7 +3,7 @@ import { z } from "zod";
 export const ragSourceSchema = z.object({
   reference: z.string().regex(/^knowledge:[a-z0-9-]{1,80}$/),
   title: z.string().trim().min(1).max(160),
-  kind: z.enum(["career", "education-guidance", "skill-requirement", "learning-resource", "roadmap"]),
+  type: z.enum(["career", "education-guidance", "skill-requirement", "learning-resource", "roadmap"]),
   text: z.string().trim().min(1).max(1500),
 }).strict();
 export const ragResponseSchema = z.object({

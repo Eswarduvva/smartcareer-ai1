@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
   const sources = matches.map((e) => ({
     reference: `knowledge:${slug(`${e.domain}-${e.role}`)}`,
     title: `Dataset pattern: ${e.role || "Unspecified role"} (${e.domain || "Unspecified domain"})`.slice(0, 160),
-    kind: "career",
+    type: "career",
     text: `In the SmartCarrier dataset, ${e.n} of ${total} records were recommended the career domain "${e.domain}" with the role "${e.role}". This is an observed recommendation frequency, not an eligibility rule or skill requirement.`,
   }));
   return Response.json({ sources }, { headers: { "Cache-Control": "no-store" } });
