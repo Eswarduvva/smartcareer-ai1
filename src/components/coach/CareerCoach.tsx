@@ -21,6 +21,7 @@ import { useSession } from "@/lib/auth";
 import { getCoachHistory, clearCoachHistory } from "@/lib/api/coach.functions";
 import { type CoachMessage } from "@/lib/api/coach-schema";
 import { clearPrivateCoachCache } from "@/lib/api/coach-cache";
+import { formatCoachAnswer, DATASET_SOURCE_LABEL } from "@/lib/api/coach-display";
 import { supabase } from "@/integrations/supabase/client";
 import emblem from "@/assets/coach-emblem.png";
 
@@ -287,17 +288,27 @@ function CoachConversation({ userId }: { userId: string }) {
                   </div>
                 </div>
               )}
-              {messages.map((m) => (
-                <Message key={m.id} from={m.role}>
-                  <MessageContent className="group-[.is-user]:bg-primary group-[.is-user]:text-primary-foreground">
-                    {m.parts.map((p, i) => (
-                      <MessageResponse key={i} isAnimating={busy && m.role === "assistant"}>
-                        {p.text}
+              {messages.map((m) => {
+                const raw = m.parts.map((p) => p.text).join("\n");
+                const shown = m.role === "assistant" ? formatCoachAnswer(raw) : { text: raw, references: [] };
+                return (
+                  <Message key={m.id} from={m.role}>
+                    <MessageContent className="max-w-full min-w-0 text-sm leading-relaxed break-words group-[.is-user]:bg-primary group-[.is-user]:text-primary-foreground [&_h2]:mt-4 [&_h2]:text-base [&_h2]:font-semibold [&_h3]:mt-3 [&_h3]:text-sm [&_h3]:font-semibold [&_li]:my-1 [&_ol]:pl-5 [&_p]:my-2 [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto [&_table]:text-xs [&_ul]:pl-5">
+                      <MessageResponse isAnimating={busy && m.role === "assistant"}>
+                        {shown.text}
                       </MessageResponse>
-                    ))}
-                  </MessageContent>
-                </Message>
-              ))}
+                      {shown.references.length > 0 && (
+                        <p
+                          className="mt-3 border-t border-border pt-2 text-xs text-muted-foreground"
+                          data-references={shown.references.join(" ")}
+                        >
+                          {DATASET_SOURCE_LABEL}
+                        </p>
+                      )}
+                    </MessageContent>
+                  </Message>
+                );
+              })}
               {status === "submitted" && <Shimmer>Thinking about your next step…</Shimmer>}
             </>
           )}
