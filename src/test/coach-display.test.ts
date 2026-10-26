@@ -13,4 +13,14 @@ describe("coach answer display", () => {
   it("reports no references for general answers", () => {
     expect(formatCoachAnswer("Learn SQL first.").references).toEqual([]);
   });
+  it("turns a statistics table into a list of domain names and counts", () => {
+    const t = [
+      "| Rank | Domain | Records recommended | Source |",
+      "|---|---|---:|---|",
+      "| 1 | Cybersecurity | 183 | *Dataset career pattern: Cybersecurity* [knowledge:career-domain-cybersecurity] |",
+    ].join("\n");
+    const r = formatCoachAnswer(t);
+    expect(r.text).toBe("- **Cybersecurity** — 183 records recommended");
+    expect(r.references).toEqual(["career-domain-cybersecurity"]);
+  });
 });
