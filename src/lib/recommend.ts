@@ -9,46 +9,88 @@ import { CAREER_TRACKS, type CareerTrack } from "./careers";
 export { CAREER_TRACKS, type CareerTrack };
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
+const round2 = (n: number) => Math.round(n * 100) / 100;
 
-export function scoreTrack(skills: StudentSkillScores, t: CareerTrack) {
-  const vals = t.skills.map((k) => skills[k] ?? 0);
+/** A skill value is usable only if it is a finite number on the 0–SCORE_MAX scale. */
+export const validSkill = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= SCORE_MAX;
+
+/**
+ * Match = mean over key skills of min(score / STRONG_THRESHOLD, 1) × 100. Gap = mean shortfall below STRONG_THRESHOLD.
+ * Missing or out-of-range key skills are NOT replaced with 0; any such skill makes the track unscored (null).
+ */
+export function scoreTrack(skills: StudentSkillScores, t: CareerTrack): { match: number | null; gap: number | null; unscored: SkillKey[] } {
+  const unscored = t.skills.filter((k) => !validSkill(skills[k]));
+  if (unscored.length) return { match: null, gap: null, unscored };
+  const vals = t.skills.map((k) => skills[k] as number);
   const match = (vals.reduce((a, v) => a + Math.min(v / STRONG_THRESHOLD, 1), 0) / vals.length) * 100;
   const gap = vals.reduce((a, v) => a + Math.max(STRONG_THRESHOLD - v, 0), 0) / vals.length;
-  return { match: round1(match), gap: round1(gap) };
+  return { match: round2(match), gap: round2(gap), unscored };
 }
 
 export interface RankedTrack {
   track: CareerTrack;
-  match: number;
-  gap: number;
+  match: number | null;
+  gap: number | null;
   met: SkillKey[];
   missing: SkillKey[];
+  /** Key skills missing or outside 0–100; the track cannot be scored until fixed. */
+  unscored: SkillKey[];
 }
 
-/** All tracks, best match first; ties go to the stated primary interest. */
+/** All tracks, best match first (unscored last); ties go to the stated primary interest. */
 export function rankTracks(skills: StudentSkillScores, primaryInterest?: string | null): RankedTrack[] {
   const pi = (primaryInterest ?? "").toLowerCase();
-  return CAREER_TRACKS.map((track) => ({
-    track,
-    ...scoreTrack(skills, track),
-    met: track.skills.filter((k) => (skills[k] ?? 0) >= STRONG_THRESHOLD),
-    missing: track.skills.filter((k) => (skills[k] ?? 0) < STRONG_THRESHOLD),
-  })).sort((a, b) => {
-    if (b.match !== a.match) return b.match - a.match;
+  return CAREER_TRACKS.map((track) => {
+    const s = scoreTrack(skills, track);
+    return {
+      track,
+      ...s,
+      met: track.skills.filter((k) => validSkill(skills[k]) && (skills[k] as number) >= STRONG_THRESHOLD),
+      missing: track.skills.filter((k) => validSkill(skills[k]) && (skills[k] as number) < STRONG_THRESHOLD),
+    };
+  }).sort((a, b) => {
+    const am = a.match ?? -1, bm = b.match ?? -1;
+    if (bm !== am) return bm - am;
     return Number(b.track.domain.toLowerCase() === pi) - Number(a.track.domain.toLowerCase() === pi);
   });
 }
 
 export function recommend(skills: StudentSkillScores, primaryInterest?: string | null): CareerRecommendation {
   const best = rankTracks(skills, primaryInterest)[0]!;
+  const ok = best.match !== null;
   return {
     student_id: skills.student_id,
-    recommended_career_domain: best.track.domain,
-    recommended_role: best.track.role,
+    recommended_career_domain: ok ? best.track.domain : null,
+    recommended_role: ok ? best.track.role : null,
     career_match_score: best.match,
     skill_gap_score: best.gap,
   };
 }
+
+/**
+ * Dataset domains → closest catalog track (by field name). Domains without an equivalent
+ * (e.g. Cybersecurity, Business & Product) return undefined and are never borrowed from another track.
+ */
+const DATASET_DOMAIN_TRACK: Record<string, string> = {
+  "software development": "software-developer",
+  "software engineering": "software-developer",
+  "data & analytics": "data-analyst",
+  "data analytics": "data-analyst",
+  "ai & machine learning": "data-scientist",
+  "data science & ml": "data-scientist",
+  "cloud & devops": "cloud-devops",
+  "cloud & infrastructure": "cloud-devops",
+  "product design": "ui-ux-designer",
+};
+export function trackForRecorded(role?: string | null, domain?: string | null): CareerTrack | undefined {
+  const byRole = CAREER_TRACKS.find((t) => t.role.toLowerCase() === (role ?? "").toLowerCase());
+  if (byRole) return byRole;
+  const id = DATASET_DOMAIN_TRACK[(domain ?? "").toLowerCase()];
+  return CAREER_TRACKS.find((t) => t.id === id);
+}
+
+/** A recorded dataset score is shown only when it is finite and on the 0–100 scale; otherwise null (never defaulted). */
+export const validPercent = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 100 ? round2(v) : null);
 
 /**
  * Career readiness (0–100), rule-based:
