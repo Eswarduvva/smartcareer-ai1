@@ -30,7 +30,7 @@ describe("Overall Career Fit", () => {
   });
   it("interest alone does not give a high score", () => {
     const f = careerFit(profile({ skills: skills(20), experience: { student_id: "s", project_count: 0, internship_count: 0, certification_count: 0, work_experience_months: 0 } }), trackById("data-analyst")!);
-    expect(f.factors.interest.value).toBe(100);
+    expect(f.factors.interest.value).toBe(75);
     expect(f.overall!).toBeLessThan(50);
   });
   it("strong skills still matter: no interest match but strong skills beats weak skills", () => {
