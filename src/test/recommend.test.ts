@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { gapPriority, readinessScore, recommend, scoreTrack, CAREER_TRACKS } from "@/lib/recommend";
+import { gapPriority, readinessScore, recommend, scoreTrack, trackForRecorded, validPercent, CAREER_TRACKS } from "@/lib/recommend";
 import { SKILL_KEYS } from "@/lib/skills";
 import type { StudentSkillScores } from "@/lib/api/types";
 
@@ -8,7 +8,7 @@ const base = (v: number, over: Partial<StudentSkillScores> = {}) =>
 
 describe("rule-based recommendation", () => {
   it("a skill at or above 75 counts fully toward the match", () => {
-    expect(scoreTrack(base(90), CAREER_TRACKS[0]!)).toEqual({ match: 100, gap: 0 });
+    expect(scoreTrack(base(90), CAREER_TRACKS[0]!)).toEqual({ match: 100, gap: 0, unscored: [] });
   });
 
   it("gap is the average shortfall below 75", () => {
@@ -41,5 +41,35 @@ describe("readiness and gap priority", () => {
     expect(gapPriority(55, false)).toBe("Medium");
     expect(gapPriority(65, false)).toBe("Low");
     expect(gapPriority(80, true)).toBeNull();
+  });
+});
+
+describe("career match score validation", () => {
+  it("a missing key skill leaves the track unscored instead of counting as zero", () => {
+    const r = scoreTrack(base(80, { programming_score: null }), CAREER_TRACKS[0]!);
+    expect(r.match).toBeNull();
+    expect(r.unscored).toEqual(["programming_score"]);
+  });
+  it("a key skill above 100 is invalid, not clamped", () => {
+    expect(scoreTrack(base(80, { programming_score: 140 }), CAREER_TRACKS[0]!).match).toBeNull();
+  });
+  it("scores round to two decimals", () => {
+    // four skills at 75 (100%) + one at 70 (93.333…%) → 98.67
+    expect(scoreTrack(base(75, { teamwork_score: 70 }), CAREER_TRACKS[0]!).match).toBe(98.67);
+  });
+  it("recorded scores outside 0–100 are rejected, valid ones kept", () => {
+    expect(validPercent(80.52)).toBe(80.52);
+    expect(validPercent(120)).toBeNull();
+    expect(validPercent(NaN)).toBeNull();
+    expect(validPercent(null)).toBeNull();
+  });
+  it("dataset fields without an equivalent track are not mapped to another track", () => {
+    expect(trackForRecorded("SOC Analyst", "Cybersecurity")).toBeUndefined();
+    expect(trackForRecorded("Cloud Engineer", "Cloud & DevOps")?.id).toBe("cloud-devops");
+  });
+  it("no recommendation is made when every track is unscored", () => {
+    const r = recommend(base(Number.NaN));
+    expect(r.recommended_role).toBeNull();
+    expect(r.career_match_score).toBeNull();
   });
 });

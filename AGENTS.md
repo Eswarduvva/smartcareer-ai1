@@ -23,7 +23,7 @@
 - The student's own profile and roadmap progress are saved to `student_accounts` (own-row RLS) with a device cache (`src/lib/my-profile.ts`, `src/lib/account.ts`) and scored by `src/lib/recommend.ts` (rule-based, labelled). Why: no auth yet and DB is read-only; a future engine replaces `recommend()` with the same output shape.
 - Journey page bodies live in `src/components/journey/` and read the record via `RecordProvider`/`useRecord`; `/students/$id/*` (database) and `/me/*` (self-entered) both reuse them. Why: one UI for both sources.
 
-- Career catalog, skill guidance and all scoring rules (match, readiness, gap priority) live in `src/lib/careers.ts` and `src/lib/recommend.ts`. Why: one place to replace when a backend engine arrives.
+- Career catalog, skill guidance and all scoring rules (match, readiness, gap priority) live in `src/lib/careers.ts` and `src/lib/recommend.ts`; match scores never default missing/out-of-range skills (track becomes unscored), and recorded dataset scores are shown unchanged, never attached to a non-equivalent catalog track. Why: one place to replace when a backend engine arrives, and no invented scores.
 - 3D labels are DOM overlays positioned from scene anchors, not drei `<Html>`. Why: `<Html>` threw on unmount under React 19.
 
 - Career comparisons and skill exploration consume the active RecordProvider and existing ranking rules; education text is catalog guidance, not eligibility scoring. Why: preserve recorded recommendations and avoid invented personal scores.
