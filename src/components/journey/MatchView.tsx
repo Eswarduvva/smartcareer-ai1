@@ -20,22 +20,47 @@ export function MatchView() {
   const best = ranked[0];
   if (!best) return <EmptyState title="No career tracks available" />;
   const stored = r.recommendation;
-  const recommended = ranked.find((t) => t.track.role === stored?.recommended_role) ?? best;
-  const score = source === "database" ? stored?.career_match_score : recommended.match;
+  const isDb = source === "database";
+  // Recorded dataset roles use a different catalog; only map to a track with an equivalent field, never borrow another.
+  const mapped = isDb ? trackForRecorded(stored?.recommended_role, stored?.recommended_career_domain) : undefined;
+  const recommended = isDb ? (mapped ? ranked.find((t) => t.track.id === mapped.id) : undefined) : best;
+  const recordedScore = isDb ? validPercent(stored?.career_match_score) : null;
+  const rawRecorded = stored?.career_match_score;
+  const score = isDb ? recordedScore : best.match;
+  const roleTitle = isDb ? stored?.recommended_role ?? "Not recorded" : best.track.role;
+  const focus = recommended ? [...recommended.missing].sort((a, b) => (r.skills?.[a] ?? 0) - (r.skills?.[b] ?? 0)) : [];
   const compare = ranked.filter((t) => selected.includes(t.track.id));
   const toggle = (id: string) => setSelected((cur) => cur.includes(id) ? cur.filter((k) => k !== id) : cur.length < 3 ? [...cur, id] : cur);
   const skills = (keys: RankedTrack["met"], matched: boolean) => keys.length ? <div className="flex flex-wrap gap-1.5">{keys.map((k) => <span key={k} className={cn("inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs", matched ? "border-strength/40 bg-strength/10 text-strength" : "border-gap/40 bg-gap/10 text-gap")}>{matched && <Check className="h-3 w-3" />}{skillLabel(k)}</span>)}</div> : <p className="text-sm text-muted-foreground">{matched ? "No key skills at target yet." : "All key skills at target."}</p>;
+  const unscoredNote = (t: RankedTrack) => t.unscored.length ? <p className="text-xs text-gap">Not scored: {t.unscored.map(skillLabel).join(", ")} {t.unscored.length === 1 ? "is" : "are"} missing or outside 0–100.</p> : null;
   return (
     <div className="animate-page-in">
       <PageHead eyebrow="Rule-based career recommendation" title="Find your career fit" />
-      <section className="mb-8 flex flex-wrap items-center gap-6 border-y border-border py-6">
-        {typeof score === "number" && <ScoreRing value={score} size={112} label="match" />}
-        <div className="min-w-0 flex-1 basis-56">
-          <p className="eyebrow text-primary">{source === "database" ? "Recorded recommendation" : "Strongest match"}</p>
-          <h2 className="mt-2 text-2xl md:text-3xl">{stored?.recommended_role ?? recommended.track.role}</h2>
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{recommended.track.description}</p>
-          <p className="mt-3 text-xs text-muted-foreground">{source === "database" ? "Recorded score shown unchanged. Career comparisons below use your recorded skills and the existing rule-based calculation." : `Based on your skill scores. Each key skill has a target of ${STRONG_THRESHOLD}.`}</p>
+      <section aria-label="Recommended career" className="mb-8 border-y border-border py-6">
+        <div className="flex flex-wrap items-center gap-6">
+          {typeof score === "number" ? <ScoreRing value={score} size={112} label="match" /> : <div className="grid h-28 w-28 place-items-center rounded-full border border-dashed border-border p-3 text-center text-xs text-muted-foreground">Score unavailable</div>}
+          <div className="min-w-0 flex-1 basis-56">
+            <p className="eyebrow text-primary">{isDb ? "Recorded recommendation (dataset)" : "Strongest skill match"}</p>
+            <h2 className="mt-2 text-2xl md:text-3xl">{roleTitle}</h2>
+            {isDb && stored?.recommended_career_domain && <p className="mt-1 text-sm text-muted-foreground">{stored.recommended_career_domain}</p>}
+            {recommended && !isDb && <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{recommended.track.description}</p>}
+            <p className="mt-3 text-xs text-muted-foreground">
+              {isDb
+                ? recordedScore !== null
+                  ? `Match score ${fmt(recordedScore, 2)}% comes from the imported dataset, shown unchanged. Its formula is not documented in SmartCareer, so it is not recalculated here.`
+                  : rawRecorded == null ? "The dataset has no match score for this student." : `The dataset score (${String(rawRecorded)}) is outside 0–100 and is not shown.`
+                : best.match !== null
+                  ? `Mean of your ${best.track.skills.length} key skills for this role, each counted up to a target of ${STRONG_THRESHOLD} (project heuristic). Education, interests and experience do not change this score.`
+                  : "Some key skills are missing or invalid, so no score is calculated."}
+            </p>
+          </div>
         </div>
+        {recommended ? <div className="mt-6 grid gap-5 md:grid-cols-3">
+          <div><p className="mb-2 text-xs font-medium text-strength">Skills matching {recommended.track.role}</p>{skills(recommended.met, true)}</div>
+          <div><p className="mb-2 text-xs font-medium text-gap">Missing or weak skills</p>{skills(recommended.missing, false)}{unscoredNote(recommended)}</div>
+          <div><p className="mb-2 text-xs font-medium">Suggested skills to improve</p>{focus.length ? <ol className="space-y-2 text-sm">{focus.slice(0, 3).map((k) => <li key={k}><span className="font-medium">{skillLabel(k)}</span> <span className="num text-muted-foreground">({fmt(r.skills?.[k])} → {STRONG_THRESHOLD})</span><p className="text-xs text-muted-foreground">{SKILL_GUIDE[k].action}</p></li>)}</ol> : <p className="text-sm text-muted-foreground">No key skill below target.</p>}</div>
+          {isDb && <p className="text-xs text-muted-foreground md:col-span-3">Skills compared against SmartCareer's closest track, {recommended.track.role} (skill match {recommended.match === null ? "not scored" : `${fmt(recommended.match, 2)}%`}). This is a separate rule-based figure from the recorded dataset score.</p>}
+        </div> : isDb && <p className="mt-4 text-xs text-muted-foreground">SmartCareer has no equivalent track for this field yet, so no skill breakdown is shown for it. The ranked tracks below use your recorded skills.</p>}
       </section>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl">{comparing ? "Career comparison" : "Recommended careers"}</h2>
