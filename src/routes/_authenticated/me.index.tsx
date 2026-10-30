@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Meter } from "@/components/kit";
+import { AssessmentSummary } from '@/components/assessments/AssessmentSummary';
 import { StudentKpis } from "@/components/dashboard/StudentKpis";
 import { SkillSpaceLazy } from "@/components/space/SkillSpaceLazy";
 import { buildSteps } from "@/components/journey/RoadmapView";
@@ -44,6 +45,7 @@ function Intelligence() {
       </p>
 
       <StudentKpis />
+      <AssessmentSummary />
 
       {/* result */}
       <section className="grid border-y border-border lg:grid-cols-[5fr_7fr]">
