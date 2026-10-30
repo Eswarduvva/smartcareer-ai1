@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {preferencesSchema,quizResult,standardPlan,topicState,validatePlan, type Topic} from '@/lib/personalized-learning/schema';
+import {preferencesSchema,quizResult,standardPlan,topicState,validatePlan,plannerContext, type Topic} from '@/lib/personalized-learning/schema';
 const topics:Topic[]=Array.from({length:10},(_,i)=>({id:`topic-${i+1}`,module_id:'00000000-0000-4000-8000-000000000001',title:`Topic ${i+1}`,position:i+1,prerequisite:i?`topic-${i}`:null,estimated_minutes:45}));
 const preferences={goal:'Data Analyst',hours:5,weeks:4,style:'practice' as const};
 describe('personalized learning rules',()=>{
@@ -13,4 +13,5 @@ describe('personalized learning rules',()=>{
  it('rejects unknown and reordered AI topics',()=>{const plan=standardPlan(topics,[],preferences);expect(()=>validatePlan({...plan,topic_ids:['invented']},topics,[],preferences)).toThrow();expect(()=>validatePlan({...plan,topic_ids:[...plan.topic_ids].reverse()},topics,[],preferences)).toThrow();});
  it('rejects missing and duplicated milestone coverage',()=>{const plan=standardPlan(topics,[],preferences);expect(()=>validatePlan({...plan,milestones:[]},topics,[],preferences)).toThrow();expect(()=>validatePlan({...plan,milestones:[...plan.milestones,...plan.milestones]},topics,[],preferences)).toThrow();});
  it('study preferences are explicitly bounded',()=>{expect(preferencesSchema.safeParse({...preferences,hours:0}).success).toBe(false);expect(preferencesSchema.safeParse({...preferences,weeks:53}).success).toBe(false);});
+ it('private nested fields never enter planner context',()=>{expect(plannerContext({student:{degree:{email:'private@example.com'},branch:'CSE',student_id:'secret'},preferences:{primary_interest:'Data'}},{baseline:{python_score:80,sql_score:101,student_id:'secret',unknown_score:{email:'private@example.com'}}})).toEqual({education:{branch:'CSE'},interests:{primary_interest:'Data'},goal:{},skills:{python_score:80},learningGoal:null});});
 });
