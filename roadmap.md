@@ -1,5 +1,6 @@
 # Review brief (Oct 10)
-- [ ] Personalized learning: audit existing features and present additive Python-first migration/implementation plan before application changes; implementation waits for plan approval, publication waits for independent content review.
+- [x] Personalized learning foundation: approved plan, additive private curriculum/attempt schema, server-only Gemini plan storage, lessons/quizzes/progress and staff controls; 90 regression tests and 6 live topic-security tests passed.
+- [ ] Activate Python learning: authorized admin must import/review the ten lesson drafts and supply at least 50 human-authored MCQs before approving the course; no AI-generated quiz bank permitted. Full signed-in lesson/quiz/Gemini journey and assigned-mentor checks wait for approved content. Do not publish before independent educator review.
 - [x] Predefined assessments: private schema, six 60-question banks, timed interface, server grading/results, dashboard integration; 79 regression tests and 6 live security tests passed.
 - [ ] Independent educator review of assessment content — practice bank is semantically reviewed but uses repeated variants; external reviewer needed before high-stakes use.
 - [ ] External career-coach RAG — disabled-by-default retrieval preparation added; 21 controlled coach/retrieval tests pass. Blocked on external protected service, verified schema and owner-approved nonpersonal fields; live retrieval/grounded answers unverified, no deployment authorized.

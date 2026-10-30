@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SKILL_KEYS } from '@/lib/skills';
 
 export const preferencesSchema = z.object({
   goal: z.string().trim().min(1).max(160),
@@ -53,7 +54,7 @@ export function plannerContext(profile:unknown,learning:unknown){
   const record=(v:unknown):Record<string,unknown>=>typeof v==='object'&&v!==null&&!Array.isArray(v)?Object.fromEntries(Object.entries(v)):{};
   const root=record(profile),l=record(learning);
   const strings=(v:unknown,keys:string[])=>{const r=record(v);return Object.fromEntries(keys.flatMap(k=>typeof r[k]==='string'?[ [k,String(r[k]).slice(0,160)] ]:[]));};
-  const numeric=(v:unknown)=>Object.fromEntries(Object.entries(record(v)).filter(([k,v])=>k.endsWith('_score')&&typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100));
+  const numeric=(v:unknown)=>Object.fromEntries(Object.entries(record(v)).filter(([k,v])=>SKILL_KEYS.some(key=>key===k)&&typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100));
   return {education:strings(root['student'],['degree','branch','specialization']),interests:strings(root['preferences'],['primary_interest','secondary_interest','preferred_work_role']),goal:strings(root['goals'],['career_goal']),skills:numeric(l['baseline']),learningGoal:typeof l['goal']==='string'?l['goal'].slice(0,160):null};
 }
 export function standardPlan(topics: Topic[], progress: LearningSnapshot['progress'], preferences: LearningPreferences) {
