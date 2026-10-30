@@ -41,6 +41,7 @@ import { Route as AuthenticatedMeGapsRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedMeMatchRouteImport } from './routes/_authenticated/me.match'
 import { Route as AuthenticatedMeRoadmapRouteImport } from './routes/_authenticated/me.roadmap'
 import { Route as AuthenticatedMeSkillsRouteImport } from './routes/_authenticated/me.skills'
+import { Route as AuthenticatedMeLearningProgressRouteImport } from './routes/_authenticated/me_.learning-progress'
 import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenticated/mentor.index'
 import { Route as AuthenticatedMentorLearningRouteImport } from './routes/_authenticated/mentor.learning'
 import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authenticated/students.index'
@@ -49,6 +50,8 @@ import { Route as ApiPublicCareerCoachRouteImport } from './routes/api/public/ca
 import { Route as LearnWatchIndexRouteImport } from './routes/learn.watch.index'
 import { Route as AuthenticatedMeAssessmentsIndexRouteImport } from './routes/_authenticated/me_.assessments.index'
 import { Route as AuthenticatedMeAssessmentsSkillRouteImport } from './routes/_authenticated/me_.assessments.$skill'
+import { Route as AuthenticatedMeLearnTopicIdRouteImport } from './routes/_authenticated/me_.learn.$topicId'
+import { Route as AuthenticatedMeRoadmapRoadmapIdRouteImport } from './routes/_authenticated/me_.roadmap.$roadmapId'
 import { Route as AuthenticatedMentorReviewIdRouteImport } from './routes/_authenticated/mentor.review.$id'
 import { Route as AuthenticatedStudentsIdIndexRouteImport } from './routes/_authenticated/students.$id.index'
 import { Route as AuthenticatedStudentsIdGapsRouteImport } from './routes/_authenticated/students.$id.gaps'
@@ -57,6 +60,8 @@ import { Route as AuthenticatedStudentsIdProfileRouteImport } from './routes/_au
 import { Route as AuthenticatedStudentsIdRoadmapRouteImport } from './routes/_authenticated/students.$id.roadmap'
 import { Route as AuthenticatedStudentsIdSkillsRouteImport } from './routes/_authenticated/students.$id.skills'
 import { Route as AuthenticatedMeAssessmentsResultsAttemptIdRouteImport } from './routes/_authenticated/me_.assessments.results.$attemptId'
+import { Route as AuthenticatedMeLearnTopicIdIndexRouteImport } from './routes/_authenticated/me_.learn.$topicId.index'
+import { Route as AuthenticatedMeLearnTopicIdQuizRouteImport } from './routes/_authenticated/me_.learn.$topicId.quiz'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -220,6 +225,12 @@ const AuthenticatedMeSkillsRoute = AuthenticatedMeSkillsRouteImport.update({
   path: '/skills',
   getParentRoute: () => AuthenticatedMeRoute,
 } as any)
+const AuthenticatedMeLearningProgressRoute =
+  AuthenticatedMeLearningProgressRouteImport.update({
+    id: '/me_/learning-progress',
+    path: '/me/learning-progress',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMentorIndexRoute =
   AuthenticatedMentorIndexRouteImport.update({
     id: '/',
@@ -263,6 +274,18 @@ const AuthenticatedMeAssessmentsSkillRoute =
   AuthenticatedMeAssessmentsSkillRouteImport.update({
     id: '/me_/assessments/$skill',
     path: '/me/assessments/$skill',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMeLearnTopicIdRoute =
+  AuthenticatedMeLearnTopicIdRouteImport.update({
+    id: '/me_/learn/$topicId',
+    path: '/me/learn/$topicId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMeRoadmapRoadmapIdRoute =
+  AuthenticatedMeRoadmapRoadmapIdRouteImport.update({
+    id: '/me_/roadmap/$roadmapId',
+    path: '/me/roadmap/$roadmapId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedMentorReviewIdRoute =
@@ -313,6 +336,18 @@ const AuthenticatedMeAssessmentsResultsAttemptIdRoute =
     path: '/me/assessments/results/$attemptId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMeLearnTopicIdIndexRoute =
+  AuthenticatedMeLearnTopicIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedMeLearnTopicIdRoute,
+  } as any)
+const AuthenticatedMeLearnTopicIdQuizRoute =
+  AuthenticatedMeLearnTopicIdQuizRouteImport.update({
+    id: '/quiz',
+    path: '/quiz',
+    getParentRoute: () => AuthenticatedMeLearnTopicIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -343,6 +378,7 @@ export interface FileRoutesByFullPath {
   '/me/match': typeof AuthenticatedMeMatchRoute
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/me/learning-progress': typeof AuthenticatedMeLearningProgressRoute
   '/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
   '/api/public/career-coach': typeof ApiPublicCareerCoachRoute
@@ -353,6 +389,8 @@ export interface FileRoutesByFullPath {
   '/students/': typeof AuthenticatedStudentsIndexRoute
   '/learn/watch/': typeof LearnWatchIndexRoute
   '/me/assessments/$skill': typeof AuthenticatedMeAssessmentsSkillRoute
+  '/me/learn/$topicId': typeof AuthenticatedMeLearnTopicIdRouteWithChildren
+  '/me/roadmap/$roadmapId': typeof AuthenticatedMeRoadmapRoadmapIdRoute
   '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
@@ -362,6 +400,8 @@ export interface FileRoutesByFullPath {
   '/me/assessments/': typeof AuthenticatedMeAssessmentsIndexRoute
   '/students/$id/': typeof AuthenticatedStudentsIdIndexRoute
   '/me/assessments/results/$attemptId': typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
+  '/me/learn/$topicId/quiz': typeof AuthenticatedMeLearnTopicIdQuizRoute
+  '/me/learn/$topicId/': typeof AuthenticatedMeLearnTopicIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -388,6 +428,7 @@ export interface FileRoutesByTo {
   '/me/match': typeof AuthenticatedMeMatchRoute
   '/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/me/learning-progress': typeof AuthenticatedMeLearningProgressRoute
   '/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/api/public/career-coach': typeof ApiPublicCareerCoachRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -397,6 +438,7 @@ export interface FileRoutesByTo {
   '/students': typeof AuthenticatedStudentsIndexRoute
   '/learn/watch': typeof LearnWatchIndexRoute
   '/me/assessments/$skill': typeof AuthenticatedMeAssessmentsSkillRoute
+  '/me/roadmap/$roadmapId': typeof AuthenticatedMeRoadmapRoadmapIdRoute
   '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
@@ -406,6 +448,8 @@ export interface FileRoutesByTo {
   '/me/assessments': typeof AuthenticatedMeAssessmentsIndexRoute
   '/students/$id': typeof AuthenticatedStudentsIdIndexRoute
   '/me/assessments/results/$attemptId': typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
+  '/me/learn/$topicId/quiz': typeof AuthenticatedMeLearnTopicIdQuizRoute
+  '/me/learn/$topicId': typeof AuthenticatedMeLearnTopicIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -438,6 +482,7 @@ export interface FileRoutesById {
   '/_authenticated/me/match': typeof AuthenticatedMeMatchRoute
   '/_authenticated/me/roadmap': typeof AuthenticatedMeRoadmapRoute
   '/_authenticated/me/skills': typeof AuthenticatedMeSkillsRoute
+  '/_authenticated/me_/learning-progress': typeof AuthenticatedMeLearningProgressRoute
   '/_authenticated/mentor/learning': typeof AuthenticatedMentorLearningRoute
   '/_authenticated/students/$id': typeof AuthenticatedStudentsIdRouteWithChildren
   '/api/public/career-coach': typeof ApiPublicCareerCoachRoute
@@ -448,6 +493,8 @@ export interface FileRoutesById {
   '/_authenticated/students/': typeof AuthenticatedStudentsIndexRoute
   '/learn/watch/': typeof LearnWatchIndexRoute
   '/_authenticated/me_/assessments/$skill': typeof AuthenticatedMeAssessmentsSkillRoute
+  '/_authenticated/me_/learn/$topicId': typeof AuthenticatedMeLearnTopicIdRouteWithChildren
+  '/_authenticated/me_/roadmap/$roadmapId': typeof AuthenticatedMeRoadmapRoadmapIdRoute
   '/_authenticated/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/_authenticated/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/_authenticated/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
@@ -457,6 +504,8 @@ export interface FileRoutesById {
   '/_authenticated/me_/assessments/': typeof AuthenticatedMeAssessmentsIndexRoute
   '/_authenticated/students/$id/': typeof AuthenticatedStudentsIdIndexRoute
   '/_authenticated/me_/assessments/results/$attemptId': typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
+  '/_authenticated/me_/learn/$topicId/quiz': typeof AuthenticatedMeLearnTopicIdQuizRoute
+  '/_authenticated/me_/learn/$topicId/': typeof AuthenticatedMeLearnTopicIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -489,6 +538,7 @@ export interface FileRouteTypes {
     | '/me/match'
     | '/me/roadmap'
     | '/me/skills'
+    | '/me/learning-progress'
     | '/mentor/learning'
     | '/students/$id'
     | '/api/public/career-coach'
@@ -499,6 +549,8 @@ export interface FileRouteTypes {
     | '/students/'
     | '/learn/watch/'
     | '/me/assessments/$skill'
+    | '/me/learn/$topicId'
+    | '/me/roadmap/$roadmapId'
     | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -508,6 +560,8 @@ export interface FileRouteTypes {
     | '/me/assessments/'
     | '/students/$id/'
     | '/me/assessments/results/$attemptId'
+    | '/me/learn/$topicId/quiz'
+    | '/me/learn/$topicId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -534,6 +588,7 @@ export interface FileRouteTypes {
     | '/me/match'
     | '/me/roadmap'
     | '/me/skills'
+    | '/me/learning-progress'
     | '/mentor/learning'
     | '/api/public/career-coach'
     | '/admin'
@@ -543,6 +598,7 @@ export interface FileRouteTypes {
     | '/students'
     | '/learn/watch'
     | '/me/assessments/$skill'
+    | '/me/roadmap/$roadmapId'
     | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
@@ -552,6 +608,8 @@ export interface FileRouteTypes {
     | '/me/assessments'
     | '/students/$id'
     | '/me/assessments/results/$attemptId'
+    | '/me/learn/$topicId/quiz'
+    | '/me/learn/$topicId'
   id:
     | '__root__'
     | '/'
@@ -583,6 +641,7 @@ export interface FileRouteTypes {
     | '/_authenticated/me/match'
     | '/_authenticated/me/roadmap'
     | '/_authenticated/me/skills'
+    | '/_authenticated/me_/learning-progress'
     | '/_authenticated/mentor/learning'
     | '/_authenticated/students/$id'
     | '/api/public/career-coach'
@@ -593,6 +652,8 @@ export interface FileRouteTypes {
     | '/_authenticated/students/'
     | '/learn/watch/'
     | '/_authenticated/me_/assessments/$skill'
+    | '/_authenticated/me_/learn/$topicId'
+    | '/_authenticated/me_/roadmap/$roadmapId'
     | '/_authenticated/mentor/review/$id'
     | '/_authenticated/students/$id/gaps'
     | '/_authenticated/students/$id/match'
@@ -602,6 +663,8 @@ export interface FileRouteTypes {
     | '/_authenticated/me_/assessments/'
     | '/_authenticated/students/$id/'
     | '/_authenticated/me_/assessments/results/$attemptId'
+    | '/_authenticated/me_/learn/$topicId/quiz'
+    | '/_authenticated/me_/learn/$topicId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -848,6 +911,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMeSkillsRouteImport
       parentRoute: typeof AuthenticatedMeRoute
     }
+    '/_authenticated/me_/learning-progress': {
+      id: '/_authenticated/me_/learning-progress'
+      path: '/me/learning-progress'
+      fullPath: '/me/learning-progress'
+      preLoaderRoute: typeof AuthenticatedMeLearningProgressRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/mentor/': {
       id: '/_authenticated/mentor/'
       path: '/'
@@ -902,6 +972,20 @@ declare module '@tanstack/react-router' {
       path: '/me/assessments/$skill'
       fullPath: '/me/assessments/$skill'
       preLoaderRoute: typeof AuthenticatedMeAssessmentsSkillRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/me_/learn/$topicId': {
+      id: '/_authenticated/me_/learn/$topicId'
+      path: '/me/learn/$topicId'
+      fullPath: '/me/learn/$topicId'
+      preLoaderRoute: typeof AuthenticatedMeLearnTopicIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/me_/roadmap/$roadmapId': {
+      id: '/_authenticated/me_/roadmap/$roadmapId'
+      path: '/me/roadmap/$roadmapId'
+      fullPath: '/me/roadmap/$roadmapId'
+      preLoaderRoute: typeof AuthenticatedMeRoadmapRoadmapIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/mentor/review/$id': {
@@ -959,6 +1043,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/me/assessments/results/$attemptId'
       preLoaderRoute: typeof AuthenticatedMeAssessmentsResultsAttemptIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/me_/learn/$topicId/': {
+      id: '/_authenticated/me_/learn/$topicId/'
+      path: '/'
+      fullPath: '/me/learn/$topicId/'
+      preLoaderRoute: typeof AuthenticatedMeLearnTopicIdIndexRouteImport
+      parentRoute: typeof AuthenticatedMeLearnTopicIdRoute
+    }
+    '/_authenticated/me_/learn/$topicId/quiz': {
+      id: '/_authenticated/me_/learn/$topicId/quiz'
+      path: '/quiz'
+      fullPath: '/me/learn/$topicId/quiz'
+      preLoaderRoute: typeof AuthenticatedMeLearnTopicIdQuizRouteImport
+      parentRoute: typeof AuthenticatedMeLearnTopicIdRoute
     }
   }
 }
@@ -1054,6 +1152,23 @@ const AuthenticatedStudentsRouteWithChildren =
     AuthenticatedStudentsRouteChildren,
   )
 
+interface AuthenticatedMeLearnTopicIdRouteChildren {
+  AuthenticatedMeLearnTopicIdQuizRoute: typeof AuthenticatedMeLearnTopicIdQuizRoute
+  AuthenticatedMeLearnTopicIdIndexRoute: typeof AuthenticatedMeLearnTopicIdIndexRoute
+}
+
+const AuthenticatedMeLearnTopicIdRouteChildren: AuthenticatedMeLearnTopicIdRouteChildren =
+  {
+    AuthenticatedMeLearnTopicIdQuizRoute: AuthenticatedMeLearnTopicIdQuizRoute,
+    AuthenticatedMeLearnTopicIdIndexRoute:
+      AuthenticatedMeLearnTopicIdIndexRoute,
+  }
+
+const AuthenticatedMeLearnTopicIdRouteWithChildren =
+  AuthenticatedMeLearnTopicIdRoute._addFileChildren(
+    AuthenticatedMeLearnTopicIdRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
@@ -1064,8 +1179,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSetupAdminRoute: typeof AuthenticatedSetupAdminRoute
   AuthenticatedStudentsRoute: typeof AuthenticatedStudentsRouteWithChildren
   AuthenticatedLearningIdRoute: typeof AuthenticatedLearningIdRoute
+  AuthenticatedMeLearningProgressRoute: typeof AuthenticatedMeLearningProgressRoute
   AuthenticatedLearningIndexRoute: typeof AuthenticatedLearningIndexRoute
   AuthenticatedMeAssessmentsSkillRoute: typeof AuthenticatedMeAssessmentsSkillRoute
+  AuthenticatedMeLearnTopicIdRoute: typeof AuthenticatedMeLearnTopicIdRouteWithChildren
+  AuthenticatedMeRoadmapRoadmapIdRoute: typeof AuthenticatedMeRoadmapRoadmapIdRoute
   AuthenticatedMeAssessmentsIndexRoute: typeof AuthenticatedMeAssessmentsIndexRoute
   AuthenticatedMeAssessmentsResultsAttemptIdRoute: typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
 }
@@ -1080,8 +1198,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSetupAdminRoute: AuthenticatedSetupAdminRoute,
   AuthenticatedStudentsRoute: AuthenticatedStudentsRouteWithChildren,
   AuthenticatedLearningIdRoute: AuthenticatedLearningIdRoute,
+  AuthenticatedMeLearningProgressRoute: AuthenticatedMeLearningProgressRoute,
   AuthenticatedLearningIndexRoute: AuthenticatedLearningIndexRoute,
   AuthenticatedMeAssessmentsSkillRoute: AuthenticatedMeAssessmentsSkillRoute,
+  AuthenticatedMeLearnTopicIdRoute:
+    AuthenticatedMeLearnTopicIdRouteWithChildren,
+  AuthenticatedMeRoadmapRoadmapIdRoute: AuthenticatedMeRoadmapRoadmapIdRoute,
   AuthenticatedMeAssessmentsIndexRoute: AuthenticatedMeAssessmentsIndexRoute,
   AuthenticatedMeAssessmentsResultsAttemptIdRoute:
     AuthenticatedMeAssessmentsResultsAttemptIdRoute,
