@@ -17,6 +17,7 @@ describe.skipIf(process.env['LEARNING_LIVE_TESTS']!=='1')('live topic quiz priva
  },30000);
  afterAll(async()=>{
   for(const user of users){await root.from('student_topic_progress').delete().eq('user_id',user);await root.from('student_quiz_attempts').delete().eq('user_id',user);await root.from('ai_roadmaps').delete().eq('user_id',user);await root.from('student_learning_sessions').delete().eq('user_id',user);await root.from('learning_ai_limits').delete().eq('user_id',user);await root.auth.admin.deleteUser(user);}
+  await root.from('learning_modules').update({status:'draft'}).eq('id',module);
   await root.from('topic_quiz_questions').delete().in('topic_id',topics);
   for(const topic of [...topics].reverse())await root.from('learning_topics').delete().eq('id',topic);
   await root.from('learning_modules').delete().eq('id',module);
