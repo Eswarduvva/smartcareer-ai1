@@ -1,0 +1,16 @@
+import {describe,it,expect} from 'vitest';
+import {preferencesSchema,quizResult,standardPlan,topicState,validatePlan, type Topic} from '@/lib/personalized-learning/schema';
+const topics:Topic[]=Array.from({length:10},(_,i)=>({id:`topic-${i+1}`,module_id:'00000000-0000-4000-8000-000000000001',title:`Topic ${i+1}`,position:i+1,prerequisite:i?`topic-${i}`:null,estimated_minutes:45}));
+const preferences={goal:'Data Analyst',hours:5,weeks:4,style:'practice' as const};
+describe('personalized learning rules',()=>{
+ it('four of five passes at exactly 80 percent',()=>expect(quizResult(4)).toEqual({percentage:80,passed:true}));
+ it('three of five fails at 60 percent',()=>expect(quizResult(3)).toEqual({percentage:60,passed:false}));
+ it('five of five is 100 percent',()=>expect(quizResult(5)).toEqual({percentage:100,passed:true}));
+ it('rejects invented marks',()=>{expect(()=>quizResult(6)).toThrow();expect(()=>quizResult(3.5)).toThrow();});
+ it('prerequisite completion unlocks only the next topic',()=>{const first=topics[0],second=topics[1],third=topics[2];if(!first||!second||!third)throw new Error('No topics'); const progress=[{topic_id:first.id,started_at:'now',completed_at:'now',passed_attempt:null}];expect(topicState(first,progress)).toBe('Completed');expect(topicState(second,progress)).toBe('Not Started');expect(topicState(third,progress)).toBe('Locked');});
+ it('opening a lesson never unlocks its successor',()=>{const second=topics[1];if(!second)throw new Error('No topic');expect(topicState(second,[{topic_id:'topic-1',started_at:'now',completed_at:null,passed_attempt:null}])).toBe('Locked');});
+ it('regeneration preserves evidence and omits only completed topics',()=>{const progress=[{topic_id:'topic-1',started_at:'now',completed_at:'now',passed_attempt:null}];const old=structuredClone(progress);const plan=standardPlan(topics,progress,preferences);expect(plan.topic_ids).toHaveLength(9);expect(plan.topic_ids[0]).toBe('topic-2');expect(progress).toEqual(old);expect(validatePlan(plan,topics,progress,preferences)).toEqual(plan);});
+ it('rejects unknown and reordered AI topics',()=>{const plan=standardPlan(topics,[],preferences);expect(()=>validatePlan({...plan,topic_ids:['invented']},topics,[],preferences)).toThrow();expect(()=>validatePlan({...plan,topic_ids:[...plan.topic_ids].reverse()},topics,[],preferences)).toThrow();});
+ it('rejects missing and duplicated milestone coverage',()=>{const plan=standardPlan(topics,[],preferences);expect(()=>validatePlan({...plan,milestones:[]},topics,[],preferences)).toThrow();expect(()=>validatePlan({...plan,milestones:[...plan.milestones,...plan.milestones]},topics,[],preferences)).toThrow();});
+ it('study preferences are explicitly bounded',()=>{expect(preferencesSchema.safeParse({...preferences,hours:0}).success).toBe(false);expect(preferencesSchema.safeParse({...preferences,weeks:53}).success).toBe(false);});
+});

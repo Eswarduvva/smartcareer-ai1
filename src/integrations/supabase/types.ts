@@ -35,6 +35,50 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_roadmaps: {
+        Row: {
+          catalog_version: number
+          created_at: string
+          guidance: string
+          id: string
+          model: string
+          module_id: string
+          preferences: Json
+          topic_ids: Json
+          user_id: string
+        }
+        Insert: {
+          catalog_version: number
+          created_at?: string
+          guidance?: string
+          id?: string
+          model: string
+          module_id: string
+          preferences: Json
+          topic_ids: Json
+          user_id: string
+        }
+        Update: {
+          catalog_version?: number
+          created_at?: string
+          guidance?: string
+          id?: string
+          model?: string
+          module_id?: string
+          preferences?: Json
+          topic_ids?: Json
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_roadmaps_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       assessment_answers: {
         Row: {
           attempt_id: string
@@ -430,6 +474,24 @@ export type Database = {
           },
         ]
       }
+      learning_ai_limits: {
+        Row: {
+          requests: number
+          user_id: string
+          window_start: string
+        }
+        Insert: {
+          requests?: number
+          user_id: string
+          window_start?: string
+        }
+        Update: {
+          requests?: number
+          user_id?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       learning_answer_keys: {
         Row: {
           activity_id: string
@@ -476,6 +538,77 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      learning_modules: {
+        Row: {
+          created_at: string
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          slug: string
+          status: string
+          title: string
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          slug: string
+          status?: string
+          title: string
+          version?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          slug?: string
+          status?: string
+          title?: string
+          version?: number
+        }
+        Relationships: []
+      }
+      learning_notes: {
+        Row: {
+          content: Json
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          topic_id: string
+          version: number
+        }
+        Insert: {
+          content: Json
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          topic_id: string
+          version?: number
+        }
+        Update: {
+          content?: Json
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          topic_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_notes_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       learning_resources: {
         Row: {
@@ -530,6 +663,48 @@ export type Database = {
           version?: number
         }
         Relationships: []
+      }
+      learning_topics: {
+        Row: {
+          estimated_minutes: number
+          id: string
+          module_id: string
+          position: number
+          prerequisite: string | null
+          title: string
+        }
+        Insert: {
+          estimated_minutes?: number
+          id: string
+          module_id: string
+          position: number
+          prerequisite?: string | null
+          title: string
+        }
+        Update: {
+          estimated_minutes?: number
+          id?: string
+          module_id?: string
+          position?: number
+          prerequisite?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_topics_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "learning_topics_prerequisite_fkey"
+            columns: ["prerequisite"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       mentor_assignments: {
         Row: {
@@ -612,6 +787,38 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      roadmap_milestones: {
+        Row: {
+          exercise: string
+          id: string
+          roadmap_id: string
+          topic_ids: Json
+          week: number
+        }
+        Insert: {
+          exercise?: string
+          id?: string
+          roadmap_id: string
+          topic_ids: Json
+          week: number
+        }
+        Update: {
+          exercise?: string
+          id?: string
+          roadmap_id?: string
+          topic_ids?: Json
+          week?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "roadmap_milestones_roadmap_id_fkey"
+            columns: ["roadmap_id"]
+            isOneToOne: false
+            referencedRelation: "ai_roadmaps"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       skill_assessment_results: {
         Row: {
@@ -819,6 +1026,121 @@ export type Database = {
           },
         ]
       }
+      student_learning_sessions: {
+        Row: {
+          active_seconds: number
+          id: string
+          last_at: string
+          last_event: string | null
+          topic_id: string
+          user_id: string
+        }
+        Insert: {
+          active_seconds?: number
+          id?: string
+          last_at?: string
+          last_event?: string | null
+          topic_id: string
+          user_id: string
+        }
+        Update: {
+          active_seconds?: number
+          id?: string
+          last_at?: string
+          last_event?: string | null
+          topic_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_learning_sessions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_quiz_answers: {
+        Row: {
+          attempt_id: string
+          position: number
+          question_id: string
+          selected_option: number | null
+        }
+        Insert: {
+          attempt_id: string
+          position: number
+          question_id: string
+          selected_option?: number | null
+        }
+        Update: {
+          attempt_id?: string
+          position?: number
+          question_id?: string
+          selected_option?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_quiz_answers_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "student_quiz_attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_quiz_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "topic_quiz_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_quiz_attempts: {
+        Row: {
+          id: string
+          marks: number | null
+          passed: boolean | null
+          percentage: number | null
+          started_at: string
+          status: string
+          submitted_at: string | null
+          topic_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          marks?: number | null
+          passed?: boolean | null
+          percentage?: number | null
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          topic_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          marks?: number | null
+          passed?: boolean | null
+          percentage?: number | null
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          topic_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_quiz_attempts_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       student_skill_history: {
         Row: {
           assessment_id: string
@@ -976,6 +1298,45 @@ export type Database = {
           },
         ]
       }
+      student_topic_progress: {
+        Row: {
+          completed_at: string | null
+          passed_attempt: string | null
+          started_at: string
+          topic_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          passed_attempt?: string | null
+          started_at?: string
+          topic_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          passed_attempt?: string | null
+          started_at?: string
+          topic_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_topic_progress_passed_attempt_user_id_fkey"
+            columns: ["passed_attempt", "user_id"]
+            isOneToOne: false
+            referencedRelation: "student_quiz_attempts"
+            referencedColumns: ["id", "user_id"]
+          },
+          {
+            foreignKeyName: "student_topic_progress_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       students: {
         Row: {
           age: number | null
@@ -1063,6 +1424,47 @@ export type Database = {
         }
         Relationships: []
       }
+      topic_quiz_questions: {
+        Row: {
+          correct_option: number
+          explanation: string
+          id: string
+          options: Json
+          prompt: string
+          status: string
+          topic_id: string
+          version: number
+        }
+        Insert: {
+          correct_option: number
+          explanation: string
+          id?: string
+          options: Json
+          prompt: string
+          status?: string
+          topic_id: string
+          version?: number
+        }
+        Update: {
+          correct_option?: number
+          explanation?: string
+          id?: string
+          options?: Json
+          prompt?: string
+          status?: string
+          topic_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_quiz_questions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -1122,6 +1524,24 @@ export type Database = {
             Args: { p_request: string; p_text: string; p_user: string }
             Returns: undefined
           }
+      curriculum_admin_approve: {
+        Args: { p_attested: boolean; p_module: string }
+        Returns: undefined
+      }
+      curriculum_admin_save: {
+        Args: {
+          p_module: string
+          p_notes: Json
+          p_questions: Json
+          p_title: string
+          p_topic: string
+        }
+        Returns: undefined
+      }
+      curriculum_admin_snapshot: { Args: never; Returns: Json }
+      curriculum_snapshot: { Args: { p_user?: string }; Returns: Json }
+      curriculum_topic: { Args: { p_topic: string }; Returns: Json }
+      curriculum_topic_allowed: { Args: { p_topic: string }; Returns: boolean }
       get_analytics: {
         Args: { p_branch?: string; p_degree?: string }
         Returns: Json
@@ -1147,11 +1567,34 @@ export type Database = {
         Args: { p_feedback: string; p_progress: string; p_score: number }
         Returns: string
       }
+      learning_plan_reserve: { Args: never; Returns: undefined }
+      learning_plan_save: {
+        Args: {
+          p_guidance: string
+          p_milestones: Json
+          p_model: string
+          p_module: string
+          p_preferences: Json
+          p_topics: Json
+        }
+        Returns: string
+      }
       learning_snapshot: { Args: { p_user?: string }; Returns: Json }
       learning_submit: {
         Args: { p_activity: string; p_submission: Json }
         Returns: string
       }
+      topic_activity_record: {
+        Args: { p_event: string; p_topic: string }
+        Returns: number
+      }
+      topic_quiz_save: {
+        Args: { p_attempt: string; p_option: number; p_question: string }
+        Returns: Json
+      }
+      topic_quiz_snapshot: { Args: { p_attempt: string }; Returns: Json }
+      topic_quiz_start: { Args: { p_topic: string }; Returns: Json }
+      topic_quiz_submit: { Args: { p_attempt: string }; Returns: Json }
     }
     Enums: {
       app_role: "student" | "mentor" | "admin"
