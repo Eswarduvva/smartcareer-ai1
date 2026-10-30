@@ -47,6 +47,8 @@ import { Route as AuthenticatedStudentsIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedStudentsIdRouteImport } from './routes/_authenticated/students.$id'
 import { Route as ApiPublicCareerCoachRouteImport } from './routes/api/public/career-coach'
 import { Route as LearnWatchIndexRouteImport } from './routes/learn.watch.index'
+import { Route as AuthenticatedMeAssessmentsIndexRouteImport } from './routes/_authenticated/me_.assessments.index'
+import { Route as AuthenticatedMeAssessmentsSkillRouteImport } from './routes/_authenticated/me_.assessments.$skill'
 import { Route as AuthenticatedMentorReviewIdRouteImport } from './routes/_authenticated/mentor.review.$id'
 import { Route as AuthenticatedStudentsIdIndexRouteImport } from './routes/_authenticated/students.$id.index'
 import { Route as AuthenticatedStudentsIdGapsRouteImport } from './routes/_authenticated/students.$id.gaps'
@@ -54,6 +56,7 @@ import { Route as AuthenticatedStudentsIdMatchRouteImport } from './routes/_auth
 import { Route as AuthenticatedStudentsIdProfileRouteImport } from './routes/_authenticated/students.$id.profile'
 import { Route as AuthenticatedStudentsIdRoadmapRouteImport } from './routes/_authenticated/students.$id.roadmap'
 import { Route as AuthenticatedStudentsIdSkillsRouteImport } from './routes/_authenticated/students.$id.skills'
+import { Route as AuthenticatedMeAssessmentsResultsAttemptIdRouteImport } from './routes/_authenticated/me_.assessments.results.$attemptId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -250,6 +253,18 @@ const LearnWatchIndexRoute = LearnWatchIndexRouteImport.update({
   path: '/learn/watch/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMeAssessmentsIndexRoute =
+  AuthenticatedMeAssessmentsIndexRouteImport.update({
+    id: '/me_/assessments/',
+    path: '/me/assessments/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMeAssessmentsSkillRoute =
+  AuthenticatedMeAssessmentsSkillRouteImport.update({
+    id: '/me_/assessments/$skill',
+    path: '/me/assessments/$skill',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMentorReviewIdRoute =
   AuthenticatedMentorReviewIdRouteImport.update({
     id: '/review/$id',
@@ -292,6 +307,12 @@ const AuthenticatedStudentsIdSkillsRoute =
     path: '/skills',
     getParentRoute: () => AuthenticatedStudentsIdRoute,
   } as any)
+const AuthenticatedMeAssessmentsResultsAttemptIdRoute =
+  AuthenticatedMeAssessmentsResultsAttemptIdRouteImport.update({
+    id: '/me_/assessments/results/$attemptId',
+    path: '/me/assessments/results/$attemptId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -331,13 +352,16 @@ export interface FileRoutesByFullPath {
   '/mentor/': typeof AuthenticatedMentorIndexRoute
   '/students/': typeof AuthenticatedStudentsIndexRoute
   '/learn/watch/': typeof LearnWatchIndexRoute
+  '/me/assessments/$skill': typeof AuthenticatedMeAssessmentsSkillRoute
   '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
   '/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
   '/students/$id/roadmap': typeof AuthenticatedStudentsIdRoadmapRoute
   '/students/$id/skills': typeof AuthenticatedStudentsIdSkillsRoute
+  '/me/assessments/': typeof AuthenticatedMeAssessmentsIndexRoute
   '/students/$id/': typeof AuthenticatedStudentsIdIndexRoute
+  '/me/assessments/results/$attemptId': typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -372,13 +396,16 @@ export interface FileRoutesByTo {
   '/mentor': typeof AuthenticatedMentorIndexRoute
   '/students': typeof AuthenticatedStudentsIndexRoute
   '/learn/watch': typeof LearnWatchIndexRoute
+  '/me/assessments/$skill': typeof AuthenticatedMeAssessmentsSkillRoute
   '/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
   '/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
   '/students/$id/roadmap': typeof AuthenticatedStudentsIdRoadmapRoute
   '/students/$id/skills': typeof AuthenticatedStudentsIdSkillsRoute
+  '/me/assessments': typeof AuthenticatedMeAssessmentsIndexRoute
   '/students/$id': typeof AuthenticatedStudentsIdIndexRoute
+  '/me/assessments/results/$attemptId': typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -420,13 +447,16 @@ export interface FileRoutesById {
   '/_authenticated/mentor/': typeof AuthenticatedMentorIndexRoute
   '/_authenticated/students/': typeof AuthenticatedStudentsIndexRoute
   '/learn/watch/': typeof LearnWatchIndexRoute
+  '/_authenticated/me_/assessments/$skill': typeof AuthenticatedMeAssessmentsSkillRoute
   '/_authenticated/mentor/review/$id': typeof AuthenticatedMentorReviewIdRoute
   '/_authenticated/students/$id/gaps': typeof AuthenticatedStudentsIdGapsRoute
   '/_authenticated/students/$id/match': typeof AuthenticatedStudentsIdMatchRoute
   '/_authenticated/students/$id/profile': typeof AuthenticatedStudentsIdProfileRoute
   '/_authenticated/students/$id/roadmap': typeof AuthenticatedStudentsIdRoadmapRoute
   '/_authenticated/students/$id/skills': typeof AuthenticatedStudentsIdSkillsRoute
+  '/_authenticated/me_/assessments/': typeof AuthenticatedMeAssessmentsIndexRoute
   '/_authenticated/students/$id/': typeof AuthenticatedStudentsIdIndexRoute
+  '/_authenticated/me_/assessments/results/$attemptId': typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -468,13 +498,16 @@ export interface FileRouteTypes {
     | '/mentor/'
     | '/students/'
     | '/learn/watch/'
+    | '/me/assessments/$skill'
     | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
     | '/students/$id/profile'
     | '/students/$id/roadmap'
     | '/students/$id/skills'
+    | '/me/assessments/'
     | '/students/$id/'
+    | '/me/assessments/results/$attemptId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -509,13 +542,16 @@ export interface FileRouteTypes {
     | '/mentor'
     | '/students'
     | '/learn/watch'
+    | '/me/assessments/$skill'
     | '/mentor/review/$id'
     | '/students/$id/gaps'
     | '/students/$id/match'
     | '/students/$id/profile'
     | '/students/$id/roadmap'
     | '/students/$id/skills'
+    | '/me/assessments'
     | '/students/$id'
+    | '/me/assessments/results/$attemptId'
   id:
     | '__root__'
     | '/'
@@ -556,13 +592,16 @@ export interface FileRouteTypes {
     | '/_authenticated/mentor/'
     | '/_authenticated/students/'
     | '/learn/watch/'
+    | '/_authenticated/me_/assessments/$skill'
     | '/_authenticated/mentor/review/$id'
     | '/_authenticated/students/$id/gaps'
     | '/_authenticated/students/$id/match'
     | '/_authenticated/students/$id/profile'
     | '/_authenticated/students/$id/roadmap'
     | '/_authenticated/students/$id/skills'
+    | '/_authenticated/me_/assessments/'
     | '/_authenticated/students/$id/'
+    | '/_authenticated/me_/assessments/results/$attemptId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -851,6 +890,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnWatchIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/me_/assessments/': {
+      id: '/_authenticated/me_/assessments/'
+      path: '/me/assessments'
+      fullPath: '/me/assessments/'
+      preLoaderRoute: typeof AuthenticatedMeAssessmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/me_/assessments/$skill': {
+      id: '/_authenticated/me_/assessments/$skill'
+      path: '/me/assessments/$skill'
+      fullPath: '/me/assessments/$skill'
+      preLoaderRoute: typeof AuthenticatedMeAssessmentsSkillRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/mentor/review/$id': {
       id: '/_authenticated/mentor/review/$id'
       path: '/review/$id'
@@ -899,6 +952,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/students/$id/skills'
       preLoaderRoute: typeof AuthenticatedStudentsIdSkillsRouteImport
       parentRoute: typeof AuthenticatedStudentsIdRoute
+    }
+    '/_authenticated/me_/assessments/results/$attemptId': {
+      id: '/_authenticated/me_/assessments/results/$attemptId'
+      path: '/me/assessments/results/$attemptId'
+      fullPath: '/me/assessments/results/$attemptId'
+      preLoaderRoute: typeof AuthenticatedMeAssessmentsResultsAttemptIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
@@ -1005,6 +1065,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStudentsRoute: typeof AuthenticatedStudentsRouteWithChildren
   AuthenticatedLearningIdRoute: typeof AuthenticatedLearningIdRoute
   AuthenticatedLearningIndexRoute: typeof AuthenticatedLearningIndexRoute
+  AuthenticatedMeAssessmentsSkillRoute: typeof AuthenticatedMeAssessmentsSkillRoute
+  AuthenticatedMeAssessmentsIndexRoute: typeof AuthenticatedMeAssessmentsIndexRoute
+  AuthenticatedMeAssessmentsResultsAttemptIdRoute: typeof AuthenticatedMeAssessmentsResultsAttemptIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -1018,6 +1081,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedStudentsRoute: AuthenticatedStudentsRouteWithChildren,
   AuthenticatedLearningIdRoute: AuthenticatedLearningIdRoute,
   AuthenticatedLearningIndexRoute: AuthenticatedLearningIndexRoute,
+  AuthenticatedMeAssessmentsSkillRoute: AuthenticatedMeAssessmentsSkillRoute,
+  AuthenticatedMeAssessmentsIndexRoute: AuthenticatedMeAssessmentsIndexRoute,
+  AuthenticatedMeAssessmentsResultsAttemptIdRoute:
+    AuthenticatedMeAssessmentsResultsAttemptIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

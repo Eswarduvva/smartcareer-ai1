@@ -35,6 +35,84 @@ export type Database = {
         }
         Relationships: []
       }
+      assessment_answers: {
+        Row: {
+          attempt_id: string
+          position: number
+          question_id: string
+          selected_option: number | null
+        }
+        Insert: {
+          attempt_id: string
+          position: number
+          question_id: string
+          selected_option?: number | null
+        }
+        Update: {
+          attempt_id?: string
+          position?: number
+          question_id?: string
+          selected_option?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_answers_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "student_assessments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_questions: {
+        Row: {
+          bank_key: string
+          correct_option: number
+          created_at: string
+          difficulty: string
+          explanation: string
+          id: string
+          options: Json
+          prompt: string
+          review_status: string
+          skill: string
+          topic: string
+        }
+        Insert: {
+          bank_key: string
+          correct_option: number
+          created_at?: string
+          difficulty: string
+          explanation: string
+          id?: string
+          options: Json
+          prompt: string
+          review_status?: string
+          skill: string
+          topic: string
+        }
+        Update: {
+          bank_key?: string
+          correct_option?: number
+          created_at?: string
+          difficulty?: string
+          explanation?: string
+          id?: string
+          options?: Json
+          prompt?: string
+          review_status?: string
+          skill?: string
+          topic?: string
+        }
+        Relationships: []
+      }
       career_goals: {
         Row: {
           career_goal: string | null
@@ -662,6 +740,53 @@ export type Database = {
           },
         ]
       }
+      student_assessments: {
+        Row: {
+          expires_at: string
+          id: string
+          marks: number | null
+          percentage: number | null
+          proficiency: string | null
+          skill: string
+          started_at: string
+          status: string
+          submitted_at: string | null
+          user_id: string
+        }
+        Insert: {
+          expires_at?: string
+          id?: string
+          marks?: number | null
+          percentage?: number | null
+          proficiency?: string | null
+          skill: string
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          user_id: string
+        }
+        Update: {
+          expires_at?: string
+          id?: string
+          marks?: number | null
+          percentage?: number | null
+          proficiency?: string | null
+          skill?: string
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_assessments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       student_experience: {
         Row: {
           certification_count: number | null
@@ -728,6 +853,48 @@ export type Database = {
             columns: ["assessment_id"]
             isOneToOne: true
             referencedRelation: "skill_assessment_results"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_skill_proficiency: {
+        Row: {
+          attempt_id: string
+          percentage: number
+          proficiency: string
+          skill: string
+          user_id: string
+          verified_at: string
+        }
+        Insert: {
+          attempt_id: string
+          percentage: number
+          proficiency: string
+          skill: string
+          user_id: string
+          verified_at: string
+        }
+        Update: {
+          attempt_id?: string
+          percentage?: number
+          proficiency?: string
+          skill?: string
+          user_id?: string
+          verified_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_skill_proficiency_attempt_id_user_id_fkey"
+            columns: ["attempt_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "student_assessments"
+            referencedColumns: ["id", "user_id"]
+          },
+          {
+            foreignKeyName: "student_skill_proficiency_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -929,6 +1096,17 @@ export type Database = {
           roles: string[]
         }[]
       }
+      assessment_finalize_internal: {
+        Args: { p_attempt: string }
+        Returns: undefined
+      }
+      assessment_save: {
+        Args: { p_attempt: string; p_option: number; p_question: string }
+        Returns: Json
+      }
+      assessment_snapshot: { Args: { p_attempt: string }; Returns: Json }
+      assessment_start: { Args: { p_skill: string }; Returns: string }
+      assessment_submit: { Args: { p_attempt: string }; Returns: Json }
       can_read_learning: { Args: { p_user: string }; Returns: boolean }
       can_view_student: { Args: { _student_id: string }; Returns: boolean }
       coach_begin:

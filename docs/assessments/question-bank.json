@@ -1,0 +1,5762 @@
+[
+  {
+    "bank_key": "python-arithmetic-0",
+    "skill": "python",
+    "topic": "Arithmetic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is 3 // 2?",
+    "options": [
+      "1",
+      "3",
+      "1.75",
+      "5"
+    ],
+    "correct_option": 0,
+    "explanation": "// is floor division; divide by 2 and round down.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-lists-0",
+    "skill": "python",
+    "topic": "Lists",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What does [3, 4, 5][-1] return?",
+    "options": [
+      "5",
+      "3",
+      "4",
+      "IndexError"
+    ],
+    "correct_option": 0,
+    "explanation": "A negative index of -1 selects the last element.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-strings-0",
+    "skill": "python",
+    "topic": "Strings",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is len(\"aaa\")?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "TypeError"
+    ],
+    "correct_option": 0,
+    "explanation": "len counts the characters in this ASCII string.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-boolean-logic-0",
+    "skill": "python",
+    "topic": "Boolean logic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is (3 > 2) and (2 > 0)?",
+    "options": [
+      "True",
+      "False",
+      "None",
+      "SyntaxError"
+    ],
+    "correct_option": 0,
+    "explanation": "Both comparisons are true, so their conjunction is true.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-ranges-0",
+    "skill": "python",
+    "topic": "Ranges",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is sum(range(3))?",
+    "options": [
+      "3",
+      "9",
+      "6",
+      "-3"
+    ],
+    "correct_option": 0,
+    "explanation": "range(n) contains integers from 0 through n-1; their sum is n(n-1)/2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-comprehensions-0",
+    "skill": "python",
+    "topic": "Comprehensions",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is [x * 2 for x in range(1, 3)][-1]?",
+    "options": [
+      "4",
+      "6",
+      "2",
+      "Not enough information"
+    ],
+    "correct_option": 0,
+    "explanation": "The final range value is n-1, which is multiplied by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-dictionaries-0",
+    "skill": "python",
+    "topic": "Dictionaries",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What does {\"a\": 3}.get(\"b\", 2) return?",
+    "options": [
+      "2",
+      "3",
+      "None",
+      "KeyError"
+    ],
+    "correct_option": 0,
+    "explanation": "dict.get returns its default argument when the key is missing.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-slicing-0",
+    "skill": "python",
+    "topic": "Slicing",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is len(list(range(3))[::2])?",
+    "options": [
+      "2",
+      "3",
+      "0",
+      "4"
+    ],
+    "correct_option": 0,
+    "explanation": "A step of 2 selects indexes 0, 2, 4, and so on.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-mutable-defaults-0",
+    "skill": "python",
+    "topic": "Mutable defaults",
+    "difficulty": "advanced",
+    "prompt": "Python 3: def f(x, a=[]): a.append(x); return len(a). After f(3) is called once, what does f(2) return?",
+    "options": [
+      "2",
+      "1",
+      "0",
+      "TypeError"
+    ],
+    "correct_option": 0,
+    "explanation": "The default list is created once and shared across calls, so it contains two items.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-generators-0",
+    "skill": "python",
+    "topic": "Generators",
+    "difficulty": "advanced",
+    "prompt": "Python 3: g = (x for x in range(3)); next(g); next(g). What is sum(g)?",
+    "options": [
+      "2",
+      "3",
+      "9",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The first two values 0 and 1 have been consumed; only the remaining values are summed.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-arithmetic-1",
+    "skill": "python",
+    "topic": "Arithmetic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is 4 // 2?",
+    "options": [
+      "4",
+      "2",
+      "2.25",
+      "6"
+    ],
+    "correct_option": 1,
+    "explanation": "// is floor division; divide by 2 and round down.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-lists-1",
+    "skill": "python",
+    "topic": "Lists",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What does [4, 5, 6][-1] return?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "IndexError"
+    ],
+    "correct_option": 1,
+    "explanation": "A negative index of -1 selects the last element.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-strings-1",
+    "skill": "python",
+    "topic": "Strings",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is len(\"aaaa\")?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "TypeError"
+    ],
+    "correct_option": 1,
+    "explanation": "len counts the characters in this ASCII string.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-boolean-logic-1",
+    "skill": "python",
+    "topic": "Boolean logic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is (4 > 3) and (3 > 0)?",
+    "options": [
+      "False",
+      "True",
+      "None",
+      "SyntaxError"
+    ],
+    "correct_option": 1,
+    "explanation": "Both comparisons are true, so their conjunction is true.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-ranges-1",
+    "skill": "python",
+    "topic": "Ranges",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is sum(range(4))?",
+    "options": [
+      "16",
+      "6",
+      "10",
+      "-4"
+    ],
+    "correct_option": 1,
+    "explanation": "range(n) contains integers from 0 through n-1; their sum is n(n-1)/2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-comprehensions-1",
+    "skill": "python",
+    "topic": "Comprehensions",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is [x * 2 for x in range(1, 4)][-1]?",
+    "options": [
+      "8",
+      "6",
+      "3",
+      "5"
+    ],
+    "correct_option": 1,
+    "explanation": "The final range value is n-1, which is multiplied by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-dictionaries-1",
+    "skill": "python",
+    "topic": "Dictionaries",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What does {\"a\": 4}.get(\"b\", 3) return?",
+    "options": [
+      "4",
+      "3",
+      "None",
+      "KeyError"
+    ],
+    "correct_option": 1,
+    "explanation": "dict.get returns its default argument when the key is missing.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-slicing-1",
+    "skill": "python",
+    "topic": "Slicing",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is len(list(range(4))[::2])?",
+    "options": [
+      "4",
+      "2",
+      "0",
+      "5"
+    ],
+    "correct_option": 1,
+    "explanation": "A step of 2 selects indexes 0, 2, 4, and so on.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-mutable-defaults-1",
+    "skill": "python",
+    "topic": "Mutable defaults",
+    "difficulty": "advanced",
+    "prompt": "Python 3: def f(x, a=[]): a.append(x); return len(a). After f(4) is called once, what does f(3) return?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "TypeError"
+    ],
+    "correct_option": 1,
+    "explanation": "The default list is created once and shared across calls, so it contains two items.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-generators-1",
+    "skill": "python",
+    "topic": "Generators",
+    "difficulty": "advanced",
+    "prompt": "Python 3: g = (x for x in range(4)); next(g); next(g). What is sum(g)?",
+    "options": [
+      "6",
+      "5",
+      "16",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The first two values 0 and 1 have been consumed; only the remaining values are summed.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-arithmetic-2",
+    "skill": "python",
+    "topic": "Arithmetic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is 5 // 2?",
+    "options": [
+      "5",
+      "2.75",
+      "2",
+      "7"
+    ],
+    "correct_option": 2,
+    "explanation": "// is floor division; divide by 2 and round down.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-lists-2",
+    "skill": "python",
+    "topic": "Lists",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What does [5, 6, 7][-1] return?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "IndexError"
+    ],
+    "correct_option": 2,
+    "explanation": "A negative index of -1 selects the last element.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-strings-2",
+    "skill": "python",
+    "topic": "Strings",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is len(\"aaaaa\")?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "TypeError"
+    ],
+    "correct_option": 2,
+    "explanation": "len counts the characters in this ASCII string.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-boolean-logic-2",
+    "skill": "python",
+    "topic": "Boolean logic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is (5 > 4) and (4 > 0)?",
+    "options": [
+      "False",
+      "None",
+      "True",
+      "SyntaxError"
+    ],
+    "correct_option": 2,
+    "explanation": "Both comparisons are true, so their conjunction is true.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-ranges-2",
+    "skill": "python",
+    "topic": "Ranges",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is sum(range(5))?",
+    "options": [
+      "25",
+      "15",
+      "10",
+      "-5"
+    ],
+    "correct_option": 2,
+    "explanation": "range(n) contains integers from 0 through n-1; their sum is n(n-1)/2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-comprehensions-2",
+    "skill": "python",
+    "topic": "Comprehensions",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is [x * 2 for x in range(1, 5)][-1]?",
+    "options": [
+      "10",
+      "4",
+      "8",
+      "6"
+    ],
+    "correct_option": 2,
+    "explanation": "The final range value is n-1, which is multiplied by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-dictionaries-2",
+    "skill": "python",
+    "topic": "Dictionaries",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What does {\"a\": 5}.get(\"b\", 4) return?",
+    "options": [
+      "5",
+      "None",
+      "4",
+      "KeyError"
+    ],
+    "correct_option": 2,
+    "explanation": "dict.get returns its default argument when the key is missing.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-slicing-2",
+    "skill": "python",
+    "topic": "Slicing",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is len(list(range(5))[::2])?",
+    "options": [
+      "5",
+      "0",
+      "3",
+      "6"
+    ],
+    "correct_option": 2,
+    "explanation": "A step of 2 selects indexes 0, 2, 4, and so on.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-mutable-defaults-2",
+    "skill": "python",
+    "topic": "Mutable defaults",
+    "difficulty": "advanced",
+    "prompt": "Python 3: def f(x, a=[]): a.append(x); return len(a). After f(5) is called once, what does f(4) return?",
+    "options": [
+      "1",
+      "0",
+      "2",
+      "TypeError"
+    ],
+    "correct_option": 2,
+    "explanation": "The default list is created once and shared across calls, so it contains two items.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-generators-2",
+    "skill": "python",
+    "topic": "Generators",
+    "difficulty": "advanced",
+    "prompt": "Python 3: g = (x for x in range(5)); next(g); next(g). What is sum(g)?",
+    "options": [
+      "10",
+      "25",
+      "9",
+      "-1"
+    ],
+    "correct_option": 2,
+    "explanation": "The first two values 0 and 1 have been consumed; only the remaining values are summed.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-arithmetic-3",
+    "skill": "python",
+    "topic": "Arithmetic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is 6 // 2?",
+    "options": [
+      "6",
+      "3.25",
+      "8",
+      "3"
+    ],
+    "correct_option": 3,
+    "explanation": "// is floor division; divide by 2 and round down.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-lists-3",
+    "skill": "python",
+    "topic": "Lists",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What does [6, 7, 8][-1] return?",
+    "options": [
+      "6",
+      "7",
+      "IndexError",
+      "8"
+    ],
+    "correct_option": 3,
+    "explanation": "A negative index of -1 selects the last element.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-strings-3",
+    "skill": "python",
+    "topic": "Strings",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is len(\"aaaaaa\")?",
+    "options": [
+      "5",
+      "7",
+      "TypeError",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "len counts the characters in this ASCII string.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-boolean-logic-3",
+    "skill": "python",
+    "topic": "Boolean logic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is (6 > 5) and (5 > 0)?",
+    "options": [
+      "False",
+      "None",
+      "SyntaxError",
+      "True"
+    ],
+    "correct_option": 3,
+    "explanation": "Both comparisons are true, so their conjunction is true.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-ranges-3",
+    "skill": "python",
+    "topic": "Ranges",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is sum(range(6))?",
+    "options": [
+      "36",
+      "21",
+      "-6",
+      "15"
+    ],
+    "correct_option": 3,
+    "explanation": "range(n) contains integers from 0 through n-1; their sum is n(n-1)/2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-comprehensions-3",
+    "skill": "python",
+    "topic": "Comprehensions",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is [x * 2 for x in range(1, 6)][-1]?",
+    "options": [
+      "12",
+      "5",
+      "7",
+      "10"
+    ],
+    "correct_option": 3,
+    "explanation": "The final range value is n-1, which is multiplied by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-dictionaries-3",
+    "skill": "python",
+    "topic": "Dictionaries",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What does {\"a\": 6}.get(\"b\", 5) return?",
+    "options": [
+      "6",
+      "None",
+      "KeyError",
+      "5"
+    ],
+    "correct_option": 3,
+    "explanation": "dict.get returns its default argument when the key is missing.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-slicing-3",
+    "skill": "python",
+    "topic": "Slicing",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is len(list(range(6))[::2])?",
+    "options": [
+      "6",
+      "0",
+      "7",
+      "3"
+    ],
+    "correct_option": 3,
+    "explanation": "A step of 2 selects indexes 0, 2, 4, and so on.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-mutable-defaults-3",
+    "skill": "python",
+    "topic": "Mutable defaults",
+    "difficulty": "advanced",
+    "prompt": "Python 3: def f(x, a=[]): a.append(x); return len(a). After f(6) is called once, what does f(5) return?",
+    "options": [
+      "1",
+      "0",
+      "TypeError",
+      "2"
+    ],
+    "correct_option": 3,
+    "explanation": "The default list is created once and shared across calls, so it contains two items.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-generators-3",
+    "skill": "python",
+    "topic": "Generators",
+    "difficulty": "advanced",
+    "prompt": "Python 3: g = (x for x in range(6)); next(g); next(g). What is sum(g)?",
+    "options": [
+      "15",
+      "36",
+      "-1",
+      "14"
+    ],
+    "correct_option": 3,
+    "explanation": "The first two values 0 and 1 have been consumed; only the remaining values are summed.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-arithmetic-4",
+    "skill": "python",
+    "topic": "Arithmetic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is 7 // 2?",
+    "options": [
+      "3",
+      "7",
+      "3.75",
+      "9"
+    ],
+    "correct_option": 0,
+    "explanation": "// is floor division; divide by 2 and round down.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-lists-4",
+    "skill": "python",
+    "topic": "Lists",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What does [7, 8, 9][-1] return?",
+    "options": [
+      "9",
+      "7",
+      "8",
+      "IndexError"
+    ],
+    "correct_option": 0,
+    "explanation": "A negative index of -1 selects the last element.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-strings-4",
+    "skill": "python",
+    "topic": "Strings",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is len(\"aaaaaaa\")?",
+    "options": [
+      "7",
+      "6",
+      "8",
+      "TypeError"
+    ],
+    "correct_option": 0,
+    "explanation": "len counts the characters in this ASCII string.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-boolean-logic-4",
+    "skill": "python",
+    "topic": "Boolean logic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is (7 > 6) and (6 > 0)?",
+    "options": [
+      "True",
+      "False",
+      "None",
+      "SyntaxError"
+    ],
+    "correct_option": 0,
+    "explanation": "Both comparisons are true, so their conjunction is true.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-ranges-4",
+    "skill": "python",
+    "topic": "Ranges",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is sum(range(7))?",
+    "options": [
+      "21",
+      "49",
+      "28",
+      "-7"
+    ],
+    "correct_option": 0,
+    "explanation": "range(n) contains integers from 0 through n-1; their sum is n(n-1)/2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-comprehensions-4",
+    "skill": "python",
+    "topic": "Comprehensions",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is [x * 2 for x in range(1, 7)][-1]?",
+    "options": [
+      "12",
+      "14",
+      "6",
+      "8"
+    ],
+    "correct_option": 0,
+    "explanation": "The final range value is n-1, which is multiplied by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-dictionaries-4",
+    "skill": "python",
+    "topic": "Dictionaries",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What does {\"a\": 7}.get(\"b\", 6) return?",
+    "options": [
+      "6",
+      "7",
+      "None",
+      "KeyError"
+    ],
+    "correct_option": 0,
+    "explanation": "dict.get returns its default argument when the key is missing.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-slicing-4",
+    "skill": "python",
+    "topic": "Slicing",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is len(list(range(7))[::2])?",
+    "options": [
+      "4",
+      "7",
+      "0",
+      "8"
+    ],
+    "correct_option": 0,
+    "explanation": "A step of 2 selects indexes 0, 2, 4, and so on.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-mutable-defaults-4",
+    "skill": "python",
+    "topic": "Mutable defaults",
+    "difficulty": "advanced",
+    "prompt": "Python 3: def f(x, a=[]): a.append(x); return len(a). After f(7) is called once, what does f(6) return?",
+    "options": [
+      "2",
+      "1",
+      "0",
+      "TypeError"
+    ],
+    "correct_option": 0,
+    "explanation": "The default list is created once and shared across calls, so it contains two items.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-generators-4",
+    "skill": "python",
+    "topic": "Generators",
+    "difficulty": "advanced",
+    "prompt": "Python 3: g = (x for x in range(7)); next(g); next(g). What is sum(g)?",
+    "options": [
+      "20",
+      "21",
+      "49",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The first two values 0 and 1 have been consumed; only the remaining values are summed.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-arithmetic-5",
+    "skill": "python",
+    "topic": "Arithmetic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is 8 // 2?",
+    "options": [
+      "8",
+      "4",
+      "4.25",
+      "10"
+    ],
+    "correct_option": 1,
+    "explanation": "// is floor division; divide by 2 and round down.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-lists-5",
+    "skill": "python",
+    "topic": "Lists",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What does [8, 9, 10][-1] return?",
+    "options": [
+      "8",
+      "10",
+      "9",
+      "IndexError"
+    ],
+    "correct_option": 1,
+    "explanation": "A negative index of -1 selects the last element.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-strings-5",
+    "skill": "python",
+    "topic": "Strings",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is len(\"aaaaaaaa\")?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "TypeError"
+    ],
+    "correct_option": 1,
+    "explanation": "len counts the characters in this ASCII string.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-boolean-logic-5",
+    "skill": "python",
+    "topic": "Boolean logic",
+    "difficulty": "beginner",
+    "prompt": "Python 3: What is (8 > 7) and (7 > 0)?",
+    "options": [
+      "False",
+      "True",
+      "None",
+      "SyntaxError"
+    ],
+    "correct_option": 1,
+    "explanation": "Both comparisons are true, so their conjunction is true.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-ranges-5",
+    "skill": "python",
+    "topic": "Ranges",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is sum(range(8))?",
+    "options": [
+      "64",
+      "28",
+      "36",
+      "-8"
+    ],
+    "correct_option": 1,
+    "explanation": "range(n) contains integers from 0 through n-1; their sum is n(n-1)/2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-comprehensions-5",
+    "skill": "python",
+    "topic": "Comprehensions",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is [x * 2 for x in range(1, 8)][-1]?",
+    "options": [
+      "16",
+      "14",
+      "7",
+      "9"
+    ],
+    "correct_option": 1,
+    "explanation": "The final range value is n-1, which is multiplied by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-dictionaries-5",
+    "skill": "python",
+    "topic": "Dictionaries",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What does {\"a\": 8}.get(\"b\", 7) return?",
+    "options": [
+      "8",
+      "7",
+      "None",
+      "KeyError"
+    ],
+    "correct_option": 1,
+    "explanation": "dict.get returns its default argument when the key is missing.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-slicing-5",
+    "skill": "python",
+    "topic": "Slicing",
+    "difficulty": "intermediate",
+    "prompt": "Python 3: What is len(list(range(8))[::2])?",
+    "options": [
+      "8",
+      "4",
+      "0",
+      "9"
+    ],
+    "correct_option": 1,
+    "explanation": "A step of 2 selects indexes 0, 2, 4, and so on.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-mutable-defaults-5",
+    "skill": "python",
+    "topic": "Mutable defaults",
+    "difficulty": "advanced",
+    "prompt": "Python 3: def f(x, a=[]): a.append(x); return len(a). After f(8) is called once, what does f(7) return?",
+    "options": [
+      "1",
+      "2",
+      "0",
+      "TypeError"
+    ],
+    "correct_option": 1,
+    "explanation": "The default list is created once and shared across calls, so it contains two items.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "python-generators-5",
+    "skill": "python",
+    "topic": "Generators",
+    "difficulty": "advanced",
+    "prompt": "Python 3: g = (x for x in range(8)); next(g); next(g). What is sum(g)?",
+    "options": [
+      "28",
+      "27",
+      "64",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The first two values 0 and 1 have been consumed; only the remaining values are summed.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-filtering-0",
+    "skill": "sql",
+    "topic": "Filtering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: a table has values 1 through 3 in column x. How many rows satisfy WHERE x > 2?",
+    "options": [
+      "1",
+      "3",
+      "2",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "Only integers strictly above the threshold are selected.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-ordering-0",
+    "skill": "sql",
+    "topic": "Ordering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 3, 4, 5. What is the first value from ORDER BY x DESC?",
+    "options": [
+      "5",
+      "3",
+      "4",
+      "NULL"
+    ],
+    "correct_option": 0,
+    "explanation": "DESC sorts these nonnull numeric values largest first.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-counting-0",
+    "skill": "sql",
+    "topic": "Counting",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 3, NULL, 2. What is COUNT(x)?",
+    "options": [
+      "2",
+      "3",
+      "1",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "COUNT(column) counts nonnull values; COUNT(*) would count all three rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-distinct-values-0",
+    "skill": "sql",
+    "topic": "Distinct values",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 3, 3, 2. What is COUNT(DISTINCT x)?",
+    "options": [
+      "2",
+      "3",
+      "1",
+      "4"
+    ],
+    "correct_option": 0,
+    "explanation": "DISTINCT removes the repeated value before counting.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-aggregation-0",
+    "skill": "sql",
+    "topic": "Aggregation",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: column x contains 3, 5, NULL. What is AVG(x)?",
+    "options": [
+      "4",
+      "3",
+      "5",
+      "2.6666666666666665"
+    ],
+    "correct_option": 0,
+    "explanation": "AVG ignores NULL and divides the sum of two nonnull values by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-joins-0",
+    "skill": "sql",
+    "topic": "Joins",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: table A has 3 rows and B has 2 rows. How many rows does A CROSS JOIN B produce?",
+    "options": [
+      "6",
+      "5",
+      "3",
+      "2"
+    ],
+    "correct_option": 0,
+    "explanation": "A cross join produces one row for every pair of input rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-null-handling-0",
+    "skill": "sql",
+    "topic": "Null handling",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: What is COALESCE(NULL, 3, 2)?",
+    "options": [
+      "3",
+      "2",
+      "NULL",
+      "5"
+    ],
+    "correct_option": 0,
+    "explanation": "COALESCE returns its first nonnull argument.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-group-filtering-0",
+    "skill": "sql",
+    "topic": "Group filtering",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: Which clause keeps only grouped departments with COUNT(*) > 3?",
+    "options": [
+      "HAVING COUNT(*) > 3",
+      "WHERE COUNT(*) > 3",
+      "ORDER BY COUNT(*) > 3",
+      "LIMIT 3"
+    ],
+    "correct_option": 0,
+    "explanation": "HAVING filters aggregated groups; WHERE filters input rows before grouping.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-window-functions-0",
+    "skill": "sql",
+    "topic": "Window functions",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: salaries are 3, 3, 4. What are DENSE_RANK() values in salary ASC order?",
+    "options": [
+      "1, 1, 2",
+      "1, 2, 3",
+      "1, 1, 3",
+      "0, 0, 1"
+    ],
+    "correct_option": 0,
+    "explanation": "DENSE_RANK assigns equal ranks to ties and leaves no gap before the next distinct value.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-three-valued-logic-0",
+    "skill": "sql",
+    "topic": "Three valued logic",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: What does SELECT 3 WHERE 3 NOT IN (2, NULL) return?",
+    "options": [
+      "No rows",
+      "One row with 3",
+      "One row with NULL",
+      "A syntax error"
+    ],
+    "correct_option": 0,
+    "explanation": "A NULL comparison makes NOT IN unknown rather than true, so WHERE does not retain the row.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-filtering-1",
+    "skill": "sql",
+    "topic": "Filtering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: a table has values 1 through 4 in column x. How many rows satisfy WHERE x > 3?",
+    "options": [
+      "4",
+      "1",
+      "3",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "Only integers strictly above the threshold are selected.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-ordering-1",
+    "skill": "sql",
+    "topic": "Ordering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 4, 5, 6. What is the first value from ORDER BY x DESC?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "NULL"
+    ],
+    "correct_option": 1,
+    "explanation": "DESC sorts these nonnull numeric values largest first.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-counting-1",
+    "skill": "sql",
+    "topic": "Counting",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 4, NULL, 3. What is COUNT(x)?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "COUNT(column) counts nonnull values; COUNT(*) would count all three rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-distinct-values-1",
+    "skill": "sql",
+    "topic": "Distinct values",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 4, 4, 3. What is COUNT(DISTINCT x)?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "5"
+    ],
+    "correct_option": 1,
+    "explanation": "DISTINCT removes the repeated value before counting.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-aggregation-1",
+    "skill": "sql",
+    "topic": "Aggregation",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: column x contains 4, 6, NULL. What is AVG(x)?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "3.3333333333333335"
+    ],
+    "correct_option": 1,
+    "explanation": "AVG ignores NULL and divides the sum of two nonnull values by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-joins-1",
+    "skill": "sql",
+    "topic": "Joins",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: table A has 4 rows and B has 3 rows. How many rows does A CROSS JOIN B produce?",
+    "options": [
+      "7",
+      "12",
+      "4",
+      "3"
+    ],
+    "correct_option": 1,
+    "explanation": "A cross join produces one row for every pair of input rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-null-handling-1",
+    "skill": "sql",
+    "topic": "Null handling",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: What is COALESCE(NULL, 4, 3)?",
+    "options": [
+      "3",
+      "4",
+      "NULL",
+      "7"
+    ],
+    "correct_option": 1,
+    "explanation": "COALESCE returns its first nonnull argument.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-group-filtering-1",
+    "skill": "sql",
+    "topic": "Group filtering",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: Which clause keeps only grouped departments with COUNT(*) > 4?",
+    "options": [
+      "WHERE COUNT(*) > 4",
+      "HAVING COUNT(*) > 4",
+      "ORDER BY COUNT(*) > 4",
+      "LIMIT 4"
+    ],
+    "correct_option": 1,
+    "explanation": "HAVING filters aggregated groups; WHERE filters input rows before grouping.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-window-functions-1",
+    "skill": "sql",
+    "topic": "Window functions",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: salaries are 4, 4, 5. What are DENSE_RANK() values in salary ASC order?",
+    "options": [
+      "1, 2, 3",
+      "1, 1, 2",
+      "1, 1, 3",
+      "0, 0, 1"
+    ],
+    "correct_option": 1,
+    "explanation": "DENSE_RANK assigns equal ranks to ties and leaves no gap before the next distinct value.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-three-valued-logic-1",
+    "skill": "sql",
+    "topic": "Three valued logic",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: What does SELECT 4 WHERE 4 NOT IN (3, NULL) return?",
+    "options": [
+      "One row with 4",
+      "No rows",
+      "One row with NULL",
+      "A syntax error"
+    ],
+    "correct_option": 1,
+    "explanation": "A NULL comparison makes NOT IN unknown rather than true, so WHERE does not retain the row.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-filtering-2",
+    "skill": "sql",
+    "topic": "Filtering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: a table has values 1 through 5 in column x. How many rows satisfy WHERE x > 4?",
+    "options": [
+      "5",
+      "4",
+      "1",
+      "0"
+    ],
+    "correct_option": 2,
+    "explanation": "Only integers strictly above the threshold are selected.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-ordering-2",
+    "skill": "sql",
+    "topic": "Ordering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 5, 6, 7. What is the first value from ORDER BY x DESC?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "NULL"
+    ],
+    "correct_option": 2,
+    "explanation": "DESC sorts these nonnull numeric values largest first.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-counting-2",
+    "skill": "sql",
+    "topic": "Counting",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 5, NULL, 4. What is COUNT(x)?",
+    "options": [
+      "3",
+      "1",
+      "2",
+      "0"
+    ],
+    "correct_option": 2,
+    "explanation": "COUNT(column) counts nonnull values; COUNT(*) would count all three rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-distinct-values-2",
+    "skill": "sql",
+    "topic": "Distinct values",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 5, 5, 4. What is COUNT(DISTINCT x)?",
+    "options": [
+      "3",
+      "1",
+      "2",
+      "6"
+    ],
+    "correct_option": 2,
+    "explanation": "DISTINCT removes the repeated value before counting.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-aggregation-2",
+    "skill": "sql",
+    "topic": "Aggregation",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: column x contains 5, 7, NULL. What is AVG(x)?",
+    "options": [
+      "5",
+      "7",
+      "6",
+      "4.0"
+    ],
+    "correct_option": 2,
+    "explanation": "AVG ignores NULL and divides the sum of two nonnull values by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-joins-2",
+    "skill": "sql",
+    "topic": "Joins",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: table A has 5 rows and B has 4 rows. How many rows does A CROSS JOIN B produce?",
+    "options": [
+      "9",
+      "5",
+      "20",
+      "4"
+    ],
+    "correct_option": 2,
+    "explanation": "A cross join produces one row for every pair of input rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-null-handling-2",
+    "skill": "sql",
+    "topic": "Null handling",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: What is COALESCE(NULL, 5, 4)?",
+    "options": [
+      "4",
+      "NULL",
+      "5",
+      "9"
+    ],
+    "correct_option": 2,
+    "explanation": "COALESCE returns its first nonnull argument.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-group-filtering-2",
+    "skill": "sql",
+    "topic": "Group filtering",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: Which clause keeps only grouped departments with COUNT(*) > 5?",
+    "options": [
+      "WHERE COUNT(*) > 5",
+      "ORDER BY COUNT(*) > 5",
+      "HAVING COUNT(*) > 5",
+      "LIMIT 5"
+    ],
+    "correct_option": 2,
+    "explanation": "HAVING filters aggregated groups; WHERE filters input rows before grouping.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-window-functions-2",
+    "skill": "sql",
+    "topic": "Window functions",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: salaries are 5, 5, 6. What are DENSE_RANK() values in salary ASC order?",
+    "options": [
+      "1, 2, 3",
+      "1, 1, 3",
+      "1, 1, 2",
+      "0, 0, 1"
+    ],
+    "correct_option": 2,
+    "explanation": "DENSE_RANK assigns equal ranks to ties and leaves no gap before the next distinct value.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-three-valued-logic-2",
+    "skill": "sql",
+    "topic": "Three valued logic",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: What does SELECT 5 WHERE 5 NOT IN (4, NULL) return?",
+    "options": [
+      "One row with 5",
+      "One row with NULL",
+      "No rows",
+      "A syntax error"
+    ],
+    "correct_option": 2,
+    "explanation": "A NULL comparison makes NOT IN unknown rather than true, so WHERE does not retain the row.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-filtering-3",
+    "skill": "sql",
+    "topic": "Filtering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: a table has values 1 through 6 in column x. How many rows satisfy WHERE x > 5?",
+    "options": [
+      "6",
+      "5",
+      "0",
+      "1"
+    ],
+    "correct_option": 3,
+    "explanation": "Only integers strictly above the threshold are selected.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-ordering-3",
+    "skill": "sql",
+    "topic": "Ordering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 6, 7, 8. What is the first value from ORDER BY x DESC?",
+    "options": [
+      "6",
+      "7",
+      "NULL",
+      "8"
+    ],
+    "correct_option": 3,
+    "explanation": "DESC sorts these nonnull numeric values largest first.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-counting-3",
+    "skill": "sql",
+    "topic": "Counting",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 6, NULL, 5. What is COUNT(x)?",
+    "options": [
+      "3",
+      "1",
+      "0",
+      "2"
+    ],
+    "correct_option": 3,
+    "explanation": "COUNT(column) counts nonnull values; COUNT(*) would count all three rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-distinct-values-3",
+    "skill": "sql",
+    "topic": "Distinct values",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 6, 6, 5. What is COUNT(DISTINCT x)?",
+    "options": [
+      "3",
+      "1",
+      "7",
+      "2"
+    ],
+    "correct_option": 3,
+    "explanation": "DISTINCT removes the repeated value before counting.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-aggregation-3",
+    "skill": "sql",
+    "topic": "Aggregation",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: column x contains 6, 8, NULL. What is AVG(x)?",
+    "options": [
+      "6",
+      "8",
+      "4.666666666666667",
+      "7"
+    ],
+    "correct_option": 3,
+    "explanation": "AVG ignores NULL and divides the sum of two nonnull values by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-joins-3",
+    "skill": "sql",
+    "topic": "Joins",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: table A has 6 rows and B has 5 rows. How many rows does A CROSS JOIN B produce?",
+    "options": [
+      "11",
+      "6",
+      "5",
+      "30"
+    ],
+    "correct_option": 3,
+    "explanation": "A cross join produces one row for every pair of input rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-null-handling-3",
+    "skill": "sql",
+    "topic": "Null handling",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: What is COALESCE(NULL, 6, 5)?",
+    "options": [
+      "5",
+      "NULL",
+      "11",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "COALESCE returns its first nonnull argument.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-group-filtering-3",
+    "skill": "sql",
+    "topic": "Group filtering",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: Which clause keeps only grouped departments with COUNT(*) > 6?",
+    "options": [
+      "WHERE COUNT(*) > 6",
+      "ORDER BY COUNT(*) > 6",
+      "LIMIT 6",
+      "HAVING COUNT(*) > 6"
+    ],
+    "correct_option": 3,
+    "explanation": "HAVING filters aggregated groups; WHERE filters input rows before grouping.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-window-functions-3",
+    "skill": "sql",
+    "topic": "Window functions",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: salaries are 6, 6, 7. What are DENSE_RANK() values in salary ASC order?",
+    "options": [
+      "1, 2, 3",
+      "1, 1, 3",
+      "0, 0, 1",
+      "1, 1, 2"
+    ],
+    "correct_option": 3,
+    "explanation": "DENSE_RANK assigns equal ranks to ties and leaves no gap before the next distinct value.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-three-valued-logic-3",
+    "skill": "sql",
+    "topic": "Three valued logic",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: What does SELECT 6 WHERE 6 NOT IN (5, NULL) return?",
+    "options": [
+      "One row with 6",
+      "One row with NULL",
+      "A syntax error",
+      "No rows"
+    ],
+    "correct_option": 3,
+    "explanation": "A NULL comparison makes NOT IN unknown rather than true, so WHERE does not retain the row.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-filtering-4",
+    "skill": "sql",
+    "topic": "Filtering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: a table has values 1 through 7 in column x. How many rows satisfy WHERE x > 6?",
+    "options": [
+      "1",
+      "7",
+      "6",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "Only integers strictly above the threshold are selected.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-ordering-4",
+    "skill": "sql",
+    "topic": "Ordering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 7, 8, 9. What is the first value from ORDER BY x DESC?",
+    "options": [
+      "9",
+      "7",
+      "8",
+      "NULL"
+    ],
+    "correct_option": 0,
+    "explanation": "DESC sorts these nonnull numeric values largest first.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-counting-4",
+    "skill": "sql",
+    "topic": "Counting",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 7, NULL, 6. What is COUNT(x)?",
+    "options": [
+      "2",
+      "3",
+      "1",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "COUNT(column) counts nonnull values; COUNT(*) would count all three rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-distinct-values-4",
+    "skill": "sql",
+    "topic": "Distinct values",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 7, 7, 6. What is COUNT(DISTINCT x)?",
+    "options": [
+      "2",
+      "3",
+      "1",
+      "8"
+    ],
+    "correct_option": 0,
+    "explanation": "DISTINCT removes the repeated value before counting.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-aggregation-4",
+    "skill": "sql",
+    "topic": "Aggregation",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: column x contains 7, 9, NULL. What is AVG(x)?",
+    "options": [
+      "8",
+      "7",
+      "9",
+      "5.333333333333333"
+    ],
+    "correct_option": 0,
+    "explanation": "AVG ignores NULL and divides the sum of two nonnull values by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-joins-4",
+    "skill": "sql",
+    "topic": "Joins",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: table A has 7 rows and B has 6 rows. How many rows does A CROSS JOIN B produce?",
+    "options": [
+      "42",
+      "13",
+      "7",
+      "6"
+    ],
+    "correct_option": 0,
+    "explanation": "A cross join produces one row for every pair of input rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-null-handling-4",
+    "skill": "sql",
+    "topic": "Null handling",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: What is COALESCE(NULL, 7, 6)?",
+    "options": [
+      "7",
+      "6",
+      "NULL",
+      "13"
+    ],
+    "correct_option": 0,
+    "explanation": "COALESCE returns its first nonnull argument.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-group-filtering-4",
+    "skill": "sql",
+    "topic": "Group filtering",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: Which clause keeps only grouped departments with COUNT(*) > 7?",
+    "options": [
+      "HAVING COUNT(*) > 7",
+      "WHERE COUNT(*) > 7",
+      "ORDER BY COUNT(*) > 7",
+      "LIMIT 7"
+    ],
+    "correct_option": 0,
+    "explanation": "HAVING filters aggregated groups; WHERE filters input rows before grouping.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-window-functions-4",
+    "skill": "sql",
+    "topic": "Window functions",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: salaries are 7, 7, 8. What are DENSE_RANK() values in salary ASC order?",
+    "options": [
+      "1, 1, 2",
+      "1, 2, 3",
+      "1, 1, 3",
+      "0, 0, 1"
+    ],
+    "correct_option": 0,
+    "explanation": "DENSE_RANK assigns equal ranks to ties and leaves no gap before the next distinct value.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-three-valued-logic-4",
+    "skill": "sql",
+    "topic": "Three valued logic",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: What does SELECT 7 WHERE 7 NOT IN (6, NULL) return?",
+    "options": [
+      "No rows",
+      "One row with 7",
+      "One row with NULL",
+      "A syntax error"
+    ],
+    "correct_option": 0,
+    "explanation": "A NULL comparison makes NOT IN unknown rather than true, so WHERE does not retain the row.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-filtering-5",
+    "skill": "sql",
+    "topic": "Filtering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: a table has values 1 through 8 in column x. How many rows satisfy WHERE x > 7?",
+    "options": [
+      "8",
+      "1",
+      "7",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "Only integers strictly above the threshold are selected.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-ordering-5",
+    "skill": "sql",
+    "topic": "Ordering",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 8, 9, 10. What is the first value from ORDER BY x DESC?",
+    "options": [
+      "8",
+      "10",
+      "9",
+      "NULL"
+    ],
+    "correct_option": 1,
+    "explanation": "DESC sorts these nonnull numeric values largest first.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-counting-5",
+    "skill": "sql",
+    "topic": "Counting",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 8, NULL, 7. What is COUNT(x)?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "COUNT(column) counts nonnull values; COUNT(*) would count all three rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-distinct-values-5",
+    "skill": "sql",
+    "topic": "Distinct values",
+    "difficulty": "beginner",
+    "prompt": "PostgreSQL: column x contains 8, 8, 7. What is COUNT(DISTINCT x)?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "9"
+    ],
+    "correct_option": 1,
+    "explanation": "DISTINCT removes the repeated value before counting.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-aggregation-5",
+    "skill": "sql",
+    "topic": "Aggregation",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: column x contains 8, 10, NULL. What is AVG(x)?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "6.0"
+    ],
+    "correct_option": 1,
+    "explanation": "AVG ignores NULL and divides the sum of two nonnull values by 2.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-joins-5",
+    "skill": "sql",
+    "topic": "Joins",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: table A has 8 rows and B has 7 rows. How many rows does A CROSS JOIN B produce?",
+    "options": [
+      "15",
+      "56",
+      "8",
+      "7"
+    ],
+    "correct_option": 1,
+    "explanation": "A cross join produces one row for every pair of input rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-null-handling-5",
+    "skill": "sql",
+    "topic": "Null handling",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: What is COALESCE(NULL, 8, 7)?",
+    "options": [
+      "7",
+      "8",
+      "NULL",
+      "15"
+    ],
+    "correct_option": 1,
+    "explanation": "COALESCE returns its first nonnull argument.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-group-filtering-5",
+    "skill": "sql",
+    "topic": "Group filtering",
+    "difficulty": "intermediate",
+    "prompt": "PostgreSQL: Which clause keeps only grouped departments with COUNT(*) > 8?",
+    "options": [
+      "WHERE COUNT(*) > 8",
+      "HAVING COUNT(*) > 8",
+      "ORDER BY COUNT(*) > 8",
+      "LIMIT 8"
+    ],
+    "correct_option": 1,
+    "explanation": "HAVING filters aggregated groups; WHERE filters input rows before grouping.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-window-functions-5",
+    "skill": "sql",
+    "topic": "Window functions",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: salaries are 8, 8, 9. What are DENSE_RANK() values in salary ASC order?",
+    "options": [
+      "1, 2, 3",
+      "1, 1, 2",
+      "1, 1, 3",
+      "0, 0, 1"
+    ],
+    "correct_option": 1,
+    "explanation": "DENSE_RANK assigns equal ranks to ties and leaves no gap before the next distinct value.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "sql-three-valued-logic-5",
+    "skill": "sql",
+    "topic": "Three valued logic",
+    "difficulty": "advanced",
+    "prompt": "PostgreSQL: What does SELECT 8 WHERE 8 NOT IN (7, NULL) return?",
+    "options": [
+      "One row with 8",
+      "No rows",
+      "One row with NULL",
+      "A syntax error"
+    ],
+    "correct_option": 1,
+    "explanation": "A NULL comparison makes NOT IN unknown rather than true, so WHERE does not retain the row.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-integer-division-0",
+    "skill": "java",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is the value of int x = 3 / 2;?",
+    "options": [
+      "1",
+      "3",
+      "1.75",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "Division between ints truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-arrays-0",
+    "skill": "java",
+    "topic": "Arrays",
+    "difficulty": "beginner",
+    "prompt": "Java 17: int[] a = new int[3]; What is a.length?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "An array created with length n has exactly n elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-length-0",
+    "skill": "java",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What does \"xxx\".length() return?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "null"
+    ],
+    "correct_option": 0,
+    "explanation": "These ASCII characters occupy one UTF-16 code unit each.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-remainder-0",
+    "skill": "java",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is 3 % 2?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The remainder is 0 for even positive integers and 1 for odd positive integers.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-loops-0",
+    "skill": "java",
+    "topic": "Loops",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int s=0; for(int x=0; x<3; x++) s+=x; What is s?",
+    "options": [
+      "3",
+      "9",
+      "6",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The loop sums integers from 0 through n-1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-list-removal-0",
+    "skill": "java",
+    "topic": "List removal",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: var a = new java.util.ArrayList<Integer>(java.util.List.of(3, 2)); a.remove(0); What is a.get(0)?",
+    "options": [
+      "2",
+      "3",
+      "null",
+      "IndexOutOfBoundsException"
+    ],
+    "correct_option": 0,
+    "explanation": "remove(int) removes by index; the second element then moves to index 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-equality-0",
+    "skill": "java",
+    "topic": "String equality",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: String a = new String(\"v3\"); String b = new String(\"v3\"); Which comparison is true?",
+    "options": [
+      "a.equals(b)",
+      "a == b",
+      "a != b && !a.equals(b)",
+      "Both a == b and !a.equals(b)"
+    ],
+    "correct_option": 0,
+    "explanation": "equals compares String contents, while == compares these distinct object references.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-pass-by-value-0",
+    "skill": "java",
+    "topic": "Pass by value",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int x=3; a method receives x as int p and sets p=2. What is x after returning?",
+    "options": [
+      "3",
+      "2",
+      "null",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "Java passes the value of a primitive argument; changing the parameter does not change the caller variable.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-stream-reduction-0",
+    "skill": "java",
+    "topic": "Stream reduction",
+    "difficulty": "advanced",
+    "prompt": "Java 17: What is java.util.stream.IntStream.range(0, 3).reduce(0, Integer::sum)?",
+    "options": [
+      "3",
+      "9",
+      "6",
+      "-3"
+    ],
+    "correct_option": 0,
+    "explanation": "range excludes the upper bound; reduce adds all included integers to the identity 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-finally-control-flow-0",
+    "skill": "java",
+    "topic": "Finally control flow",
+    "difficulty": "advanced",
+    "prompt": "Java 17: int f() { try { return 3; } finally { return 2; } } What does f() return?",
+    "options": [
+      "2",
+      "3",
+      "Compilation error",
+      "An exception"
+    ],
+    "correct_option": 0,
+    "explanation": "A return in finally replaces the pending return from try; this is legal but generally discouraged.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-integer-division-1",
+    "skill": "java",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is the value of int x = 4 / 2;?",
+    "options": [
+      "4",
+      "2",
+      "2.25",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "Division between ints truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-arrays-1",
+    "skill": "java",
+    "topic": "Arrays",
+    "difficulty": "beginner",
+    "prompt": "Java 17: int[] a = new int[4]; What is a.length?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "An array created with length n has exactly n elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-length-1",
+    "skill": "java",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What does \"xxxx\".length() return?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "null"
+    ],
+    "correct_option": 1,
+    "explanation": "These ASCII characters occupy one UTF-16 code unit each.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-remainder-1",
+    "skill": "java",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is 4 % 2?",
+    "options": [
+      "2",
+      "0",
+      "4",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The remainder is 0 for even positive integers and 1 for odd positive integers.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-loops-1",
+    "skill": "java",
+    "topic": "Loops",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int s=0; for(int x=0; x<4; x++) s+=x; What is s?",
+    "options": [
+      "16",
+      "6",
+      "10",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The loop sums integers from 0 through n-1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-list-removal-1",
+    "skill": "java",
+    "topic": "List removal",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: var a = new java.util.ArrayList<Integer>(java.util.List.of(4, 3)); a.remove(0); What is a.get(0)?",
+    "options": [
+      "4",
+      "3",
+      "null",
+      "IndexOutOfBoundsException"
+    ],
+    "correct_option": 1,
+    "explanation": "remove(int) removes by index; the second element then moves to index 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-equality-1",
+    "skill": "java",
+    "topic": "String equality",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: String a = new String(\"v4\"); String b = new String(\"v4\"); Which comparison is true?",
+    "options": [
+      "a == b",
+      "a.equals(b)",
+      "a != b && !a.equals(b)",
+      "Both a == b and !a.equals(b)"
+    ],
+    "correct_option": 1,
+    "explanation": "equals compares String contents, while == compares these distinct object references.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-pass-by-value-1",
+    "skill": "java",
+    "topic": "Pass by value",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int x=4; a method receives x as int p and sets p=3. What is x after returning?",
+    "options": [
+      "3",
+      "4",
+      "null",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "Java passes the value of a primitive argument; changing the parameter does not change the caller variable.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-stream-reduction-1",
+    "skill": "java",
+    "topic": "Stream reduction",
+    "difficulty": "advanced",
+    "prompt": "Java 17: What is java.util.stream.IntStream.range(0, 4).reduce(0, Integer::sum)?",
+    "options": [
+      "16",
+      "6",
+      "10",
+      "-4"
+    ],
+    "correct_option": 1,
+    "explanation": "range excludes the upper bound; reduce adds all included integers to the identity 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-finally-control-flow-1",
+    "skill": "java",
+    "topic": "Finally control flow",
+    "difficulty": "advanced",
+    "prompt": "Java 17: int f() { try { return 4; } finally { return 3; } } What does f() return?",
+    "options": [
+      "4",
+      "3",
+      "Compilation error",
+      "An exception"
+    ],
+    "correct_option": 1,
+    "explanation": "A return in finally replaces the pending return from try; this is legal but generally discouraged.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-integer-division-2",
+    "skill": "java",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is the value of int x = 5 / 2;?",
+    "options": [
+      "5",
+      "2.75",
+      "2",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "Division between ints truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-arrays-2",
+    "skill": "java",
+    "topic": "Arrays",
+    "difficulty": "beginner",
+    "prompt": "Java 17: int[] a = new int[5]; What is a.length?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "An array created with length n has exactly n elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-length-2",
+    "skill": "java",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What does \"xxxxx\".length() return?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "null"
+    ],
+    "correct_option": 2,
+    "explanation": "These ASCII characters occupy one UTF-16 code unit each.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-remainder-2",
+    "skill": "java",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is 5 % 2?",
+    "options": [
+      "2",
+      "5",
+      "1",
+      "-1"
+    ],
+    "correct_option": 2,
+    "explanation": "The remainder is 0 for even positive integers and 1 for odd positive integers.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-loops-2",
+    "skill": "java",
+    "topic": "Loops",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int s=0; for(int x=0; x<5; x++) s+=x; What is s?",
+    "options": [
+      "25",
+      "15",
+      "10",
+      "-1"
+    ],
+    "correct_option": 2,
+    "explanation": "The loop sums integers from 0 through n-1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-list-removal-2",
+    "skill": "java",
+    "topic": "List removal",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: var a = new java.util.ArrayList<Integer>(java.util.List.of(5, 4)); a.remove(0); What is a.get(0)?",
+    "options": [
+      "5",
+      "null",
+      "4",
+      "IndexOutOfBoundsException"
+    ],
+    "correct_option": 2,
+    "explanation": "remove(int) removes by index; the second element then moves to index 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-equality-2",
+    "skill": "java",
+    "topic": "String equality",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: String a = new String(\"v5\"); String b = new String(\"v5\"); Which comparison is true?",
+    "options": [
+      "a == b",
+      "a != b && !a.equals(b)",
+      "a.equals(b)",
+      "Both a == b and !a.equals(b)"
+    ],
+    "correct_option": 2,
+    "explanation": "equals compares String contents, while == compares these distinct object references.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-pass-by-value-2",
+    "skill": "java",
+    "topic": "Pass by value",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int x=5; a method receives x as int p and sets p=4. What is x after returning?",
+    "options": [
+      "4",
+      "null",
+      "5",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "Java passes the value of a primitive argument; changing the parameter does not change the caller variable.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-stream-reduction-2",
+    "skill": "java",
+    "topic": "Stream reduction",
+    "difficulty": "advanced",
+    "prompt": "Java 17: What is java.util.stream.IntStream.range(0, 5).reduce(0, Integer::sum)?",
+    "options": [
+      "25",
+      "15",
+      "10",
+      "-5"
+    ],
+    "correct_option": 2,
+    "explanation": "range excludes the upper bound; reduce adds all included integers to the identity 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-finally-control-flow-2",
+    "skill": "java",
+    "topic": "Finally control flow",
+    "difficulty": "advanced",
+    "prompt": "Java 17: int f() { try { return 5; } finally { return 4; } } What does f() return?",
+    "options": [
+      "5",
+      "Compilation error",
+      "4",
+      "An exception"
+    ],
+    "correct_option": 2,
+    "explanation": "A return in finally replaces the pending return from try; this is legal but generally discouraged.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-integer-division-3",
+    "skill": "java",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is the value of int x = 6 / 2;?",
+    "options": [
+      "6",
+      "3.25",
+      "Compilation error",
+      "3"
+    ],
+    "correct_option": 3,
+    "explanation": "Division between ints truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-arrays-3",
+    "skill": "java",
+    "topic": "Arrays",
+    "difficulty": "beginner",
+    "prompt": "Java 17: int[] a = new int[6]; What is a.length?",
+    "options": [
+      "5",
+      "7",
+      "Compilation error",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "An array created with length n has exactly n elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-length-3",
+    "skill": "java",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What does \"xxxxxx\".length() return?",
+    "options": [
+      "5",
+      "7",
+      "null",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "These ASCII characters occupy one UTF-16 code unit each.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-remainder-3",
+    "skill": "java",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is 6 % 2?",
+    "options": [
+      "2",
+      "6",
+      "-1",
+      "0"
+    ],
+    "correct_option": 3,
+    "explanation": "The remainder is 0 for even positive integers and 1 for odd positive integers.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-loops-3",
+    "skill": "java",
+    "topic": "Loops",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int s=0; for(int x=0; x<6; x++) s+=x; What is s?",
+    "options": [
+      "36",
+      "21",
+      "-1",
+      "15"
+    ],
+    "correct_option": 3,
+    "explanation": "The loop sums integers from 0 through n-1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-list-removal-3",
+    "skill": "java",
+    "topic": "List removal",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: var a = new java.util.ArrayList<Integer>(java.util.List.of(6, 5)); a.remove(0); What is a.get(0)?",
+    "options": [
+      "6",
+      "null",
+      "IndexOutOfBoundsException",
+      "5"
+    ],
+    "correct_option": 3,
+    "explanation": "remove(int) removes by index; the second element then moves to index 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-equality-3",
+    "skill": "java",
+    "topic": "String equality",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: String a = new String(\"v6\"); String b = new String(\"v6\"); Which comparison is true?",
+    "options": [
+      "a == b",
+      "a != b && !a.equals(b)",
+      "Both a == b and !a.equals(b)",
+      "a.equals(b)"
+    ],
+    "correct_option": 3,
+    "explanation": "equals compares String contents, while == compares these distinct object references.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-pass-by-value-3",
+    "skill": "java",
+    "topic": "Pass by value",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int x=6; a method receives x as int p and sets p=5. What is x after returning?",
+    "options": [
+      "5",
+      "null",
+      "Compilation error",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "Java passes the value of a primitive argument; changing the parameter does not change the caller variable.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-stream-reduction-3",
+    "skill": "java",
+    "topic": "Stream reduction",
+    "difficulty": "advanced",
+    "prompt": "Java 17: What is java.util.stream.IntStream.range(0, 6).reduce(0, Integer::sum)?",
+    "options": [
+      "36",
+      "21",
+      "-6",
+      "15"
+    ],
+    "correct_option": 3,
+    "explanation": "range excludes the upper bound; reduce adds all included integers to the identity 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-finally-control-flow-3",
+    "skill": "java",
+    "topic": "Finally control flow",
+    "difficulty": "advanced",
+    "prompt": "Java 17: int f() { try { return 6; } finally { return 5; } } What does f() return?",
+    "options": [
+      "6",
+      "Compilation error",
+      "An exception",
+      "5"
+    ],
+    "correct_option": 3,
+    "explanation": "A return in finally replaces the pending return from try; this is legal but generally discouraged.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-integer-division-4",
+    "skill": "java",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is the value of int x = 7 / 2;?",
+    "options": [
+      "3",
+      "7",
+      "3.75",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "Division between ints truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-arrays-4",
+    "skill": "java",
+    "topic": "Arrays",
+    "difficulty": "beginner",
+    "prompt": "Java 17: int[] a = new int[7]; What is a.length?",
+    "options": [
+      "7",
+      "6",
+      "8",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "An array created with length n has exactly n elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-length-4",
+    "skill": "java",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What does \"xxxxxxx\".length() return?",
+    "options": [
+      "7",
+      "6",
+      "8",
+      "null"
+    ],
+    "correct_option": 0,
+    "explanation": "These ASCII characters occupy one UTF-16 code unit each.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-remainder-4",
+    "skill": "java",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is 7 % 2?",
+    "options": [
+      "1",
+      "2",
+      "7",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The remainder is 0 for even positive integers and 1 for odd positive integers.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-loops-4",
+    "skill": "java",
+    "topic": "Loops",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int s=0; for(int x=0; x<7; x++) s+=x; What is s?",
+    "options": [
+      "21",
+      "49",
+      "28",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The loop sums integers from 0 through n-1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-list-removal-4",
+    "skill": "java",
+    "topic": "List removal",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: var a = new java.util.ArrayList<Integer>(java.util.List.of(7, 6)); a.remove(0); What is a.get(0)?",
+    "options": [
+      "6",
+      "7",
+      "null",
+      "IndexOutOfBoundsException"
+    ],
+    "correct_option": 0,
+    "explanation": "remove(int) removes by index; the second element then moves to index 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-equality-4",
+    "skill": "java",
+    "topic": "String equality",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: String a = new String(\"v7\"); String b = new String(\"v7\"); Which comparison is true?",
+    "options": [
+      "a.equals(b)",
+      "a == b",
+      "a != b && !a.equals(b)",
+      "Both a == b and !a.equals(b)"
+    ],
+    "correct_option": 0,
+    "explanation": "equals compares String contents, while == compares these distinct object references.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-pass-by-value-4",
+    "skill": "java",
+    "topic": "Pass by value",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int x=7; a method receives x as int p and sets p=6. What is x after returning?",
+    "options": [
+      "7",
+      "6",
+      "null",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "Java passes the value of a primitive argument; changing the parameter does not change the caller variable.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-stream-reduction-4",
+    "skill": "java",
+    "topic": "Stream reduction",
+    "difficulty": "advanced",
+    "prompt": "Java 17: What is java.util.stream.IntStream.range(0, 7).reduce(0, Integer::sum)?",
+    "options": [
+      "21",
+      "49",
+      "28",
+      "-7"
+    ],
+    "correct_option": 0,
+    "explanation": "range excludes the upper bound; reduce adds all included integers to the identity 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-finally-control-flow-4",
+    "skill": "java",
+    "topic": "Finally control flow",
+    "difficulty": "advanced",
+    "prompt": "Java 17: int f() { try { return 7; } finally { return 6; } } What does f() return?",
+    "options": [
+      "6",
+      "7",
+      "Compilation error",
+      "An exception"
+    ],
+    "correct_option": 0,
+    "explanation": "A return in finally replaces the pending return from try; this is legal but generally discouraged.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-integer-division-5",
+    "skill": "java",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is the value of int x = 8 / 2;?",
+    "options": [
+      "8",
+      "4",
+      "4.25",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "Division between ints truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-arrays-5",
+    "skill": "java",
+    "topic": "Arrays",
+    "difficulty": "beginner",
+    "prompt": "Java 17: int[] a = new int[8]; What is a.length?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "An array created with length n has exactly n elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-length-5",
+    "skill": "java",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What does \"xxxxxxxx\".length() return?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "null"
+    ],
+    "correct_option": 1,
+    "explanation": "These ASCII characters occupy one UTF-16 code unit each.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-remainder-5",
+    "skill": "java",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "Java 17: What is 8 % 2?",
+    "options": [
+      "2",
+      "0",
+      "8",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The remainder is 0 for even positive integers and 1 for odd positive integers.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-loops-5",
+    "skill": "java",
+    "topic": "Loops",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int s=0; for(int x=0; x<8; x++) s+=x; What is s?",
+    "options": [
+      "64",
+      "28",
+      "36",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The loop sums integers from 0 through n-1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-list-removal-5",
+    "skill": "java",
+    "topic": "List removal",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: var a = new java.util.ArrayList<Integer>(java.util.List.of(8, 7)); a.remove(0); What is a.get(0)?",
+    "options": [
+      "8",
+      "7",
+      "null",
+      "IndexOutOfBoundsException"
+    ],
+    "correct_option": 1,
+    "explanation": "remove(int) removes by index; the second element then moves to index 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-string-equality-5",
+    "skill": "java",
+    "topic": "String equality",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: String a = new String(\"v8\"); String b = new String(\"v8\"); Which comparison is true?",
+    "options": [
+      "a == b",
+      "a.equals(b)",
+      "a != b && !a.equals(b)",
+      "Both a == b and !a.equals(b)"
+    ],
+    "correct_option": 1,
+    "explanation": "equals compares String contents, while == compares these distinct object references.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-pass-by-value-5",
+    "skill": "java",
+    "topic": "Pass by value",
+    "difficulty": "intermediate",
+    "prompt": "Java 17: int x=8; a method receives x as int p and sets p=7. What is x after returning?",
+    "options": [
+      "7",
+      "8",
+      "null",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "Java passes the value of a primitive argument; changing the parameter does not change the caller variable.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-stream-reduction-5",
+    "skill": "java",
+    "topic": "Stream reduction",
+    "difficulty": "advanced",
+    "prompt": "Java 17: What is java.util.stream.IntStream.range(0, 8).reduce(0, Integer::sum)?",
+    "options": [
+      "64",
+      "28",
+      "36",
+      "-8"
+    ],
+    "correct_option": 1,
+    "explanation": "range excludes the upper bound; reduce adds all included integers to the identity 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "java-finally-control-flow-5",
+    "skill": "java",
+    "topic": "Finally control flow",
+    "difficulty": "advanced",
+    "prompt": "Java 17: int f() { try { return 8; } finally { return 7; } } What does f() return?",
+    "options": [
+      "8",
+      "7",
+      "Compilation error",
+      "An exception"
+    ],
+    "correct_option": 1,
+    "explanation": "A return in finally replaces the pending return from try; this is legal but generally discouraged.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-length-0",
+    "skill": "javascript",
+    "topic": "Array length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is [3, 2, 0].length?",
+    "options": [
+      "3",
+      "2",
+      "0",
+      "5"
+    ],
+    "correct_option": 0,
+    "explanation": "This array literal contains three elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-strict-equality-0",
+    "skill": "javascript",
+    "topic": "Strict equality",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 3 === \"3\"?",
+    "options": [
+      "false",
+      "true",
+      "undefined",
+      "TypeError"
+    ],
+    "correct_option": 0,
+    "explanation": "Strict equality does not convert between number and string types.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-remainder-0",
+    "skill": "javascript",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 3 % 2?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "Positive integer remainder modulo 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-string-length-0",
+    "skill": "javascript",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is \"aaa\".length?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "undefined"
+    ],
+    "correct_option": 0,
+    "explanation": "Each ASCII character contributes one code unit to the length.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-mapping-0",
+    "skill": "javascript",
+    "topic": "Array mapping",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [3, 2].map(x => x * 2)[0]?",
+    "options": [
+      "6",
+      "3",
+      "4",
+      "5"
+    ],
+    "correct_option": 0,
+    "explanation": "map doubles each element, so the first result is twice the first input.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-reduction-0",
+    "skill": "javascript",
+    "topic": "Array reduction",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [3, 2].reduce((a,x) => a+x, 0)?",
+    "options": [
+      "5",
+      "6",
+      "3",
+      "2"
+    ],
+    "correct_option": 0,
+    "explanation": "reduce adds both elements to the initial accumulator 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-nullish-coalescing-0",
+    "skill": "javascript",
+    "topic": "Nullish coalescing",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is 0 ?? 3?",
+    "options": [
+      "0",
+      "3",
+      "null",
+      "undefined"
+    ],
+    "correct_option": 0,
+    "explanation": "The nullish operator uses its right side only for null or undefined, not for 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-destructuring-0",
+    "skill": "javascript",
+    "topic": "Destructuring",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: const [a, ...rest] = [3, 2, 0]; What is rest.length?",
+    "options": [
+      "2",
+      "3",
+      "1",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "The first item is assigned to a and the remaining two items form rest.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-closure-state-0",
+    "skill": "javascript",
+    "topic": "Closure state",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: let x=3; const f=()=>++x; f(); What does f() return on the second call?",
+    "options": [
+      "5",
+      "3",
+      "4",
+      "ReferenceError"
+    ],
+    "correct_option": 0,
+    "explanation": "The closure shares x; each call increments the same variable before returning it.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-event-loop-0",
+    "skill": "javascript",
+    "topic": "Event loop",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: console.log(3); Promise.resolve().then(()=>console.log(2)); console.log(0); In what order are values logged?",
+    "options": [
+      "3, 0, 2",
+      "3, 2, 0",
+      "2, 3, 0",
+      "0, 3, 2"
+    ],
+    "correct_option": 0,
+    "explanation": "Synchronous logs run first; the promise microtask runs after the current stack completes.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-length-1",
+    "skill": "javascript",
+    "topic": "Array length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is [4, 3, 0].length?",
+    "options": [
+      "2",
+      "3",
+      "0",
+      "6"
+    ],
+    "correct_option": 1,
+    "explanation": "This array literal contains three elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-strict-equality-1",
+    "skill": "javascript",
+    "topic": "Strict equality",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 4 === \"4\"?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "TypeError"
+    ],
+    "correct_option": 1,
+    "explanation": "Strict equality does not convert between number and string types.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-remainder-1",
+    "skill": "javascript",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 4 % 2?",
+    "options": [
+      "2",
+      "0",
+      "4",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "Positive integer remainder modulo 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-string-length-1",
+    "skill": "javascript",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is \"aaaa\".length?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "undefined"
+    ],
+    "correct_option": 1,
+    "explanation": "Each ASCII character contributes one code unit to the length.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-mapping-1",
+    "skill": "javascript",
+    "topic": "Array mapping",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [4, 3].map(x => x * 2)[0]?",
+    "options": [
+      "4",
+      "8",
+      "6",
+      "7"
+    ],
+    "correct_option": 1,
+    "explanation": "map doubles each element, so the first result is twice the first input.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-reduction-1",
+    "skill": "javascript",
+    "topic": "Array reduction",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [4, 3].reduce((a,x) => a+x, 0)?",
+    "options": [
+      "12",
+      "7",
+      "4",
+      "3"
+    ],
+    "correct_option": 1,
+    "explanation": "reduce adds both elements to the initial accumulator 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-nullish-coalescing-1",
+    "skill": "javascript",
+    "topic": "Nullish coalescing",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is 0 ?? 4?",
+    "options": [
+      "4",
+      "0",
+      "null",
+      "undefined"
+    ],
+    "correct_option": 1,
+    "explanation": "The nullish operator uses its right side only for null or undefined, not for 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-destructuring-1",
+    "skill": "javascript",
+    "topic": "Destructuring",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: const [a, ...rest] = [4, 3, 0]; What is rest.length?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "The first item is assigned to a and the remaining two items form rest.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-closure-state-1",
+    "skill": "javascript",
+    "topic": "Closure state",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: let x=4; const f=()=>++x; f(); What does f() return on the second call?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "ReferenceError"
+    ],
+    "correct_option": 1,
+    "explanation": "The closure shares x; each call increments the same variable before returning it.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-event-loop-1",
+    "skill": "javascript",
+    "topic": "Event loop",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: console.log(4); Promise.resolve().then(()=>console.log(3)); console.log(0); In what order are values logged?",
+    "options": [
+      "4, 3, 0",
+      "4, 0, 3",
+      "3, 4, 0",
+      "0, 4, 3"
+    ],
+    "correct_option": 1,
+    "explanation": "Synchronous logs run first; the promise microtask runs after the current stack completes.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-length-2",
+    "skill": "javascript",
+    "topic": "Array length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is [5, 4, 0].length?",
+    "options": [
+      "2",
+      "0",
+      "3",
+      "7"
+    ],
+    "correct_option": 2,
+    "explanation": "This array literal contains three elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-strict-equality-2",
+    "skill": "javascript",
+    "topic": "Strict equality",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 5 === \"5\"?",
+    "options": [
+      "true",
+      "undefined",
+      "false",
+      "TypeError"
+    ],
+    "correct_option": 2,
+    "explanation": "Strict equality does not convert between number and string types.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-remainder-2",
+    "skill": "javascript",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 5 % 2?",
+    "options": [
+      "2",
+      "5",
+      "1",
+      "-1"
+    ],
+    "correct_option": 2,
+    "explanation": "Positive integer remainder modulo 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-string-length-2",
+    "skill": "javascript",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is \"aaaaa\".length?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "undefined"
+    ],
+    "correct_option": 2,
+    "explanation": "Each ASCII character contributes one code unit to the length.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-mapping-2",
+    "skill": "javascript",
+    "topic": "Array mapping",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [5, 4].map(x => x * 2)[0]?",
+    "options": [
+      "5",
+      "8",
+      "10",
+      "9"
+    ],
+    "correct_option": 2,
+    "explanation": "map doubles each element, so the first result is twice the first input.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-reduction-2",
+    "skill": "javascript",
+    "topic": "Array reduction",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [5, 4].reduce((a,x) => a+x, 0)?",
+    "options": [
+      "20",
+      "5",
+      "9",
+      "4"
+    ],
+    "correct_option": 2,
+    "explanation": "reduce adds both elements to the initial accumulator 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-nullish-coalescing-2",
+    "skill": "javascript",
+    "topic": "Nullish coalescing",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is 0 ?? 5?",
+    "options": [
+      "5",
+      "null",
+      "0",
+      "undefined"
+    ],
+    "correct_option": 2,
+    "explanation": "The nullish operator uses its right side only for null or undefined, not for 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-destructuring-2",
+    "skill": "javascript",
+    "topic": "Destructuring",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: const [a, ...rest] = [5, 4, 0]; What is rest.length?",
+    "options": [
+      "3",
+      "1",
+      "2",
+      "0"
+    ],
+    "correct_option": 2,
+    "explanation": "The first item is assigned to a and the remaining two items form rest.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-closure-state-2",
+    "skill": "javascript",
+    "topic": "Closure state",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: let x=5; const f=()=>++x; f(); What does f() return on the second call?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "ReferenceError"
+    ],
+    "correct_option": 2,
+    "explanation": "The closure shares x; each call increments the same variable before returning it.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-event-loop-2",
+    "skill": "javascript",
+    "topic": "Event loop",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: console.log(5); Promise.resolve().then(()=>console.log(4)); console.log(0); In what order are values logged?",
+    "options": [
+      "5, 4, 0",
+      "4, 5, 0",
+      "5, 0, 4",
+      "0, 5, 4"
+    ],
+    "correct_option": 2,
+    "explanation": "Synchronous logs run first; the promise microtask runs after the current stack completes.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-length-3",
+    "skill": "javascript",
+    "topic": "Array length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is [6, 5, 0].length?",
+    "options": [
+      "2",
+      "0",
+      "8",
+      "3"
+    ],
+    "correct_option": 3,
+    "explanation": "This array literal contains three elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-strict-equality-3",
+    "skill": "javascript",
+    "topic": "Strict equality",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 6 === \"6\"?",
+    "options": [
+      "true",
+      "undefined",
+      "TypeError",
+      "false"
+    ],
+    "correct_option": 3,
+    "explanation": "Strict equality does not convert between number and string types.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-remainder-3",
+    "skill": "javascript",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 6 % 2?",
+    "options": [
+      "2",
+      "6",
+      "-1",
+      "0"
+    ],
+    "correct_option": 3,
+    "explanation": "Positive integer remainder modulo 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-string-length-3",
+    "skill": "javascript",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is \"aaaaaa\".length?",
+    "options": [
+      "5",
+      "7",
+      "undefined",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "Each ASCII character contributes one code unit to the length.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-mapping-3",
+    "skill": "javascript",
+    "topic": "Array mapping",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [6, 5].map(x => x * 2)[0]?",
+    "options": [
+      "6",
+      "10",
+      "11",
+      "12"
+    ],
+    "correct_option": 3,
+    "explanation": "map doubles each element, so the first result is twice the first input.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-reduction-3",
+    "skill": "javascript",
+    "topic": "Array reduction",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [6, 5].reduce((a,x) => a+x, 0)?",
+    "options": [
+      "30",
+      "6",
+      "5",
+      "11"
+    ],
+    "correct_option": 3,
+    "explanation": "reduce adds both elements to the initial accumulator 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-nullish-coalescing-3",
+    "skill": "javascript",
+    "topic": "Nullish coalescing",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is 0 ?? 6?",
+    "options": [
+      "6",
+      "null",
+      "undefined",
+      "0"
+    ],
+    "correct_option": 3,
+    "explanation": "The nullish operator uses its right side only for null or undefined, not for 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-destructuring-3",
+    "skill": "javascript",
+    "topic": "Destructuring",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: const [a, ...rest] = [6, 5, 0]; What is rest.length?",
+    "options": [
+      "3",
+      "1",
+      "0",
+      "2"
+    ],
+    "correct_option": 3,
+    "explanation": "The first item is assigned to a and the remaining two items form rest.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-closure-state-3",
+    "skill": "javascript",
+    "topic": "Closure state",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: let x=6; const f=()=>++x; f(); What does f() return on the second call?",
+    "options": [
+      "6",
+      "7",
+      "ReferenceError",
+      "8"
+    ],
+    "correct_option": 3,
+    "explanation": "The closure shares x; each call increments the same variable before returning it.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-event-loop-3",
+    "skill": "javascript",
+    "topic": "Event loop",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: console.log(6); Promise.resolve().then(()=>console.log(5)); console.log(0); In what order are values logged?",
+    "options": [
+      "6, 5, 0",
+      "5, 6, 0",
+      "0, 6, 5",
+      "6, 0, 5"
+    ],
+    "correct_option": 3,
+    "explanation": "Synchronous logs run first; the promise microtask runs after the current stack completes.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-length-4",
+    "skill": "javascript",
+    "topic": "Array length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is [7, 6, 0].length?",
+    "options": [
+      "3",
+      "2",
+      "0",
+      "9"
+    ],
+    "correct_option": 0,
+    "explanation": "This array literal contains three elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-strict-equality-4",
+    "skill": "javascript",
+    "topic": "Strict equality",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 7 === \"7\"?",
+    "options": [
+      "false",
+      "true",
+      "undefined",
+      "TypeError"
+    ],
+    "correct_option": 0,
+    "explanation": "Strict equality does not convert between number and string types.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-remainder-4",
+    "skill": "javascript",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 7 % 2?",
+    "options": [
+      "1",
+      "2",
+      "7",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "Positive integer remainder modulo 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-string-length-4",
+    "skill": "javascript",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is \"aaaaaaa\".length?",
+    "options": [
+      "7",
+      "6",
+      "8",
+      "undefined"
+    ],
+    "correct_option": 0,
+    "explanation": "Each ASCII character contributes one code unit to the length.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-mapping-4",
+    "skill": "javascript",
+    "topic": "Array mapping",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [7, 6].map(x => x * 2)[0]?",
+    "options": [
+      "14",
+      "7",
+      "12",
+      "13"
+    ],
+    "correct_option": 0,
+    "explanation": "map doubles each element, so the first result is twice the first input.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-reduction-4",
+    "skill": "javascript",
+    "topic": "Array reduction",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [7, 6].reduce((a,x) => a+x, 0)?",
+    "options": [
+      "13",
+      "42",
+      "7",
+      "6"
+    ],
+    "correct_option": 0,
+    "explanation": "reduce adds both elements to the initial accumulator 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-nullish-coalescing-4",
+    "skill": "javascript",
+    "topic": "Nullish coalescing",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is 0 ?? 7?",
+    "options": [
+      "0",
+      "7",
+      "null",
+      "undefined"
+    ],
+    "correct_option": 0,
+    "explanation": "The nullish operator uses its right side only for null or undefined, not for 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-destructuring-4",
+    "skill": "javascript",
+    "topic": "Destructuring",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: const [a, ...rest] = [7, 6, 0]; What is rest.length?",
+    "options": [
+      "2",
+      "3",
+      "1",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "The first item is assigned to a and the remaining two items form rest.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-closure-state-4",
+    "skill": "javascript",
+    "topic": "Closure state",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: let x=7; const f=()=>++x; f(); What does f() return on the second call?",
+    "options": [
+      "9",
+      "7",
+      "8",
+      "ReferenceError"
+    ],
+    "correct_option": 0,
+    "explanation": "The closure shares x; each call increments the same variable before returning it.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-event-loop-4",
+    "skill": "javascript",
+    "topic": "Event loop",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: console.log(7); Promise.resolve().then(()=>console.log(6)); console.log(0); In what order are values logged?",
+    "options": [
+      "7, 0, 6",
+      "7, 6, 0",
+      "6, 7, 0",
+      "0, 7, 6"
+    ],
+    "correct_option": 0,
+    "explanation": "Synchronous logs run first; the promise microtask runs after the current stack completes.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-length-5",
+    "skill": "javascript",
+    "topic": "Array length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is [8, 7, 0].length?",
+    "options": [
+      "2",
+      "3",
+      "0",
+      "10"
+    ],
+    "correct_option": 1,
+    "explanation": "This array literal contains three elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-strict-equality-5",
+    "skill": "javascript",
+    "topic": "Strict equality",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 8 === \"8\"?",
+    "options": [
+      "true",
+      "false",
+      "undefined",
+      "TypeError"
+    ],
+    "correct_option": 1,
+    "explanation": "Strict equality does not convert between number and string types.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-remainder-5",
+    "skill": "javascript",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is 8 % 2?",
+    "options": [
+      "2",
+      "0",
+      "8",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "Positive integer remainder modulo 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-string-length-5",
+    "skill": "javascript",
+    "topic": "String length",
+    "difficulty": "beginner",
+    "prompt": "JavaScript ES2022: What is \"aaaaaaaa\".length?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "undefined"
+    ],
+    "correct_option": 1,
+    "explanation": "Each ASCII character contributes one code unit to the length.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-mapping-5",
+    "skill": "javascript",
+    "topic": "Array mapping",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [8, 7].map(x => x * 2)[0]?",
+    "options": [
+      "8",
+      "16",
+      "14",
+      "15"
+    ],
+    "correct_option": 1,
+    "explanation": "map doubles each element, so the first result is twice the first input.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-array-reduction-5",
+    "skill": "javascript",
+    "topic": "Array reduction",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is [8, 7].reduce((a,x) => a+x, 0)?",
+    "options": [
+      "56",
+      "15",
+      "8",
+      "7"
+    ],
+    "correct_option": 1,
+    "explanation": "reduce adds both elements to the initial accumulator 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-nullish-coalescing-5",
+    "skill": "javascript",
+    "topic": "Nullish coalescing",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: What is 0 ?? 8?",
+    "options": [
+      "8",
+      "0",
+      "null",
+      "undefined"
+    ],
+    "correct_option": 1,
+    "explanation": "The nullish operator uses its right side only for null or undefined, not for 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-destructuring-5",
+    "skill": "javascript",
+    "topic": "Destructuring",
+    "difficulty": "intermediate",
+    "prompt": "JavaScript ES2022: const [a, ...rest] = [8, 7, 0]; What is rest.length?",
+    "options": [
+      "3",
+      "2",
+      "1",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "The first item is assigned to a and the remaining two items form rest.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-closure-state-5",
+    "skill": "javascript",
+    "topic": "Closure state",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: let x=8; const f=()=>++x; f(); What does f() return on the second call?",
+    "options": [
+      "8",
+      "10",
+      "9",
+      "ReferenceError"
+    ],
+    "correct_option": 1,
+    "explanation": "The closure shares x; each call increments the same variable before returning it.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "javascript-event-loop-5",
+    "skill": "javascript",
+    "topic": "Event loop",
+    "difficulty": "advanced",
+    "prompt": "JavaScript ES2022: console.log(8); Promise.resolve().then(()=>console.log(7)); console.log(0); In what order are values logged?",
+    "options": [
+      "8, 7, 0",
+      "8, 0, 7",
+      "7, 8, 0",
+      "0, 8, 7"
+    ],
+    "correct_option": 1,
+    "explanation": "Synchronous logs run first; the promise microtask runs after the current stack completes.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-integer-division-0",
+    "skill": "cpp",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is int x = 3 / 2;?",
+    "options": [
+      "1",
+      "3",
+      "1.75",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "Integer division truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-vector-size-0",
+    "skill": "cpp",
+    "topic": "Vector size",
+    "difficulty": "beginner",
+    "prompt": "C++17: std::vector<int> v(3); What is v.size()?",
+    "options": [
+      "3",
+      "0",
+      "2",
+      "4"
+    ],
+    "correct_option": 0,
+    "explanation": "The single size constructor creates n default-initialized elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-remainder-0",
+    "skill": "cpp",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is 3 % 2?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The remainder of a positive integer divided by 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-string-size-0",
+    "skill": "cpp",
+    "topic": "String size",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is std::string(\"aaa\").size()?",
+    "options": [
+      "3",
+      "2",
+      "4",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "The string contains n one-byte ASCII characters.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-references-0",
+    "skill": "cpp",
+    "topic": "References",
+    "difficulty": "intermediate",
+    "prompt": "C++17: int x=3; int& r=x; r=2; What is x?",
+    "options": [
+      "2",
+      "3",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "A reference aliases the original variable; assignment through it changes x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-value-parameters-0",
+    "skill": "cpp",
+    "topic": "Value parameters",
+    "difficulty": "intermediate",
+    "prompt": "C++17: void f(int p) { p=2; } int x=3; f(x); What is x?",
+    "options": [
+      "3",
+      "2",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "A value parameter is a copy, so assigning p does not change x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-accumulation-0",
+    "skill": "cpp",
+    "topic": "Accumulation",
+    "difficulty": "intermediate",
+    "prompt": "C++17: std::vector<int> v{3, 2, 0}; What is std::accumulate(v.begin(),v.end(),0)?",
+    "options": [
+      "5",
+      "6",
+      "3",
+      "2"
+    ],
+    "correct_option": 0,
+    "explanation": "The default accumulate operation adds each element to the integer initial value 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-const-access-0",
+    "skill": "cpp",
+    "topic": "Const access",
+    "difficulty": "intermediate",
+    "prompt": "C++17: const int x=3; Which statement is valid?",
+    "options": [
+      "int y = x;",
+      "x = 2;",
+      "++x;",
+      "int& r = x;"
+    ],
+    "correct_option": 0,
+    "explanation": "A const int can be copied, but cannot be assigned to or bound to a nonconst int reference.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-move-ownership-0",
+    "skill": "cpp",
+    "topic": "Move ownership",
+    "difficulty": "advanced",
+    "prompt": "C++17: auto a=std::make_unique<int>(3); auto b=std::move(a); Which statement is guaranteed?",
+    "options": [
+      "a is null and *b is 3",
+      "Both a and b own the same int",
+      "*a remains 3",
+      "The move copies the int into a new allocation"
+    ],
+    "correct_option": 0,
+    "explanation": "Moving a unique_ptr transfers ownership and leaves the source pointer empty.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-lambda-capture-0",
+    "skill": "cpp",
+    "topic": "Lambda capture",
+    "difficulty": "advanced",
+    "prompt": "C++17: int x=3; auto f=[x]() mutable { return ++x; }; f(); f(); What is the original x?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "Undefined behavior"
+    ],
+    "correct_option": 0,
+    "explanation": "The lambda captures x by value; mutable allows changing only its internal copy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-integer-division-1",
+    "skill": "cpp",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is int x = 4 / 2;?",
+    "options": [
+      "4",
+      "2",
+      "2.25",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "Integer division truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-vector-size-1",
+    "skill": "cpp",
+    "topic": "Vector size",
+    "difficulty": "beginner",
+    "prompt": "C++17: std::vector<int> v(4); What is v.size()?",
+    "options": [
+      "0",
+      "4",
+      "3",
+      "5"
+    ],
+    "correct_option": 1,
+    "explanation": "The single size constructor creates n default-initialized elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-remainder-1",
+    "skill": "cpp",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is 4 % 2?",
+    "options": [
+      "2",
+      "0",
+      "4",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The remainder of a positive integer divided by 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-string-size-1",
+    "skill": "cpp",
+    "topic": "String size",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is std::string(\"aaaa\").size()?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "The string contains n one-byte ASCII characters.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-references-1",
+    "skill": "cpp",
+    "topic": "References",
+    "difficulty": "intermediate",
+    "prompt": "C++17: int x=4; int& r=x; r=3; What is x?",
+    "options": [
+      "4",
+      "3",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "A reference aliases the original variable; assignment through it changes x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-value-parameters-1",
+    "skill": "cpp",
+    "topic": "Value parameters",
+    "difficulty": "intermediate",
+    "prompt": "C++17: void f(int p) { p=3; } int x=4; f(x); What is x?",
+    "options": [
+      "3",
+      "4",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "A value parameter is a copy, so assigning p does not change x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-accumulation-1",
+    "skill": "cpp",
+    "topic": "Accumulation",
+    "difficulty": "intermediate",
+    "prompt": "C++17: std::vector<int> v{4, 3, 0}; What is std::accumulate(v.begin(),v.end(),0)?",
+    "options": [
+      "12",
+      "7",
+      "4",
+      "3"
+    ],
+    "correct_option": 1,
+    "explanation": "The default accumulate operation adds each element to the integer initial value 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-const-access-1",
+    "skill": "cpp",
+    "topic": "Const access",
+    "difficulty": "intermediate",
+    "prompt": "C++17: const int x=4; Which statement is valid?",
+    "options": [
+      "x = 3;",
+      "int y = x;",
+      "++x;",
+      "int& r = x;"
+    ],
+    "correct_option": 1,
+    "explanation": "A const int can be copied, but cannot be assigned to or bound to a nonconst int reference.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-move-ownership-1",
+    "skill": "cpp",
+    "topic": "Move ownership",
+    "difficulty": "advanced",
+    "prompt": "C++17: auto a=std::make_unique<int>(4); auto b=std::move(a); Which statement is guaranteed?",
+    "options": [
+      "Both a and b own the same int",
+      "a is null and *b is 4",
+      "*a remains 4",
+      "The move copies the int into a new allocation"
+    ],
+    "correct_option": 1,
+    "explanation": "Moving a unique_ptr transfers ownership and leaves the source pointer empty.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-lambda-capture-1",
+    "skill": "cpp",
+    "topic": "Lambda capture",
+    "difficulty": "advanced",
+    "prompt": "C++17: int x=4; auto f=[x]() mutable { return ++x; }; f(); f(); What is the original x?",
+    "options": [
+      "5",
+      "4",
+      "6",
+      "Undefined behavior"
+    ],
+    "correct_option": 1,
+    "explanation": "The lambda captures x by value; mutable allows changing only its internal copy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-integer-division-2",
+    "skill": "cpp",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is int x = 5 / 2;?",
+    "options": [
+      "5",
+      "2.75",
+      "2",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "Integer division truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-vector-size-2",
+    "skill": "cpp",
+    "topic": "Vector size",
+    "difficulty": "beginner",
+    "prompt": "C++17: std::vector<int> v(5); What is v.size()?",
+    "options": [
+      "0",
+      "4",
+      "5",
+      "6"
+    ],
+    "correct_option": 2,
+    "explanation": "The single size constructor creates n default-initialized elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-remainder-2",
+    "skill": "cpp",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is 5 % 2?",
+    "options": [
+      "2",
+      "5",
+      "1",
+      "-1"
+    ],
+    "correct_option": 2,
+    "explanation": "The remainder of a positive integer divided by 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-string-size-2",
+    "skill": "cpp",
+    "topic": "String size",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is std::string(\"aaaaa\").size()?",
+    "options": [
+      "4",
+      "6",
+      "5",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "The string contains n one-byte ASCII characters.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-references-2",
+    "skill": "cpp",
+    "topic": "References",
+    "difficulty": "intermediate",
+    "prompt": "C++17: int x=5; int& r=x; r=4; What is x?",
+    "options": [
+      "5",
+      "Undefined behavior",
+      "4",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "A reference aliases the original variable; assignment through it changes x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-value-parameters-2",
+    "skill": "cpp",
+    "topic": "Value parameters",
+    "difficulty": "intermediate",
+    "prompt": "C++17: void f(int p) { p=4; } int x=5; f(x); What is x?",
+    "options": [
+      "4",
+      "Undefined behavior",
+      "5",
+      "Compilation error"
+    ],
+    "correct_option": 2,
+    "explanation": "A value parameter is a copy, so assigning p does not change x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-accumulation-2",
+    "skill": "cpp",
+    "topic": "Accumulation",
+    "difficulty": "intermediate",
+    "prompt": "C++17: std::vector<int> v{5, 4, 0}; What is std::accumulate(v.begin(),v.end(),0)?",
+    "options": [
+      "20",
+      "5",
+      "9",
+      "4"
+    ],
+    "correct_option": 2,
+    "explanation": "The default accumulate operation adds each element to the integer initial value 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-const-access-2",
+    "skill": "cpp",
+    "topic": "Const access",
+    "difficulty": "intermediate",
+    "prompt": "C++17: const int x=5; Which statement is valid?",
+    "options": [
+      "x = 4;",
+      "++x;",
+      "int y = x;",
+      "int& r = x;"
+    ],
+    "correct_option": 2,
+    "explanation": "A const int can be copied, but cannot be assigned to or bound to a nonconst int reference.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-move-ownership-2",
+    "skill": "cpp",
+    "topic": "Move ownership",
+    "difficulty": "advanced",
+    "prompt": "C++17: auto a=std::make_unique<int>(5); auto b=std::move(a); Which statement is guaranteed?",
+    "options": [
+      "Both a and b own the same int",
+      "*a remains 5",
+      "a is null and *b is 5",
+      "The move copies the int into a new allocation"
+    ],
+    "correct_option": 2,
+    "explanation": "Moving a unique_ptr transfers ownership and leaves the source pointer empty.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-lambda-capture-2",
+    "skill": "cpp",
+    "topic": "Lambda capture",
+    "difficulty": "advanced",
+    "prompt": "C++17: int x=5; auto f=[x]() mutable { return ++x; }; f(); f(); What is the original x?",
+    "options": [
+      "6",
+      "7",
+      "5",
+      "Undefined behavior"
+    ],
+    "correct_option": 2,
+    "explanation": "The lambda captures x by value; mutable allows changing only its internal copy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-integer-division-3",
+    "skill": "cpp",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is int x = 6 / 2;?",
+    "options": [
+      "6",
+      "3.25",
+      "Compilation error",
+      "3"
+    ],
+    "correct_option": 3,
+    "explanation": "Integer division truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-vector-size-3",
+    "skill": "cpp",
+    "topic": "Vector size",
+    "difficulty": "beginner",
+    "prompt": "C++17: std::vector<int> v(6); What is v.size()?",
+    "options": [
+      "0",
+      "5",
+      "7",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "The single size constructor creates n default-initialized elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-remainder-3",
+    "skill": "cpp",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is 6 % 2?",
+    "options": [
+      "2",
+      "6",
+      "-1",
+      "0"
+    ],
+    "correct_option": 3,
+    "explanation": "The remainder of a positive integer divided by 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-string-size-3",
+    "skill": "cpp",
+    "topic": "String size",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is std::string(\"aaaaaa\").size()?",
+    "options": [
+      "5",
+      "7",
+      "Compilation error",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "The string contains n one-byte ASCII characters.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-references-3",
+    "skill": "cpp",
+    "topic": "References",
+    "difficulty": "intermediate",
+    "prompt": "C++17: int x=6; int& r=x; r=5; What is x?",
+    "options": [
+      "6",
+      "Undefined behavior",
+      "Compilation error",
+      "5"
+    ],
+    "correct_option": 3,
+    "explanation": "A reference aliases the original variable; assignment through it changes x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-value-parameters-3",
+    "skill": "cpp",
+    "topic": "Value parameters",
+    "difficulty": "intermediate",
+    "prompt": "C++17: void f(int p) { p=5; } int x=6; f(x); What is x?",
+    "options": [
+      "5",
+      "Undefined behavior",
+      "Compilation error",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "A value parameter is a copy, so assigning p does not change x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-accumulation-3",
+    "skill": "cpp",
+    "topic": "Accumulation",
+    "difficulty": "intermediate",
+    "prompt": "C++17: std::vector<int> v{6, 5, 0}; What is std::accumulate(v.begin(),v.end(),0)?",
+    "options": [
+      "30",
+      "6",
+      "5",
+      "11"
+    ],
+    "correct_option": 3,
+    "explanation": "The default accumulate operation adds each element to the integer initial value 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-const-access-3",
+    "skill": "cpp",
+    "topic": "Const access",
+    "difficulty": "intermediate",
+    "prompt": "C++17: const int x=6; Which statement is valid?",
+    "options": [
+      "x = 5;",
+      "++x;",
+      "int& r = x;",
+      "int y = x;"
+    ],
+    "correct_option": 3,
+    "explanation": "A const int can be copied, but cannot be assigned to or bound to a nonconst int reference.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-move-ownership-3",
+    "skill": "cpp",
+    "topic": "Move ownership",
+    "difficulty": "advanced",
+    "prompt": "C++17: auto a=std::make_unique<int>(6); auto b=std::move(a); Which statement is guaranteed?",
+    "options": [
+      "Both a and b own the same int",
+      "*a remains 6",
+      "The move copies the int into a new allocation",
+      "a is null and *b is 6"
+    ],
+    "correct_option": 3,
+    "explanation": "Moving a unique_ptr transfers ownership and leaves the source pointer empty.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-lambda-capture-3",
+    "skill": "cpp",
+    "topic": "Lambda capture",
+    "difficulty": "advanced",
+    "prompt": "C++17: int x=6; auto f=[x]() mutable { return ++x; }; f(); f(); What is the original x?",
+    "options": [
+      "7",
+      "8",
+      "Undefined behavior",
+      "6"
+    ],
+    "correct_option": 3,
+    "explanation": "The lambda captures x by value; mutable allows changing only its internal copy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-integer-division-4",
+    "skill": "cpp",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is int x = 7 / 2;?",
+    "options": [
+      "3",
+      "7",
+      "3.75",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "Integer division truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-vector-size-4",
+    "skill": "cpp",
+    "topic": "Vector size",
+    "difficulty": "beginner",
+    "prompt": "C++17: std::vector<int> v(7); What is v.size()?",
+    "options": [
+      "7",
+      "0",
+      "6",
+      "8"
+    ],
+    "correct_option": 0,
+    "explanation": "The single size constructor creates n default-initialized elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-remainder-4",
+    "skill": "cpp",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is 7 % 2?",
+    "options": [
+      "1",
+      "2",
+      "7",
+      "-1"
+    ],
+    "correct_option": 0,
+    "explanation": "The remainder of a positive integer divided by 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-string-size-4",
+    "skill": "cpp",
+    "topic": "String size",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is std::string(\"aaaaaaa\").size()?",
+    "options": [
+      "7",
+      "6",
+      "8",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "The string contains n one-byte ASCII characters.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-references-4",
+    "skill": "cpp",
+    "topic": "References",
+    "difficulty": "intermediate",
+    "prompt": "C++17: int x=7; int& r=x; r=6; What is x?",
+    "options": [
+      "6",
+      "7",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "A reference aliases the original variable; assignment through it changes x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-value-parameters-4",
+    "skill": "cpp",
+    "topic": "Value parameters",
+    "difficulty": "intermediate",
+    "prompt": "C++17: void f(int p) { p=6; } int x=7; f(x); What is x?",
+    "options": [
+      "7",
+      "6",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 0,
+    "explanation": "A value parameter is a copy, so assigning p does not change x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-accumulation-4",
+    "skill": "cpp",
+    "topic": "Accumulation",
+    "difficulty": "intermediate",
+    "prompt": "C++17: std::vector<int> v{7, 6, 0}; What is std::accumulate(v.begin(),v.end(),0)?",
+    "options": [
+      "13",
+      "42",
+      "7",
+      "6"
+    ],
+    "correct_option": 0,
+    "explanation": "The default accumulate operation adds each element to the integer initial value 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-const-access-4",
+    "skill": "cpp",
+    "topic": "Const access",
+    "difficulty": "intermediate",
+    "prompt": "C++17: const int x=7; Which statement is valid?",
+    "options": [
+      "int y = x;",
+      "x = 6;",
+      "++x;",
+      "int& r = x;"
+    ],
+    "correct_option": 0,
+    "explanation": "A const int can be copied, but cannot be assigned to or bound to a nonconst int reference.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-move-ownership-4",
+    "skill": "cpp",
+    "topic": "Move ownership",
+    "difficulty": "advanced",
+    "prompt": "C++17: auto a=std::make_unique<int>(7); auto b=std::move(a); Which statement is guaranteed?",
+    "options": [
+      "a is null and *b is 7",
+      "Both a and b own the same int",
+      "*a remains 7",
+      "The move copies the int into a new allocation"
+    ],
+    "correct_option": 0,
+    "explanation": "Moving a unique_ptr transfers ownership and leaves the source pointer empty.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-lambda-capture-4",
+    "skill": "cpp",
+    "topic": "Lambda capture",
+    "difficulty": "advanced",
+    "prompt": "C++17: int x=7; auto f=[x]() mutable { return ++x; }; f(); f(); What is the original x?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "Undefined behavior"
+    ],
+    "correct_option": 0,
+    "explanation": "The lambda captures x by value; mutable allows changing only its internal copy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-integer-division-5",
+    "skill": "cpp",
+    "topic": "Integer division",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is int x = 8 / 2;?",
+    "options": [
+      "8",
+      "4",
+      "4.25",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "Integer division truncates toward zero.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-vector-size-5",
+    "skill": "cpp",
+    "topic": "Vector size",
+    "difficulty": "beginner",
+    "prompt": "C++17: std::vector<int> v(8); What is v.size()?",
+    "options": [
+      "0",
+      "8",
+      "7",
+      "9"
+    ],
+    "correct_option": 1,
+    "explanation": "The single size constructor creates n default-initialized elements.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-remainder-5",
+    "skill": "cpp",
+    "topic": "Remainder",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is 8 % 2?",
+    "options": [
+      "2",
+      "0",
+      "8",
+      "-1"
+    ],
+    "correct_option": 1,
+    "explanation": "The remainder of a positive integer divided by 2 is 0 or 1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-string-size-5",
+    "skill": "cpp",
+    "topic": "String size",
+    "difficulty": "beginner",
+    "prompt": "C++17: What is std::string(\"aaaaaaaa\").size()?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "The string contains n one-byte ASCII characters.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-references-5",
+    "skill": "cpp",
+    "topic": "References",
+    "difficulty": "intermediate",
+    "prompt": "C++17: int x=8; int& r=x; r=7; What is x?",
+    "options": [
+      "8",
+      "7",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "A reference aliases the original variable; assignment through it changes x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-value-parameters-5",
+    "skill": "cpp",
+    "topic": "Value parameters",
+    "difficulty": "intermediate",
+    "prompt": "C++17: void f(int p) { p=7; } int x=8; f(x); What is x?",
+    "options": [
+      "7",
+      "8",
+      "Undefined behavior",
+      "Compilation error"
+    ],
+    "correct_option": 1,
+    "explanation": "A value parameter is a copy, so assigning p does not change x.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-accumulation-5",
+    "skill": "cpp",
+    "topic": "Accumulation",
+    "difficulty": "intermediate",
+    "prompt": "C++17: std::vector<int> v{8, 7, 0}; What is std::accumulate(v.begin(),v.end(),0)?",
+    "options": [
+      "56",
+      "15",
+      "8",
+      "7"
+    ],
+    "correct_option": 1,
+    "explanation": "The default accumulate operation adds each element to the integer initial value 0.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-const-access-5",
+    "skill": "cpp",
+    "topic": "Const access",
+    "difficulty": "intermediate",
+    "prompt": "C++17: const int x=8; Which statement is valid?",
+    "options": [
+      "x = 7;",
+      "int y = x;",
+      "++x;",
+      "int& r = x;"
+    ],
+    "correct_option": 1,
+    "explanation": "A const int can be copied, but cannot be assigned to or bound to a nonconst int reference.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-move-ownership-5",
+    "skill": "cpp",
+    "topic": "Move ownership",
+    "difficulty": "advanced",
+    "prompt": "C++17: auto a=std::make_unique<int>(8); auto b=std::move(a); Which statement is guaranteed?",
+    "options": [
+      "Both a and b own the same int",
+      "a is null and *b is 8",
+      "*a remains 8",
+      "The move copies the int into a new allocation"
+    ],
+    "correct_option": 1,
+    "explanation": "Moving a unique_ptr transfers ownership and leaves the source pointer empty.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "cpp-lambda-capture-5",
+    "skill": "cpp",
+    "topic": "Lambda capture",
+    "difficulty": "advanced",
+    "prompt": "C++17: int x=8; auto f=[x]() mutable { return ++x; }; f(); f(); What is the original x?",
+    "options": [
+      "9",
+      "8",
+      "10",
+      "Undefined behavior"
+    ],
+    "correct_option": 1,
+    "explanation": "The lambda captures x by value; mutable allows changing only its internal copy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-mean-0",
+    "skill": "data-analysis",
+    "topic": "Mean",
+    "difficulty": "beginner",
+    "prompt": "What is the arithmetic mean of 3, 5, and 7?",
+    "options": [
+      "5",
+      "3",
+      "7",
+      "15"
+    ],
+    "correct_option": 0,
+    "explanation": "Add the three values and divide by 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-median-0",
+    "skill": "data-analysis",
+    "topic": "Median",
+    "difficulty": "beginner",
+    "prompt": "What is the median of 7, 3, and 5?",
+    "options": [
+      "5",
+      "3",
+      "7",
+      "15"
+    ],
+    "correct_option": 0,
+    "explanation": "Sort the three values and select the middle one.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-range-0",
+    "skill": "data-analysis",
+    "topic": "Range",
+    "difficulty": "beginner",
+    "prompt": "What is the range of the dataset [3, 5, 8]?",
+    "options": [
+      "5",
+      "2",
+      "8",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "Range is maximum minus minimum, here (n+5)-n=5.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-missing-values-0",
+    "skill": "data-analysis",
+    "topic": "Missing values",
+    "difficulty": "beginner",
+    "prompt": "A dataset contains 3 observed values and 2 missing values. Which action is most defensible before imputation?",
+    "options": [
+      "Investigate the missingness mechanism",
+      "Always replace missing values with zero",
+      "Delete every column with a missing value",
+      "Treat missing as evidence of poor performance"
+    ],
+    "correct_option": 0,
+    "explanation": "Missingness can be systematic; understand its cause before choosing an imputation policy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-percentage-change-0",
+    "skill": "data-analysis",
+    "topic": "Percentage change",
+    "difficulty": "intermediate",
+    "prompt": "A metric rises from 30 to 36. What is the percentage increase?",
+    "options": [
+      "20%",
+      "12%",
+      "2%",
+      "120%"
+    ],
+    "correct_option": 0,
+    "explanation": "The change is 2n relative to the original 10n, giving 20%.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-weighted-mean-0",
+    "skill": "data-analysis",
+    "topic": "Weighted mean",
+    "difficulty": "intermediate",
+    "prompt": "Values 3 and 7 have weights 3 and 1. What is their weighted mean?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "16"
+    ],
+    "correct_option": 0,
+    "explanation": "Compute (3n + n+4)/4 = n+1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-join-duplication-0",
+    "skill": "data-analysis",
+    "topic": "Join duplication",
+    "difficulty": "intermediate",
+    "prompt": "A customer table has 3 customers, each with exactly 2 orders. How many rows are in the inner join on customer ID?",
+    "options": [
+      "6",
+      "3",
+      "5",
+      "2"
+    ],
+    "correct_option": 0,
+    "explanation": "Each customer matches b orders, producing n times b rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-data-leakage-0",
+    "skill": "data-analysis",
+    "topic": "Data leakage",
+    "difficulty": "intermediate",
+    "prompt": "A model uses 3 features and a training/test split. When should a scaler be fitted?",
+    "options": [
+      "On training data only",
+      "On all rows before splitting",
+      "On test data only",
+      "On target labels only"
+    ],
+    "correct_option": 0,
+    "explanation": "Fitting preprocessing on test observations leaks information about the held-out distribution.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-population-variance-0",
+    "skill": "data-analysis",
+    "topic": "Population variance",
+    "difficulty": "advanced",
+    "prompt": "For the population [2, 3, 4], what is the population variance?",
+    "options": [
+      "2/3",
+      "1",
+      "2",
+      "1/3"
+    ],
+    "correct_option": 0,
+    "explanation": "The mean is n. Squared deviations sum to 2; divide by the population size 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-simpson-paradox-0",
+    "skill": "data-analysis",
+    "topic": "Simpson paradox",
+    "difficulty": "advanced",
+    "prompt": "A comparison across 3 regions favors product A within each region but favors B overall. What should you investigate?",
+    "options": [
+      "Unequal region sizes and confounding",
+      "Assume the overall arithmetic is necessarily wrong",
+      "Discard region-level results",
+      "Conclude A caused every observed outcome"
+    ],
+    "correct_option": 0,
+    "explanation": "Different group weights can reverse aggregated associations; compare like groups and investigate confounders.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-mean-1",
+    "skill": "data-analysis",
+    "topic": "Mean",
+    "difficulty": "beginner",
+    "prompt": "What is the arithmetic mean of 4, 6, and 8?",
+    "options": [
+      "4",
+      "6",
+      "8",
+      "18"
+    ],
+    "correct_option": 1,
+    "explanation": "Add the three values and divide by 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-median-1",
+    "skill": "data-analysis",
+    "topic": "Median",
+    "difficulty": "beginner",
+    "prompt": "What is the median of 8, 4, and 6?",
+    "options": [
+      "4",
+      "6",
+      "8",
+      "18"
+    ],
+    "correct_option": 1,
+    "explanation": "Sort the three values and select the middle one.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-range-1",
+    "skill": "data-analysis",
+    "topic": "Range",
+    "difficulty": "beginner",
+    "prompt": "What is the range of the dataset [4, 6, 9]?",
+    "options": [
+      "2",
+      "5",
+      "9",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "Range is maximum minus minimum, here (n+5)-n=5.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-missing-values-1",
+    "skill": "data-analysis",
+    "topic": "Missing values",
+    "difficulty": "beginner",
+    "prompt": "A dataset contains 4 observed values and 3 missing values. Which action is most defensible before imputation?",
+    "options": [
+      "Always replace missing values with zero",
+      "Investigate the missingness mechanism",
+      "Delete every column with a missing value",
+      "Treat missing as evidence of poor performance"
+    ],
+    "correct_option": 1,
+    "explanation": "Missingness can be systematic; understand its cause before choosing an imputation policy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-percentage-change-1",
+    "skill": "data-analysis",
+    "topic": "Percentage change",
+    "difficulty": "intermediate",
+    "prompt": "A metric rises from 40 to 48. What is the percentage increase?",
+    "options": [
+      "12%",
+      "20%",
+      "2%",
+      "120%"
+    ],
+    "correct_option": 1,
+    "explanation": "The change is 2n relative to the original 10n, giving 20%.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-weighted-mean-1",
+    "skill": "data-analysis",
+    "topic": "Weighted mean",
+    "difficulty": "intermediate",
+    "prompt": "Values 4 and 8 have weights 3 and 1. What is their weighted mean?",
+    "options": [
+      "6",
+      "5",
+      "7",
+      "20"
+    ],
+    "correct_option": 1,
+    "explanation": "Compute (3n + n+4)/4 = n+1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-join-duplication-1",
+    "skill": "data-analysis",
+    "topic": "Join duplication",
+    "difficulty": "intermediate",
+    "prompt": "A customer table has 4 customers, each with exactly 3 orders. How many rows are in the inner join on customer ID?",
+    "options": [
+      "4",
+      "12",
+      "7",
+      "3"
+    ],
+    "correct_option": 1,
+    "explanation": "Each customer matches b orders, producing n times b rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-data-leakage-1",
+    "skill": "data-analysis",
+    "topic": "Data leakage",
+    "difficulty": "intermediate",
+    "prompt": "A model uses 4 features and a training/test split. When should a scaler be fitted?",
+    "options": [
+      "On all rows before splitting",
+      "On training data only",
+      "On test data only",
+      "On target labels only"
+    ],
+    "correct_option": 1,
+    "explanation": "Fitting preprocessing on test observations leaks information about the held-out distribution.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-population-variance-1",
+    "skill": "data-analysis",
+    "topic": "Population variance",
+    "difficulty": "advanced",
+    "prompt": "For the population [3, 4, 5], what is the population variance?",
+    "options": [
+      "1",
+      "2/3",
+      "2",
+      "1/3"
+    ],
+    "correct_option": 1,
+    "explanation": "The mean is n. Squared deviations sum to 2; divide by the population size 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-simpson-paradox-1",
+    "skill": "data-analysis",
+    "topic": "Simpson paradox",
+    "difficulty": "advanced",
+    "prompt": "A comparison across 4 regions favors product A within each region but favors B overall. What should you investigate?",
+    "options": [
+      "Assume the overall arithmetic is necessarily wrong",
+      "Unequal region sizes and confounding",
+      "Discard region-level results",
+      "Conclude A caused every observed outcome"
+    ],
+    "correct_option": 1,
+    "explanation": "Different group weights can reverse aggregated associations; compare like groups and investigate confounders.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-mean-2",
+    "skill": "data-analysis",
+    "topic": "Mean",
+    "difficulty": "beginner",
+    "prompt": "What is the arithmetic mean of 5, 7, and 9?",
+    "options": [
+      "5",
+      "9",
+      "7",
+      "21"
+    ],
+    "correct_option": 2,
+    "explanation": "Add the three values and divide by 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-median-2",
+    "skill": "data-analysis",
+    "topic": "Median",
+    "difficulty": "beginner",
+    "prompt": "What is the median of 9, 5, and 7?",
+    "options": [
+      "5",
+      "9",
+      "7",
+      "21"
+    ],
+    "correct_option": 2,
+    "explanation": "Sort the three values and select the middle one.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-range-2",
+    "skill": "data-analysis",
+    "topic": "Range",
+    "difficulty": "beginner",
+    "prompt": "What is the range of the dataset [5, 7, 10]?",
+    "options": [
+      "2",
+      "10",
+      "5",
+      "0"
+    ],
+    "correct_option": 2,
+    "explanation": "Range is maximum minus minimum, here (n+5)-n=5.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-missing-values-2",
+    "skill": "data-analysis",
+    "topic": "Missing values",
+    "difficulty": "beginner",
+    "prompt": "A dataset contains 5 observed values and 4 missing values. Which action is most defensible before imputation?",
+    "options": [
+      "Always replace missing values with zero",
+      "Delete every column with a missing value",
+      "Investigate the missingness mechanism",
+      "Treat missing as evidence of poor performance"
+    ],
+    "correct_option": 2,
+    "explanation": "Missingness can be systematic; understand its cause before choosing an imputation policy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-percentage-change-2",
+    "skill": "data-analysis",
+    "topic": "Percentage change",
+    "difficulty": "intermediate",
+    "prompt": "A metric rises from 50 to 60. What is the percentage increase?",
+    "options": [
+      "12%",
+      "2%",
+      "20%",
+      "120%"
+    ],
+    "correct_option": 2,
+    "explanation": "The change is 2n relative to the original 10n, giving 20%.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-weighted-mean-2",
+    "skill": "data-analysis",
+    "topic": "Weighted mean",
+    "difficulty": "intermediate",
+    "prompt": "Values 5 and 9 have weights 3 and 1. What is their weighted mean?",
+    "options": [
+      "7",
+      "8",
+      "6",
+      "24"
+    ],
+    "correct_option": 2,
+    "explanation": "Compute (3n + n+4)/4 = n+1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-join-duplication-2",
+    "skill": "data-analysis",
+    "topic": "Join duplication",
+    "difficulty": "intermediate",
+    "prompt": "A customer table has 5 customers, each with exactly 4 orders. How many rows are in the inner join on customer ID?",
+    "options": [
+      "5",
+      "9",
+      "20",
+      "4"
+    ],
+    "correct_option": 2,
+    "explanation": "Each customer matches b orders, producing n times b rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-data-leakage-2",
+    "skill": "data-analysis",
+    "topic": "Data leakage",
+    "difficulty": "intermediate",
+    "prompt": "A model uses 5 features and a training/test split. When should a scaler be fitted?",
+    "options": [
+      "On all rows before splitting",
+      "On test data only",
+      "On training data only",
+      "On target labels only"
+    ],
+    "correct_option": 2,
+    "explanation": "Fitting preprocessing on test observations leaks information about the held-out distribution.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-population-variance-2",
+    "skill": "data-analysis",
+    "topic": "Population variance",
+    "difficulty": "advanced",
+    "prompt": "For the population [4, 5, 6], what is the population variance?",
+    "options": [
+      "1",
+      "2",
+      "2/3",
+      "1/3"
+    ],
+    "correct_option": 2,
+    "explanation": "The mean is n. Squared deviations sum to 2; divide by the population size 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-simpson-paradox-2",
+    "skill": "data-analysis",
+    "topic": "Simpson paradox",
+    "difficulty": "advanced",
+    "prompt": "A comparison across 5 regions favors product A within each region but favors B overall. What should you investigate?",
+    "options": [
+      "Assume the overall arithmetic is necessarily wrong",
+      "Discard region-level results",
+      "Unequal region sizes and confounding",
+      "Conclude A caused every observed outcome"
+    ],
+    "correct_option": 2,
+    "explanation": "Different group weights can reverse aggregated associations; compare like groups and investigate confounders.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-mean-3",
+    "skill": "data-analysis",
+    "topic": "Mean",
+    "difficulty": "beginner",
+    "prompt": "What is the arithmetic mean of 6, 8, and 10?",
+    "options": [
+      "6",
+      "10",
+      "24",
+      "8"
+    ],
+    "correct_option": 3,
+    "explanation": "Add the three values and divide by 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-median-3",
+    "skill": "data-analysis",
+    "topic": "Median",
+    "difficulty": "beginner",
+    "prompt": "What is the median of 10, 6, and 8?",
+    "options": [
+      "6",
+      "10",
+      "24",
+      "8"
+    ],
+    "correct_option": 3,
+    "explanation": "Sort the three values and select the middle one.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-range-3",
+    "skill": "data-analysis",
+    "topic": "Range",
+    "difficulty": "beginner",
+    "prompt": "What is the range of the dataset [6, 8, 11]?",
+    "options": [
+      "2",
+      "11",
+      "0",
+      "5"
+    ],
+    "correct_option": 3,
+    "explanation": "Range is maximum minus minimum, here (n+5)-n=5.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-missing-values-3",
+    "skill": "data-analysis",
+    "topic": "Missing values",
+    "difficulty": "beginner",
+    "prompt": "A dataset contains 6 observed values and 5 missing values. Which action is most defensible before imputation?",
+    "options": [
+      "Always replace missing values with zero",
+      "Delete every column with a missing value",
+      "Treat missing as evidence of poor performance",
+      "Investigate the missingness mechanism"
+    ],
+    "correct_option": 3,
+    "explanation": "Missingness can be systematic; understand its cause before choosing an imputation policy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-percentage-change-3",
+    "skill": "data-analysis",
+    "topic": "Percentage change",
+    "difficulty": "intermediate",
+    "prompt": "A metric rises from 60 to 72. What is the percentage increase?",
+    "options": [
+      "12%",
+      "2%",
+      "120%",
+      "20%"
+    ],
+    "correct_option": 3,
+    "explanation": "The change is 2n relative to the original 10n, giving 20%.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-weighted-mean-3",
+    "skill": "data-analysis",
+    "topic": "Weighted mean",
+    "difficulty": "intermediate",
+    "prompt": "Values 6 and 10 have weights 3 and 1. What is their weighted mean?",
+    "options": [
+      "8",
+      "9",
+      "28",
+      "7"
+    ],
+    "correct_option": 3,
+    "explanation": "Compute (3n + n+4)/4 = n+1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-join-duplication-3",
+    "skill": "data-analysis",
+    "topic": "Join duplication",
+    "difficulty": "intermediate",
+    "prompt": "A customer table has 6 customers, each with exactly 5 orders. How many rows are in the inner join on customer ID?",
+    "options": [
+      "6",
+      "11",
+      "5",
+      "30"
+    ],
+    "correct_option": 3,
+    "explanation": "Each customer matches b orders, producing n times b rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-data-leakage-3",
+    "skill": "data-analysis",
+    "topic": "Data leakage",
+    "difficulty": "intermediate",
+    "prompt": "A model uses 6 features and a training/test split. When should a scaler be fitted?",
+    "options": [
+      "On all rows before splitting",
+      "On test data only",
+      "On target labels only",
+      "On training data only"
+    ],
+    "correct_option": 3,
+    "explanation": "Fitting preprocessing on test observations leaks information about the held-out distribution.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-population-variance-3",
+    "skill": "data-analysis",
+    "topic": "Population variance",
+    "difficulty": "advanced",
+    "prompt": "For the population [5, 6, 7], what is the population variance?",
+    "options": [
+      "1",
+      "2",
+      "1/3",
+      "2/3"
+    ],
+    "correct_option": 3,
+    "explanation": "The mean is n. Squared deviations sum to 2; divide by the population size 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-simpson-paradox-3",
+    "skill": "data-analysis",
+    "topic": "Simpson paradox",
+    "difficulty": "advanced",
+    "prompt": "A comparison across 6 regions favors product A within each region but favors B overall. What should you investigate?",
+    "options": [
+      "Assume the overall arithmetic is necessarily wrong",
+      "Discard region-level results",
+      "Conclude A caused every observed outcome",
+      "Unequal region sizes and confounding"
+    ],
+    "correct_option": 3,
+    "explanation": "Different group weights can reverse aggregated associations; compare like groups and investigate confounders.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-mean-4",
+    "skill": "data-analysis",
+    "topic": "Mean",
+    "difficulty": "beginner",
+    "prompt": "What is the arithmetic mean of 7, 9, and 11?",
+    "options": [
+      "9",
+      "7",
+      "11",
+      "27"
+    ],
+    "correct_option": 0,
+    "explanation": "Add the three values and divide by 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-median-4",
+    "skill": "data-analysis",
+    "topic": "Median",
+    "difficulty": "beginner",
+    "prompt": "What is the median of 11, 7, and 9?",
+    "options": [
+      "9",
+      "7",
+      "11",
+      "27"
+    ],
+    "correct_option": 0,
+    "explanation": "Sort the three values and select the middle one.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-range-4",
+    "skill": "data-analysis",
+    "topic": "Range",
+    "difficulty": "beginner",
+    "prompt": "What is the range of the dataset [7, 9, 12]?",
+    "options": [
+      "5",
+      "2",
+      "12",
+      "0"
+    ],
+    "correct_option": 0,
+    "explanation": "Range is maximum minus minimum, here (n+5)-n=5.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-missing-values-4",
+    "skill": "data-analysis",
+    "topic": "Missing values",
+    "difficulty": "beginner",
+    "prompt": "A dataset contains 7 observed values and 6 missing values. Which action is most defensible before imputation?",
+    "options": [
+      "Investigate the missingness mechanism",
+      "Always replace missing values with zero",
+      "Delete every column with a missing value",
+      "Treat missing as evidence of poor performance"
+    ],
+    "correct_option": 0,
+    "explanation": "Missingness can be systematic; understand its cause before choosing an imputation policy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-percentage-change-4",
+    "skill": "data-analysis",
+    "topic": "Percentage change",
+    "difficulty": "intermediate",
+    "prompt": "A metric rises from 70 to 84. What is the percentage increase?",
+    "options": [
+      "20%",
+      "12%",
+      "2%",
+      "120%"
+    ],
+    "correct_option": 0,
+    "explanation": "The change is 2n relative to the original 10n, giving 20%.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-weighted-mean-4",
+    "skill": "data-analysis",
+    "topic": "Weighted mean",
+    "difficulty": "intermediate",
+    "prompt": "Values 7 and 11 have weights 3 and 1. What is their weighted mean?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "32"
+    ],
+    "correct_option": 0,
+    "explanation": "Compute (3n + n+4)/4 = n+1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-join-duplication-4",
+    "skill": "data-analysis",
+    "topic": "Join duplication",
+    "difficulty": "intermediate",
+    "prompt": "A customer table has 7 customers, each with exactly 6 orders. How many rows are in the inner join on customer ID?",
+    "options": [
+      "42",
+      "7",
+      "13",
+      "6"
+    ],
+    "correct_option": 0,
+    "explanation": "Each customer matches b orders, producing n times b rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-data-leakage-4",
+    "skill": "data-analysis",
+    "topic": "Data leakage",
+    "difficulty": "intermediate",
+    "prompt": "A model uses 7 features and a training/test split. When should a scaler be fitted?",
+    "options": [
+      "On training data only",
+      "On all rows before splitting",
+      "On test data only",
+      "On target labels only"
+    ],
+    "correct_option": 0,
+    "explanation": "Fitting preprocessing on test observations leaks information about the held-out distribution.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-population-variance-4",
+    "skill": "data-analysis",
+    "topic": "Population variance",
+    "difficulty": "advanced",
+    "prompt": "For the population [6, 7, 8], what is the population variance?",
+    "options": [
+      "2/3",
+      "1",
+      "2",
+      "1/3"
+    ],
+    "correct_option": 0,
+    "explanation": "The mean is n. Squared deviations sum to 2; divide by the population size 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-simpson-paradox-4",
+    "skill": "data-analysis",
+    "topic": "Simpson paradox",
+    "difficulty": "advanced",
+    "prompt": "A comparison across 7 regions favors product A within each region but favors B overall. What should you investigate?",
+    "options": [
+      "Unequal region sizes and confounding",
+      "Assume the overall arithmetic is necessarily wrong",
+      "Discard region-level results",
+      "Conclude A caused every observed outcome"
+    ],
+    "correct_option": 0,
+    "explanation": "Different group weights can reverse aggregated associations; compare like groups and investigate confounders.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-mean-5",
+    "skill": "data-analysis",
+    "topic": "Mean",
+    "difficulty": "beginner",
+    "prompt": "What is the arithmetic mean of 8, 10, and 12?",
+    "options": [
+      "8",
+      "10",
+      "12",
+      "30"
+    ],
+    "correct_option": 1,
+    "explanation": "Add the three values and divide by 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-median-5",
+    "skill": "data-analysis",
+    "topic": "Median",
+    "difficulty": "beginner",
+    "prompt": "What is the median of 12, 8, and 10?",
+    "options": [
+      "8",
+      "10",
+      "12",
+      "30"
+    ],
+    "correct_option": 1,
+    "explanation": "Sort the three values and select the middle one.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-range-5",
+    "skill": "data-analysis",
+    "topic": "Range",
+    "difficulty": "beginner",
+    "prompt": "What is the range of the dataset [8, 10, 13]?",
+    "options": [
+      "2",
+      "5",
+      "13",
+      "0"
+    ],
+    "correct_option": 1,
+    "explanation": "Range is maximum minus minimum, here (n+5)-n=5.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-missing-values-5",
+    "skill": "data-analysis",
+    "topic": "Missing values",
+    "difficulty": "beginner",
+    "prompt": "A dataset contains 8 observed values and 7 missing values. Which action is most defensible before imputation?",
+    "options": [
+      "Always replace missing values with zero",
+      "Investigate the missingness mechanism",
+      "Delete every column with a missing value",
+      "Treat missing as evidence of poor performance"
+    ],
+    "correct_option": 1,
+    "explanation": "Missingness can be systematic; understand its cause before choosing an imputation policy.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-percentage-change-5",
+    "skill": "data-analysis",
+    "topic": "Percentage change",
+    "difficulty": "intermediate",
+    "prompt": "A metric rises from 80 to 96. What is the percentage increase?",
+    "options": [
+      "12%",
+      "20%",
+      "2%",
+      "120%"
+    ],
+    "correct_option": 1,
+    "explanation": "The change is 2n relative to the original 10n, giving 20%.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-weighted-mean-5",
+    "skill": "data-analysis",
+    "topic": "Weighted mean",
+    "difficulty": "intermediate",
+    "prompt": "Values 8 and 12 have weights 3 and 1. What is their weighted mean?",
+    "options": [
+      "10",
+      "9",
+      "11",
+      "36"
+    ],
+    "correct_option": 1,
+    "explanation": "Compute (3n + n+4)/4 = n+1.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-join-duplication-5",
+    "skill": "data-analysis",
+    "topic": "Join duplication",
+    "difficulty": "intermediate",
+    "prompt": "A customer table has 8 customers, each with exactly 7 orders. How many rows are in the inner join on customer ID?",
+    "options": [
+      "8",
+      "56",
+      "15",
+      "7"
+    ],
+    "correct_option": 1,
+    "explanation": "Each customer matches b orders, producing n times b rows.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-data-leakage-5",
+    "skill": "data-analysis",
+    "topic": "Data leakage",
+    "difficulty": "intermediate",
+    "prompt": "A model uses 8 features and a training/test split. When should a scaler be fitted?",
+    "options": [
+      "On all rows before splitting",
+      "On training data only",
+      "On test data only",
+      "On target labels only"
+    ],
+    "correct_option": 1,
+    "explanation": "Fitting preprocessing on test observations leaks information about the held-out distribution.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-population-variance-5",
+    "skill": "data-analysis",
+    "topic": "Population variance",
+    "difficulty": "advanced",
+    "prompt": "For the population [7, 8, 9], what is the population variance?",
+    "options": [
+      "1",
+      "2/3",
+      "2",
+      "1/3"
+    ],
+    "correct_option": 1,
+    "explanation": "The mean is n. Squared deviations sum to 2; divide by the population size 3.",
+    "review_status": "checked"
+  },
+  {
+    "bank_key": "data-analysis-simpson-paradox-5",
+    "skill": "data-analysis",
+    "topic": "Simpson paradox",
+    "difficulty": "advanced",
+    "prompt": "A comparison across 8 regions favors product A within each region but favors B overall. What should you investigate?",
+    "options": [
+      "Assume the overall arithmetic is necessarily wrong",
+      "Unequal region sizes and confounding",
+      "Discard region-level results",
+      "Conclude A caused every observed outcome"
+    ],
+    "correct_option": 1,
+    "explanation": "Different group weights can reverse aggregated associations; compare like groups and investigate confounders.",
+    "review_status": "checked"
+  }
+]
