@@ -23,6 +23,7 @@ const JOURNEY = [
   { to: "/me/roadmap", label: "Roadmap", exact: false },
   { to: "/learning", label: "Learning & Activities", exact: false },
   { to: "/me/assessments", label: "Assessments", exact: false },
+  { to: "/me/learning-progress", label: "Learning Progress", exact: false },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {

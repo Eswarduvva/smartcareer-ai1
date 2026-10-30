@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.learning-code pre { margin: 0; font-family: var(--font-mono); background: transparent; color: var(--foreground); }
+.learning-code .token.keyword, .learning-code .token.operator { color: var(--primary); }
+.learning-code .token.string, .learning-code .token.boolean { color: var(--strength); }
+.learning-code .token.number, .learning-code .token.function { color: var(--gap); }
+.learning-code .token.comment { color: var(--muted-foreground); }
+
 /*
  * SmartCareer design tokens. All colors oklch.
  * Hue knobs (--h/--ph/--ah/--gh) drive five palettes; .dark switches mode.

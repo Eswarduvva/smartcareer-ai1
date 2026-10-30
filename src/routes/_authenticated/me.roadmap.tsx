@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { RoadmapView } from "@/components/journey/RoadmapView";
+import { PersonalizedRoadmap } from '@/components/learn/PersonalizedLearning';
+import { curriculumQuery } from '@/lib/api/personalized-learning';
 
 export const Route = createFileRoute("/_authenticated/me/roadmap")({
   head: () => ({
@@ -12,5 +14,7 @@ export const Route = createFileRoute("/_authenticated/me/roadmap")({
       { property: "og:description", content: "Your next steps toward your recommended career." },
     ],
   }),
-  component: RoadmapView,
+  loader: ({context}) => context.queryClient.ensureQueryData(curriculumQuery()),
+  component: Page,
 });
+function Page(){return <><PersonalizedRoadmap/><RoadmapView/></>;}
