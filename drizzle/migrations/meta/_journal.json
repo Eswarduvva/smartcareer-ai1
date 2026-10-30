@@ -92,6 +92,13 @@
       "when": 1793353727533,
       "tag": "0012_personalized_python_learning",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1793354071392,
+      "tag": "0013_curriculum_draft_import_validation",
+      "breakpoints": true
     }
   ]
 }

@@ -543,6 +543,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          notes_origin: string
           reviewed_at: string | null
           reviewed_by: string | null
           slug: string
@@ -553,6 +554,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          notes_origin?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
           slug: string
@@ -563,6 +565,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          notes_origin?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
           slug?: string
@@ -1539,6 +1542,7 @@ export type Database = {
         Returns: undefined
       }
       curriculum_admin_snapshot: { Args: never; Returns: Json }
+      curriculum_import_notes: { Args: { p_topics: Json }; Returns: string }
       curriculum_snapshot: { Args: { p_user?: string }; Returns: Json }
       curriculum_topic: { Args: { p_topic: string }; Returns: Json }
       curriculum_topic_allowed: { Args: { p_topic: string }; Returns: boolean }
