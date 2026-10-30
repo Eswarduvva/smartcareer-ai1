@@ -1,5 +1,6 @@
 # Review brief (Oct 10)
-- [ ] Predefined assessments: additive schema/security, six question banks, timed interface, grading/results, dashboard and live tests.
+- [x] Predefined assessments: private schema, six 60-question banks, timed interface, server grading/results, dashboard integration; 79 regression tests and 6 live security tests passed.
+- [ ] Independent educator review of assessment content — practice bank is semantically reviewed but uses repeated variants; external reviewer needed before high-stakes use.
 - [ ] External career-coach RAG — disabled-by-default retrieval preparation added; 21 controlled coach/retrieval tests pass. Blocked on external protected service, verified schema and owner-approved nonpersonal fields; live retrieval/grounded answers unverified, no deployment authorized.
 - [x] Harden coach server-only writes, atomic request locks, session cache cleanup and security regression tests; live student isolation/forgery/concurrency verified. Browser sign-out transition remains unverified.
 - [x] Add SmartCareer AI Coach: floating chat, private account history, safe personalized streaming; real response, reload, mobile and own-history access verified.
