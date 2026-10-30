@@ -32,6 +32,11 @@ const adminSnapshotSchema=z.object({modules:z.array(moduleSchema),topics:z.array
 export const getCurriculumAdmin=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).handler(async({context})=>{
   const r=await context.supabase.rpc('curriculum_admin_snapshot'); if(r.error) throw new Error('Only administrators can review curriculum.'); return adminSnapshotSchema.parse(r.data);
 });
+export const importPythonNotes=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).handler(async({context})=>{
+  const {default:pack}=await import('../../../docs/personalized-learning/python-notes-draft.json');
+  const topics=z.array(z.object({id:z.string().min(1).max(100),title:z.string().min(1).max(160),minutes:z.number().int().min(1).max(600),notes:notesSchema})).length(10).parse(pack.topics);
+  const r=await context.supabase.rpc('curriculum_import_notes',{p_topics:topics});if(r.error)throw new Error('Only administrators may import draft notes.');return {id:r.data};
+});
 export const saveCurriculumDraft=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).inputValidator(d=>z.object({module:z.string().uuid(),topic:z.string().min(1).max(100),title:z.string().min(1).max(160),notes:notesSchema,questions:z.array(authoredQuestionSchema).min(5).max(100)}).parse(d)).handler(async({data,context})=>{
   const r=await context.supabase.rpc('curriculum_admin_save',{p_module:data.module,p_topic:data.topic,p_title:data.title,p_notes:data.notes,p_questions:data.questions}); if(r.error) throw new Error('Only draft curriculum can be saved by an administrator.'); return {saved:true};
 });
