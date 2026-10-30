@@ -1572,17 +1572,30 @@ export type Database = {
         Returns: string
       }
       learning_plan_reserve: { Args: never; Returns: undefined }
-      learning_plan_save: {
-        Args: {
-          p_guidance: string
-          p_milestones: Json
-          p_model: string
-          p_module: string
-          p_preferences: Json
-          p_topics: Json
-        }
-        Returns: string
-      }
+      learning_plan_save:
+        | {
+            Args: {
+              p_guidance: string
+              p_milestones: Json
+              p_model: string
+              p_module: string
+              p_preferences: Json
+              p_topics: Json
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_guidance: string
+              p_milestones: Json
+              p_model: string
+              p_module: string
+              p_preferences: Json
+              p_topics: Json
+              p_user: string
+            }
+            Returns: string
+          }
       learning_snapshot: { Args: { p_user?: string }; Returns: Json }
       learning_submit: {
         Args: { p_activity: string; p_submission: Json }

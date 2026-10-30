@@ -99,6 +99,13 @@
       "when": 1793354071392,
       "tag": "0013_curriculum_draft_import_validation",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1793354302647,
+      "tag": "0014_learning_plan_server_only_integrity",
+      "breakpoints": true
     }
   ]
 }
