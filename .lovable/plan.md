@@ -4,7 +4,7 @@
 - The live Lovable Cloud database contains **4,925 student records**, **360 skill-assessment questions**, and **2 assessment attempts**. Existing learning activities and learning resources currently contain **0 rows**.
 - Student dashboards, career matching, saved roadmap checkboxes, Learning & Activities, skill assessments, and admin/mentor learning pages already exist. Extend them; do not rebuild dashboards or duplicate student data.
 - `student_accounts` stores the account profile and existing roadmap completion. `learning_account_links` provides admin-approved cohort linking. Existing learning RPCs enforce owner/admin/assigned-mentor access.
-- `learning_activities`, `learning_resources`, and protected `learning_answer_keys` are reusable. However, `student_activity_progress` allows only one submission per account/activity: it cannot preserve unlimited quiz retakes. Existing 25-minute skill assessments are a separate experience, not five-question topic quizzes.
+- `learning_resources` and activity presentation patterns are reusable. However, `student_activity_progress` allows only one submission per account/activity and the legacy quiz flow marks submissions completed regardless of passing: it cannot support prerequisite validation or unlimited retakes unchanged. Existing 25-minute skill assessments are a separate experience, not five-question topic quizzes.
 - All inspected learning/assessment tables have RLS enabled. Answer-key tables have no student-read policies; existing account profiles are owner-scoped. Keep these protections unchanged.
 - `/me/roadmap` already renders the shared career roadmap. The `/me` layout requires a completed profile or approved cohort link. New topic pages should remain accessible to signed-in learners even when that profile is unfinished.
 - Baseline checks: **79 tests passed; 12 optional live-security tests skipped**. A Three.js CommonJS deprecation warning remains unrelated to learning. These checks do not establish the new learning journey or current live authorization behavior.
@@ -23,7 +23,7 @@ No existing table, record, policy, or scoring function is removed or overwritten
 | Storage | Purpose and reuse |
 |---|---|
 | `learning_modules` | Versioned course/module definitions and approval state. |
-| `learning_topics` | Stable topic IDs, module order, approved prerequisites, links to reusable lesson/quiz activities. |
+| `learning_topics` | Stable topic IDs, module order, approved prerequisites and versioned approved note references. |
 | `learning_notes` | Immutable approved note versions; draft edits never replace a published version. |
 | `topic_quiz_questions` | Dedicated predefined topic bank with protected answer/explanation fields and review status; do not repurpose timed assessment questions. |
 | `ai_roadmaps` | Account-owned plan revisions, bounded preferences, model/catalog version and selected approved topic IDs. |
@@ -32,7 +32,7 @@ No existing table, record, policy, or scoring function is removed or overwritten
 | `student_quiz_attempts` / `student_quiz_answers` | Every attempt, fixed randomized question snapshot and server-persisted responses; separate from legacy single-submission progress. |
 | `student_learning_sessions` | Bounded activity heartbeat records for measured learning time, excluding idle intervals and duplicate events. |
 
-- Reuse `learning_resources`, `learning_activities`, existing profiles, account links, roles and mentor assignments. New learning progress does not write to imported skills or existing career scores.
+- Reuse `learning_resources`, existing activity UI patterns, profiles, account links, roles and mentor assignments. Keep new draft curriculum and topic quizzes out of legacy activity APIs, which lack curriculum approval and prerequisite gates. New learning progress does not write to imported skills, existing career scores or either legacy learning/assessment evidence pipeline.
 - New tables receive explicit grants, RLS and indexes in the same migration. Curriculum drafts are admin-only; approved material is available to authenticated learners. Question/key rows are never directly student-readable.
 - Learners can read only their own plans, progress and attempts. Staff read paths use the existing approved account-to-student mapping: admins may monitor; mentors only assigned students. Unlinked accounts never become visible to mentors automatically.
 - Completion, grades, prerequisites, question selection and counters are written through owner-checking transactional RPCs, not browser updates. Reject null IDs and foreign-account IDs. Serialize attempt submission and make duplicate finalization idempotent.
@@ -48,8 +48,8 @@ No existing table, record, policy, or scoring function is removed or overwritten
 - Personalized explanations are separate, labelled AI guidance; approved notes remain immutable. Future-plan adaptations require explicit learner regeneration.
 
 ## Routes and presentation
-- Keep `/me/roadmap`; convert only its route wrapper into a layout with an index leaf retaining `RoadmapView`, so `/me/roadmap/$roadmapId` can render correctly.
-- Add `/me/learn/$topicId`, `/me/learn/$topicId/quiz`, and `/me/learning-progress` under the existing authenticated gate, using unnested `me_` files where needed to avoid blocking learning behind the profile-required dashboard layout.
+- Keep the existing `/me/roadmap` leaf and its `RoadmapView`; add the detail URL through unnested `me_.roadmap.$roadmapId.tsx`, avoiding a structural rewrite of the current overview.
+- Add `/me/learn/$topicId`, `/me/learn/$topicId/quiz`, and `/me/learning-progress` under the existing authenticated gate, using unnested `me_` files to avoid blocking learning behind the profile-required dashboard layout. Make the topic route an outlet layout with lesson index and quiz child, so both screens render correctly.
 - Extend `/admin/learning` for modules, draft notes, question editing/approval, suggestion review and actual learning analytics. Extend `/mentor/learning` for assigned learners' progress, missed topics and resource recommendations. No new role grants.
 - Reuse AppShell, current theme tokens, controls, loading/error patterns and navigation. Topic sidebar collapses on narrow screens; lesson text, code, quizzes and controls must fit phone, tablet and desktop widths.
 - Every new content route gets its own SmartCareer title, description and social metadata.
