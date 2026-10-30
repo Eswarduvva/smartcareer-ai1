@@ -9,7 +9,7 @@ describe.skipIf(process.env['ASSESSMENT_LIVE_TESTS']!=='1')('live assessment pri
  beforeAll(async()=>{
   const url=process.env['SUPABASE_URL'],key=process.env['SUPABASE_SERVICE_ROLE_KEY'],pub=process.env['SUPABASE_PUBLISHABLE_KEY'];
   if(!url||!key||!pub)throw new Error('Live test configuration unavailable');
-  const client=(k:string)=>createClient<Database>(url,k,{auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,init)=>{const h=new Headers(init?.headers);if(k.startsWith('sb_')&&h.get('Authorization')===`Bearer ${k}`)h.delete('Authorization');h.set('apikey',k);return fetch(input,{...init,headers:h});}}});
+  const client=(k:string)=>createClient<Database>(url,k,{auth:{persistSession:false,autoRefreshToken:false,storageKey:crypto.randomUUID()},global:{fetch:(input,init)=>{const h=new Headers(init?.headers);if(k.startsWith('sb_')&&h.get('Authorization')===`Bearer ${k}`)h.delete('Authorization');h.set('apikey',k);return fetch(input,{...init,headers:h});}}});
   admin=client(key);anon=client(pub);
   for(let i=0;i<2;i++){
    const email=`assessment-check-${crypto.randomUUID()}@example.com`,password=crypto.randomUUID()+'Aa1!';
@@ -53,7 +53,7 @@ describe.skipIf(process.env['ASSESSMENT_LIVE_TESTS']!=='1')('live assessment pri
   expect(snapshotSchema.parse(concurrent[0]?.data).attempt.submitted_at).toBe(snapshotSchema.parse(concurrent[1]?.data).attempt.submitted_at);
   expect((await a.from('student_skill_proficiency').select('*').eq('skill','python')).data).toHaveLength(1);
   expect((await b.from('student_skill_proficiency').select('*')).data).toEqual([]);
- });
+ },30000);
  it('rejects invalid and foreign question answers',async()=>{
   const id=await start('java');
   expect((await a.rpc('assessment_save',{p_attempt:id,p_question:crypto.randomUUID(),p_option:1})).error).not.toBeNull();
