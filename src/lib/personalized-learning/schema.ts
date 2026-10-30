@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SKILL_KEYS } from '@/lib/skills';
 
 export const preferencesSchema = z.object({
   goal: z.string().trim().min(1).max(160),
@@ -46,7 +47,15 @@ export function validatePlan(value: unknown, topics: Topic[], progress: Learning
   const scheduled = plan.milestones.flatMap(m => m.topic_ids);
   if (JSON.stringify(scheduled) !== JSON.stringify(remaining) || plan.milestones.some(m => m.week > preferences.weeks)) throw new Error('Invalid milestone coverage');
   if (new Set(plan.milestones.map(m => m.week)).size !== plan.milestones.length) throw new Error('Duplicate milestone week');
+  if (plan.milestones.some((m,i)=>i>0 && m.week<=(plan.milestones[i-1]?.week??0))) throw new Error('Milestone weeks must increase');
   return plan;
+}
+export function plannerContext(profile:unknown,learning:unknown){
+  const record=(v:unknown):Record<string,unknown>=>typeof v==='object'&&v!==null&&!Array.isArray(v)?Object.fromEntries(Object.entries(v)):{};
+  const root=record(profile),l=record(learning);
+  const strings=(v:unknown,keys:string[])=>{const r=record(v);return Object.fromEntries(keys.flatMap(k=>typeof r[k]==='string'?[ [k,String(r[k]).slice(0,160)] ]:[]));};
+  const numeric=(v:unknown)=>Object.fromEntries(Object.entries(record(v)).filter(([k,v])=>SKILL_KEYS.some(key=>key===k)&&typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100));
+  return {education:strings(root['student'],['degree','branch','specialization']),interests:strings(root['preferences'],['primary_interest','secondary_interest','preferred_work_role']),goal:strings(root['goals'],['career_goal']),skills:numeric(l['baseline']),learningGoal:typeof l['goal']==='string'?l['goal'].slice(0,160):null};
 }
 export function standardPlan(topics: Topic[], progress: LearningSnapshot['progress'], preferences: LearningPreferences) {
   const remaining = topics.filter(t => !progress.some(p => p.topic_id===t.id && p.completed_at)).sort((a,b)=>a.position-b.position);

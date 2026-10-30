@@ -1,0 +1,481 @@
+{
+  "status": "AI-authored lesson draft \u2014 pending independent educator review; no quiz questions included",
+  "topics": [
+    {
+      "id": "introduction",
+      "title": "Introduction to Python",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Learn how Python executes a small program, how to distinguish source code from output, and how to use feedback from the interpreter. Suggested 45-minute sequence: 8 minutes of orientation, 12 minutes of demonstration, 15 minutes of practice, and 10 minutes of review.",
+        "objectives": [
+          "Distinguish interactive execution from running a saved script.",
+          "Write a short Python 3 script using comments, print(), and input().",
+          "Explain why indentation and capitalization affect program behavior."
+        ],
+        "explanation": "Python is a general-purpose programming language used for automation, data work, web services, and many other tasks. In an interactive interpreter, you enter statements and receive immediate feedback; in a script, you save source text in a .py file and run the file with a Python interpreter. The >>> characters shown in tutorial transcripts are prompts, not characters to copy into scripts. A script normally executes top-level statements in order. print() writes readable output; input() displays an optional prompt and returns the entered text as a string. Python is case-sensitive: print and Print are different names. Indentation groups statements into blocks rather than merely decorating them. Comments beginning with # outside a string explain intent without being executed. Syntax errors prevent invalid source from running; runtime exceptions arise when execution encounters a problem.",
+        "definitions": [
+          "Interpreter: the program that executes Python code.",
+          "Script: a saved source-code file, conventionally ending in .py.",
+          "Statement: an instruction executed by Python.",
+          "Comment: explanatory source text beginning with # outside a string and continuing to the end of the line."
+        ],
+        "code": "name = input(\"What is your name? \")\n# Keep the greeting separate from the input prompt.\nprint(\"Hello,\", name)\nprint(\"Welcome to Python.\")",
+        "applications": [
+          "Create a command-line greeting or questionnaire.",
+          "Run a repeatable script instead of retyping commands interactively."
+        ],
+        "mistakes": [
+          "Do not paste >>> prompts into a script; they are interpreter interface markers.",
+          "Use print(), not Print(); Python names are case-sensitive.",
+          "Do not assume input() returns a number, even when the user types digits."
+        ],
+        "exercises": [
+          "Save a script that asks for a city and prints a complete sentence containing the answer. Test with a multiword city name; the whole name should appear in the output.",
+          "Add a comment explaining the purpose of the script. Predict what each line displays, then run it and distinguish prompts from the final printed sentence.",
+          "Change print to Print in a working example, observe the NameError, then restore the correct spelling and explain the cause."
+        ],
+        "takeaways": [
+          "Scripts contain code, not interactive prompt markers.",
+          "input() returns text; print() displays output.",
+          "Case and indentation are meaningful in Python."
+        ],
+        "resources": [
+          {
+            "title": "The Python Tutorial",
+            "url": "https://docs.python.org/3/tutorial/index.html"
+          },
+          {
+            "title": "An Informal Introduction to Python",
+            "url": "https://docs.python.org/3/tutorial/introduction.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "variables-types",
+      "title": "Variables and Types",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Use names to refer to values and select suitable basic types. Suggested sequence: 8 minutes introducing objects and names, 12 minutes tracing conversions, 15 minutes practicing input handling, and 10 minutes checking predictions.",
+        "objectives": [
+          "Assign and reassign names while distinguishing names from objects.",
+          "Identify int, float, str, bool, and None values.",
+          "Convert numeric text explicitly and explain conversion failures."
+        ],
+        "explanation": "Assignment binds a name to an object: score = 10 associates score with an integer. Reassignment changes that binding; it does not retroactively change values computed earlier. Types belong to objects, not permanently to variable names, so a name can later refer to a different type. int represents integers, float represents floating-point numbers, str represents text, and bool has the values True and False. None represents absence of a value in many APIs. Use type() to inspect a value. int(\"12\") converts suitable integer text, while int(\"12.5\") raises ValueError; float(\"12.5\") succeeds. int(3.9) truncates toward zero rather than rounding. A string and an integer cannot be added directly. Use explicit conversion or formatted strings to combine them intentionally. Choose descriptive names and avoid shadowing built-ins such as str or list.",
+        "definitions": [
+          "Variable name: an identifier bound to an object.",
+          "Type: the category of an object that determines its supported operations.",
+          "Conversion: an explicit request to construct a value of another type.",
+          "None: the singleton value commonly used to represent a missing result."
+        ],
+        "code": "quantity_text = \"3\"\nquantity = int(quantity_text)\nunit_price = 2.5\ntotal = quantity * unit_price\nis_large_order = quantity >= 10\nprint(f\"Total: {total:.2f}\")\nprint(type(quantity).__name__, is_large_order)",
+        "applications": [
+          "Convert text input into numbers before calculating a total.",
+          "Use booleans to record whether a condition has been met."
+        ],
+        "mistakes": [
+          "Do not use = when you intend to compare values; comparison uses ==.",
+          "Do not assume int(\"3.5\") works; use float() when decimal text is appropriate.",
+          "Do not name a variable str if later code needs the built-in str() conversion."
+        ],
+        "exercises": [
+          "Starting with price_text = \"4.50\" and quantity_text = \"2\", convert both appropriately and calculate a total. Print Total: 9.00 using formatting.",
+          "Predict the types of 7, 7.0, \"7\", True, and None, then verify each with type(). Explain why text containing digits is still text.",
+          "Set a = 4, then b = a, then a = 9. Print both names and explain why b is still 4."
+        ],
+        "takeaways": [
+          "Assignment binds names; objects have types.",
+          "Text input requires explicit conversion for numeric arithmetic.",
+          "Conversion can fail and does not necessarily round."
+        ],
+        "resources": [
+          {
+            "title": "Numbers and Text in the Python Tutorial",
+            "url": "https://docs.python.org/3/tutorial/introduction.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "operators",
+      "title": "Operators and Expressions",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Combine values into expressions and predict results using precedence and types. Suggested sequence: 8 minutes on arithmetic, 12 minutes tracing expressions, 15 minutes solving practical calculations, and 10 minutes explaining results.",
+        "objectives": [
+          "Use arithmetic, comparison, and logical operators correctly.",
+          "Distinguish / from // and explain remainder behavior.",
+          "Apply precedence and short-circuit evaluation to safe expressions."
+        ],
+        "explanation": "An expression computes a value. Arithmetic operators include +, -, *, /, //, %, and **. For integer operands, / still produces a float, while // computes the floor of the quotient: -7 // 3 is -3. The remainder obeys a == (a // b) * b + (a % b) for nonzero integer b; with positive b, the remainder is nonnegative. Exponentiation uses **, not ^, which is bitwise exclusive OR for integers. Multiplication and division bind more tightly than addition; parentheses make grouping explicit. Comparisons such as ==, !=, <, and >= produce booleans for the basic numeric examples here. Chained comparisons such as 0 <= x < 10 express a range check. and and or short-circuit: later operands may not be evaluated. They return selected operand values, not necessarily booleans. not always produces a boolean. Empty strings, numeric zero, and None are falsy; nonempty strings, including \"False\", are truthy.",
+        "definitions": [
+          "Operand: a value on which an operator acts.",
+          "Precedence: rules determining how an expression is grouped.",
+          "Floor division: division rounded down toward negative infinity.",
+          "Short-circuit evaluation: skipping an operand when the result can be selected without evaluating it."
+        ],
+        "code": "items = 17\nbox_size = 5\nfull_boxes = items // box_size\nleftover = items % box_size\nprint(full_boxes, leftover)\nprint(2 + 3 * 4)\nprint((2 + 3) * 4)\ndenominator = 0\nprint(denominator != 0 and 10 / denominator > 2)",
+        "applications": [
+          "Compute full containers and leftover items using // and %.",
+          "Guard a calculation against zero division with short-circuit logic."
+        ],
+        "mistakes": [
+          "Do not use ^ for exponentiation; use **.",
+          "Do not assume floor division truncates toward zero for negative results.",
+          "Do not assume every result from and or or is a bool."
+        ],
+        "exercises": [
+          "For 29 students and teams of 4, compute full teams and remaining students using // and %. Verify that full_teams * 4 + remaining equals 29.",
+          "Predict 8 + 2 * 3 and (8 + 2) * 3 before running them. Explain how parentheses change the result.",
+          "Write a range check accepting ages from 18 through 65 inclusive. Test 17, 18, 65, and 66 and state the expected booleans."
+        ],
+        "takeaways": [
+          "Operators depend on operand types and precedence.",
+          "// floors; % supplies the corresponding remainder.",
+          "Short-circuit logic can avoid evaluating unsafe expressions."
+        ],
+        "resources": [
+          {
+            "title": "Python as a Calculator",
+            "url": "https://docs.python.org/3/tutorial/introduction.html"
+          },
+          {
+            "title": "More on Conditions",
+            "url": "https://docs.python.org/3/tutorial/datastructures.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "conditionals",
+      "title": "Conditionals",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Make program behavior depend on explicit decisions. Suggested sequence: 8 minutes introducing branches, 12 minutes tracing boundary cases, 15 minutes implementing a classifier, and 10 minutes testing.",
+        "objectives": [
+          "Write if/elif/else blocks with correct indentation.",
+          "Order conditions so that boundary values receive the intended classification.",
+          "Distinguish a mutually exclusive chain from several independent if statements."
+        ],
+        "explanation": "An if statement evaluates a condition and executes its indented suite when the condition is truthy. An elif supplies another test only if earlier tests in the same chain failed. An optional else runs when none of the preceding tests succeeded. At most one branch of a single if/elif/else chain executes. Separate if statements are independent and may all execute. A colon ends each branch header, and consistent indentation identifies its body. When overlapping thresholds are checked, order matters: test the highest threshold first if lower thresholds would also match. Test just below, exactly at, and just above each boundary. Use == for equality, not assignment. Values may be tested directly for truthiness, but a nonempty string such as \"no\" is truthy regardless of its meaning in natural language.",
+        "definitions": [
+          "Condition: an expression whose truth value determines whether a branch runs.",
+          "Branch: one alternative path through a decision.",
+          "Boundary case: an input at or near a point where expected behavior changes.",
+          "Mutually exclusive chain: linked branches of which at most one executes."
+        ],
+        "code": "score = 82\nif score >= 90:\n    grade = \"A\"\nelif score >= 80:\n    grade = \"B\"\nelif score >= 70:\n    grade = \"C\"\nelse:\n    grade = \"Needs practice\"\nprint(grade)",
+        "applications": [
+          "Classify scores or shipping prices using documented thresholds.",
+          "Check whether required text is present before proceeding."
+        ],
+        "mistakes": [
+          "Putting score >= 70 before score >= 90 in the same chain can hide the higher grade.",
+          "Do not omit colons or the indentation of branch bodies.",
+          "Do not treat the nonempty string \"False\" as the boolean False."
+        ],
+        "exercises": [
+          "Write an if/elif/else chain classifying temperature as freezing at or below 0, cool above 0 but below 20, and warm at 20 or above. Test -1, 0, 1, 19, and 20.",
+          "Create two independent if statements for a number divisible by 2 and divisible by 3. Test 6 and explain why both messages print; compare with an elif chain.",
+          "Extend the score example to reject scores below 0 or above 100 before assigning a grade. Test -1, 0, 79, 80, 100, and 101."
+        ],
+        "takeaways": [
+          "Only the first matching branch in a chain runs.",
+          "Independent if statements can all run.",
+          "Boundary tests reveal ordering and comparison errors."
+        ],
+        "resources": [
+          {
+            "title": "More Control Flow Tools: if Statements",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "loops",
+      "title": "Loops",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Repeat work predictably with for and while. Suggested sequence: 8 minutes on iteration, 12 minutes tracing loop state, 15 minutes writing accumulators, and 10 minutes testing termination.",
+        "objectives": [
+          "Iterate over a sequence or range with for.",
+          "Maintain progress and a termination condition in a while loop.",
+          "Explain break, continue, and range endpoints."
+        ],
+        "explanation": "A for loop takes successive values from an iterable such as a list, string, or range. range(stop) starts at zero and excludes stop; range(start, stop, step) uses the given step, which cannot be zero. A negative step supports descending sequences. A while loop repeats while its condition is truthy, checking again before each iteration, so its body may never run. Ensure the state moves toward termination. An accumulator starts with a suitable initial value, such as zero for a sum, and is updated inside the loop. break exits the innermost loop immediately. continue skips the rest of the current iteration and proceeds to the next iteration or condition check. A loop else clause, when used, runs if the loop ends without break, including when there are no iterations. Avoid changing a list\u2019s length while iterating over that same list; iterate over a copy or build a separate result.",
+        "definitions": [
+          "Iterable: an object that can supply successive items to a for loop.",
+          "Iteration: one pass through a loop body.",
+          "Accumulator: a variable updated to combine results over iterations.",
+          "Termination condition: the condition that determines when repetition stops."
+        ],
+        "code": "total = 0\nfor number in range(1, 6):\n    total += number\nprint(total)\nremaining = 3\nwhile remaining > 0:\n    print(remaining)\n    remaining -= 1\nprint(\"Done\")",
+        "applications": [
+          "Sum measurements or process each record in a sequence.",
+          "Repeat an operation until a counter reaches a limit."
+        ],
+        "mistakes": [
+          "Remember that range excludes its stop value.",
+          "Update while-loop state so the condition can eventually become false.",
+          "Do not accidentally reset an accumulator inside the loop."
+        ],
+        "exercises": [
+          "Use a for loop to sum the integers from 1 through 10 inclusive. Predict and verify the result 55; explain your chosen range stop.",
+          "Write a while loop that prints 5, 4, 3, 2, 1 and then Done. Test an initial counter of 0; only Done should print.",
+          "Scan [3, 7, 10, 12] and print only the first even number, using break. Verify that 10 prints and 12 does not."
+        ],
+        "takeaways": [
+          "for consumes an iterable; while repeats according to a condition.",
+          "range excludes its stop and supports negative steps.",
+          "break exits a loop; continue skips the current iteration remainder."
+        ],
+        "resources": [
+          {
+            "title": "for, range, break, and continue",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "functions",
+      "title": "Functions",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Package a small calculation into a reusable function with a clear contract. Suggested sequence: 8 minutes on calls and parameters, 12 minutes tracing returns, 15 minutes implementing functions, and 10 minutes reviewing tests.",
+        "objectives": [
+          "Define and call functions with parameters and return values.",
+          "Distinguish returning a value from printing it.",
+          "Explain local names and avoid mutable default-argument surprises."
+        ],
+        "explanation": "A def statement creates a function and binds its name; the function body runs when called. Parameters are names in the definition, while arguments are values supplied by the caller. return sends a value to the caller and immediately ends that call. Reaching the end without return, or using a bare return, returns None. Printing displays information but does not substitute for returning a usable result. Names assigned inside a function are normally local to that call; reading a global name is possible, but designing with explicit inputs and results makes testing clearer. Default argument values are evaluated once when the definition executes, not anew on every call. Avoid a mutable default such as items=[] when each call should get a fresh list; use None and construct the list inside. A docstring is an initial string literal describing the function\u2019s purpose and contract.",
+        "definitions": [
+          "Parameter: a named input in a function definition.",
+          "Argument: a value passed in a function call.",
+          "Return value: the result passed back to the caller.",
+          "Local variable: a name belonging to the function\u2019s local scope."
+        ],
+        "code": "def line_total(price, quantity=1):\n    \"\"\"Return price times quantity; inputs are nonnegative numbers.\"\"\"\n    return price * quantity\n\nsubtotal = line_total(2.5, quantity=4)\nprint(f\"Subtotal: {subtotal:.2f}\")\nprint(line_total(3))",
+        "applications": [
+          "Reuse a calculation in several places without duplicating its implementation.",
+          "Test a function with known inputs and expected return values."
+        ],
+        "mistakes": [
+          "Do not expect print() to return the value it displays.",
+          "Do not access a function\u2019s local variables directly from outside the function.",
+          "Avoid mutable defaults unless sharing state across calls is intentional."
+        ],
+        "exercises": [
+          "Define rectangle_area(width, height) that returns the product. Verify rectangle_area(3, 4) == 12 and rectangle_area(0, 5) == 0 without printing inside the function.",
+          "Define greet(name, greeting=\"Hello\") returning a greeting string. Test both the default and an explicit keyword argument greeting=\"Welcome\".",
+          "Write add_item(item, items=None) that creates a list when items is None, appends item, and returns the list. Verify separate calls without a list do not share earlier items."
+        ],
+        "takeaways": [
+          "A function call executes a reusable body with supplied arguments.",
+          "return and print serve different purposes.",
+          "Default objects are created at definition time, so mutable defaults require care."
+        ],
+        "resources": [
+          {
+            "title": "Defining Functions and Default Argument Values",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lists-tuples",
+      "title": "Lists and Tuples",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Choose an ordered collection and reason about indexing, mutation, and copying. Suggested sequence: 8 minutes comparing collections, 12 minutes tracing aliases, 15 minutes practicing transformations, and 10 minutes checking results.",
+        "objectives": [
+          "Index, slice, and iterate over lists and tuples.",
+          "Distinguish list mutation from creating a new sequence.",
+          "Explain tuple syntax, unpacking, and shallow list copies."
+        ],
+        "explanation": "Lists and tuples are ordered sequences supporting zero-based indexing, negative indexes from the end, slicing, membership tests, and iteration. A slice excludes its stop index and usually tolerates bounds beyond the sequence length, while indexing an absent element raises IndexError. Lists are mutable: append() adds an item, and indexed assignment replaces an item. In-place mutating methods such as append() and sort() return None, so do not assign their results expecting a new list. sorted() returns a new list. Tuples do not allow assignment to their element slots, although a tuple can contain a mutable object whose contents can change. A one-item tuple requires a comma, as in (5,). Unpacking assigns elements to several names and requires a matching count unless a starred target is used. Assigning one list name to another creates an alias, not a copy; list.copy() creates a shallow copy with independent outer storage but shared references to nested objects.",
+        "definitions": [
+          "Sequence: an ordered collection supporting positional access.",
+          "Mutable: able to change after creation.",
+          "Alias: another name referring to the same object.",
+          "Shallow copy: a new outer collection whose elements still refer to the original element objects."
+        ],
+        "code": "colors = [\"red\", \"green\", \"blue\"]\ncolors.append(\"gold\")\nprint(colors[0], colors[-1])\nprint(colors[1:3])\ncopy_of_colors = colors.copy()\ncopy_of_colors[0] = \"purple\"\npoint = (3, 4)\nx, y = point\nprint(colors[0], copy_of_colors[0], x + y)",
+        "applications": [
+          "Store and update an ordered task list.",
+          "Represent a fixed pair of coordinates and unpack it into meaningful names."
+        ],
+        "mistakes": [
+          "Do not write items = items.append(x); append() returns None.",
+          "Do not confuse alias = items with copying the list.",
+          "Do not assume tuple immutability makes every nested object immutable."
+        ],
+        "exercises": [
+          "Create [10, 20, 30, 40]. Print the first item, last item, and middle slice [20, 30]. Then replace 20 with 25 and show the updated list.",
+          "Create an original list of strings and a copy using copy(). Append to the copy and verify the original is unchanged. Then repeat with a nested list and explain why a nested mutation is visible through a shallow copy.",
+          "Write a function that accepts a two-item coordinate tuple, unpacks it, and returns x + y. Test (2, 5) and explain why (2,) cannot be unpacked into two names."
+        ],
+        "takeaways": [
+          "Lists are mutable; tuple slots are not.",
+          "Indexing and slicing have different out-of-range behavior.",
+          "Assignment aliases objects; shallow copying does not recursively copy nested data."
+        ],
+        "resources": [
+          {
+            "title": "Lists",
+            "url": "https://docs.python.org/3/tutorial/introduction.html"
+          },
+          {
+            "title": "Data Structures: Lists, Tuples, and Sequences",
+            "url": "https://docs.python.org/3/tutorial/datastructures.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dictionaries-sets",
+      "title": "Dictionaries and Sets",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Use keys for lookup and sets for uniqueness. Suggested sequence: 8 minutes introducing collection roles, 12 minutes tracing membership, 15 minutes building counts, and 10 minutes comparing representations.",
+        "objectives": [
+          "Create and update dictionaries and iterate over key-value pairs.",
+          "Use sets for deduplication and membership tests.",
+          "Distinguish key membership, missing-key lookup, and hashability constraints."
+        ],
+        "explanation": "A dictionary maps unique hashable keys to values. Assigning an existing key replaces its value rather than creating a second identical key. Dictionaries preserve insertion order, but they are not automatically sorted. d[key] raises KeyError when the key is absent; d.get(key, default) returns the default instead without inserting the key. In a dictionary, in tests keys, not values; use d.values() for value membership and d.items() to iterate key-value pairs. A set stores distinct hashable elements and offers union with |, intersection with &, and difference with -. Sets have no positional indexing and no guaranteed iteration order, so sort them when presentation order matters. {} creates an empty dictionary; set() creates an empty set. Lists cannot be dictionary keys or set elements because they are unhashable. A tuple can be a key only if all its contents are hashable.",
+        "definitions": [
+          "Mapping: a collection relating keys to values.",
+          "Hashable: having a stable hash and compatible equality behavior, as required for dictionary keys and set elements.",
+          "Set: an unordered collection of distinct hashable elements.",
+          "Intersection: the elements present in both sets."
+        ],
+        "code": "words = [\"pear\", \"apple\", \"pear\"]\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\nfor word, count in counts.items():\n    print(word, count)\nunique_words = set(words)\nprint(sorted(unique_words))\nprint({\"pear\", \"plum\"} & unique_words)",
+        "applications": [
+          "Count occurrences by category using a dictionary.",
+          "Find shared tags or remove duplicates using sets."
+        ],
+        "mistakes": [
+          "Do not assume value in dictionary searches dictionary values.",
+          "Use set(), not {}, for an empty set.",
+          "Do not rely on a set\u2019s iteration order or try to index it."
+        ],
+        "exercises": [
+          "Count the words in [\"red\", \"blue\", \"red\", \"green\", \"blue\", \"red\"]. Verify counts of 3, 2, and 1 and use get() to read an absent color with default 0.",
+          "For attendees_a = {\"Ana\", \"Bo\"} and attendees_b = {\"Bo\", \"Cy\"}, compute their union, intersection, and a-minus-b difference. Predict each set before execution.",
+          "Create a dictionary of two product prices. Check whether a product name is a key, update one price, and iterate over items() to print each product with its price."
+        ],
+        "takeaways": [
+          "Dictionary membership tests keys.",
+          "Sets represent uniqueness and set operations, not positions.",
+          "Missing-key handling and hashability must be considered explicitly."
+        ],
+        "resources": [
+          {
+            "title": "Sets, Dictionaries, and Looping Techniques",
+            "url": "https://docs.python.org/3/tutorial/datastructures.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exceptions",
+      "title": "Exceptions",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Handle anticipated failures without hiding unrelated problems. Suggested sequence: 8 minutes distinguishing error types, 12 minutes tracing handlers, 15 minutes practicing validation, and 10 minutes reviewing failure paths.",
+        "objectives": [
+          "Catch specific expected exception types with try/except.",
+          "Explain the roles of else and finally in exception handling.",
+          "Raise an appropriate exception to enforce a function contract."
+        ],
+        "explanation": "An exception signals an error or exceptional situation during execution. If no matching handler is found as the exception propagates through calls, execution terminates with a traceback. Put only operations you intend to guard inside try. An except clause handles matching exception types, such as ValueError for invalid numeric text, ZeroDivisionError for division by zero, or FileNotFoundError for an absent input file. Use specific handlers rather than a bare except, which can also catch interruptions and hide mistakes. An else clause runs only when the try suite finishes without an exception; exceptions from else are not handled by the preceding except clauses. A finally clause runs on normal exit and during ordinary exception propagation, making it suitable for cleanup, although external termination can prevent cleanup. Avoid returning from finally because it can suppress exceptions or override earlier returns. raise ValueError(\"message\") communicates an invalid value to a caller rather than printing an error and silently continuing.",
+        "definitions": [
+          "Exception: an object representing an execution failure or exceptional condition.",
+          "Handler: an except block that responds to a matching exception.",
+          "Traceback: the execution-path report accompanying an unhandled exception.",
+          "Propagation: movement of an unhandled exception outward through calling code."
+        ],
+        "code": "def parse_nonnegative(text):\n    value = int(text)\n    if value < 0:\n        raise ValueError(\"Value must be nonnegative\")\n    return value\n\nfor text in [\"12\", \"bad\", \"-3\"]:\n    try:\n        value = parse_nonnegative(text)\n    except ValueError as error:\n        print(f\"Invalid input: {error}\")\n    else:\n        print(f\"Accepted: {value}\")",
+        "applications": [
+          "Recover from malformed user input with a helpful message.",
+          "Enforce function contracts and let callers choose recovery behavior."
+        ],
+        "mistakes": [
+          "Do not catch every exception merely to make errors disappear.",
+          "Do not place unrelated operations in a large try block when only one operation is expected to fail.",
+          "Do not assume code following a failed statement in try will still execute."
+        ],
+        "exercises": [
+          "Write a function that converts integer text and raises ValueError for negative results. Test \"0\", \"8\", \"bad\", and \"-1\"; document which inputs succeed.",
+          "Wrap a division in handlers for ValueError from conversion and ZeroDivisionError from division. Test numeric inputs, invalid text, and a zero divisor separately.",
+          "Trace a try/except/else/finally example for one successful conversion and one failed conversion. Predict the printed labels and verify that else appears only on success while finally appears in both runs."
+        ],
+        "takeaways": [
+          "Catch expected failures specifically and preserve useful diagnostics.",
+          "else is the success path; finally is the cleanup path.",
+          "Raising exceptions lets callers decide how to recover."
+        ],
+        "resources": [
+          {
+            "title": "Errors and Exceptions",
+            "url": "https://docs.python.org/3/tutorial/errors.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "files",
+      "title": "Reading and Writing Files",
+      "minutes": 45,
+      "notes": {
+        "introduction": "DRAFT \u2014 AI-authored educational content; pending independent educator review. This predefined, fixed content and question bank is intended for implementation without runtime inference or quiz generation. Read and write text deliberately, with explicit encoding and safe closure. Suggested sequence: 8 minutes introducing streams and modes, 12 minutes tracing newline behavior, 15 minutes practicing in a temporary directory, and 10 minutes checking failure cases.",
+        "objectives": [
+          "Use with open(...) to close files reliably.",
+          "Choose r, w, a, or x based on the intended file operation.",
+          "Read lines and write text while preserving or intentionally removing newlines."
+        ],
+        "explanation": "open() returns a file object. Text mode reads and writes strings using an encoding; specify encoding=\"utf-8\" when that is the agreed file format. Binary mode uses bytes instead and does not accept a text encoding argument. Mode r reads an existing file and raises FileNotFoundError if it is absent. Mode w creates a file or immediately truncates an existing file; a appends to the end and creates a file if needed. Mode x creates a new file exclusively and raises FileExistsError if the path already exists. A with statement closes the file on leaving its block, including during ordinary exception propagation. read() reads from the current position, so a second read at end-of-file returns an empty string unless the position is moved. Iterating over a text file yields lines, generally retaining their newline characters. rstrip(\"\\n\") removes trailing newline characters specifically, whereas strip() also removes other surrounding whitespace and may damage meaningful content. Relative paths are resolved from the process working directory, not necessarily the script\u2019s directory. Before destructive writes, verify the path and mode.",
+        "definitions": [
+          "File object: an object used to read or write a stream of data.",
+          "Encoding: rules translating between text characters and bytes.",
+          "File mode: a setting selecting read, write, append, or other opening behavior.",
+          "Context manager: an object used by with to manage setup and cleanup."
+        ],
+        "code": "from pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nwith TemporaryDirectory() as folder:\n    path = Path(folder) / \"practice.txt\"\n    with open(path, \"w\", encoding=\"utf-8\") as handle:\n        handle.write(\"apple\\npear\\n\")\n    with open(path, \"a\", encoding=\"utf-8\") as handle:\n        handle.write(\"plum\\n\")\n    with open(path, \"r\", encoding=\"utf-8\") as handle:\n        for line in handle:\n            print(line.rstrip(\"\\n\"))",
+        "applications": [
+          "Save a small text report with a known encoding.",
+          "Process a large text file line by line rather than loading it all at once."
+        ],
+        "mistakes": [
+          "Do not open important existing files in w mode unless replacing their contents is intentional.",
+          "Do not assume a relative path is relative to the script file.",
+          "Do not use strip() blindly when leading or trailing spaces are meaningful."
+        ],
+        "exercises": [
+          "In a temporary directory, write two lines to a new UTF-8 file, append a third line, then read all lines back. Verify their order and show that append did not replace the first two lines.",
+          "Read a line containing two leading spaces and a final newline. Compare rstrip(\"\\n\") with strip() and explain which preserves the leading spaces.",
+          "Try opening an absent file in r mode and handle FileNotFoundError with a useful message. Then create a file with x and verify that a second x-mode open raises FileExistsError without replacing its contents."
+        ],
+        "takeaways": [
+          "with manages closure; explicit encoding makes text interpretation intentional.",
+          "w replaces contents, a appends, and x prevents overwriting an existing path.",
+          "File position, newline handling, and path resolution affect results."
+        ],
+        "resources": [
+          {
+            "title": "Input and Output: Reading and Writing Files",
+            "url": "https://docs.python.org/3/tutorial/inputoutput.html"
+          },
+          {
+            "title": "Handling File-Related Exceptions",
+            "url": "https://docs.python.org/3/tutorial/errors.html"
+          }
+        ]
+      }
+    }
+  ]
+}

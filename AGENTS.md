@@ -21,7 +21,7 @@
 - Skill scales use shared constants. Why: one adjustment point.
 - Assessments use owner-only RPCs, private keys and transactional grading; verified proficiency never alters career scores. Assessment routes bypass the profile-required layout. Why: preserve privacy, timers and recommendation behavior.
 
-- The student's own profile and roadmap progress are saved to `student_accounts` (own-row RLS) with a device cache (`src/lib/my-profile.ts`, `src/lib/account.ts`) and scored by `src/lib/recommend.ts` (rule-based, labelled). Why: no auth yet and DB is read-only; a future engine replaces `recommend()` with the same output shape.
+- Account profiles and legacy roadmap checkboxes use `student_accounts` and a device cache; `recommend()` stays rule-based. Why: preserve account persistence and scoring output.
 - Journey page bodies live in `src/components/journey/` and read the record via `RecordProvider`/`useRecord`; `/students/$id/*` (database) and `/me/*` (self-entered) both reuse them. Why: one UI for both sources.
 
 - Career catalog, skill guidance and all scoring rules (match, readiness, gap priority) live in `src/lib/careers.ts` and `src/lib/recommend.ts`; Overall Career Fit (weighted multi-factor, configurable weights, null when any factor lacks data) lives separately in `src/lib/career-fit.ts`; match scores never default missing/out-of-range skills (track becomes unscored), and recorded dataset scores are shown unchanged, never attached to a non-equivalent catalog track. Why: one place to replace when a backend engine arrives, and no invented scores.
@@ -35,4 +35,5 @@
 - The first admin is bootstrapped only by `claimFirstAdmin` (src/lib/admin-setup.functions.ts): no admin exists, caller's confirmed email equals the FIRST_ADMIN_EMAIL secret; later admins via invites. Why: owner-only, backend-enforced, one-time.
 - Learning uses account-owned records, admin-approved immutable cohort links, and authenticated RPCs in the API boundary; quizzes, grades, rewards and history commit transactionally. Why: prevent self-linking, privacy leaks and duplicate evidence.
 - Learning readiness and baseline validation live in `src/lib/learning/rules.ts`; validated mastery is separate from legacy recommendation scores. Why: preserve imported data and distinguish evidence from self-reporting.
+- Personalized learning uses approved immutable curriculum, separate account-owned attempts and transactional prerequisites; Gemini schedules approved IDs only. New pages bypass the profile gate; coaches and RAG stay unchanged. Why: prevent forged mastery and preserve legacy evidence.
 - Role dashboards: admin cohort KPIs/charts use invoker RPC `get_dashboard_analytics` (RLS-scoped, filters in DB); mentor figures are computed only from the mentor's own `mentor_assignments` rows; students read only their admin-linked record plus aggregate benchmarks via definer `get_my_cohort_dashboard`. Why: no RLS bypass and no other-student rows reach the browser.

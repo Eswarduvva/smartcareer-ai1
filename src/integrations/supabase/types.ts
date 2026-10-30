@@ -543,6 +543,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          notes_origin: string
           reviewed_at: string | null
           reviewed_by: string | null
           slug: string
@@ -553,6 +554,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          notes_origin?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
           slug: string
@@ -563,6 +565,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          notes_origin?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
           slug?: string
@@ -1426,31 +1429,43 @@ export type Database = {
       }
       topic_quiz_questions: {
         Row: {
+          authored_by: string | null
+          authorship: string
           correct_option: number
           explanation: string
           id: string
           options: Json
           prompt: string
+          reviewed_at: string | null
+          reviewed_by: string | null
           status: string
           topic_id: string
           version: number
         }
         Insert: {
+          authored_by?: string | null
+          authorship?: string
           correct_option: number
           explanation: string
           id?: string
           options: Json
           prompt: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           topic_id: string
           version?: number
         }
         Update: {
+          authored_by?: string | null
+          authorship?: string
           correct_option?: number
           explanation?: string
           id?: string
           options?: Json
           prompt?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           topic_id?: string
           version?: number
@@ -1539,6 +1554,7 @@ export type Database = {
         Returns: undefined
       }
       curriculum_admin_snapshot: { Args: never; Returns: Json }
+      curriculum_import_notes: { Args: { p_topics: Json }; Returns: string }
       curriculum_snapshot: { Args: { p_user?: string }; Returns: Json }
       curriculum_topic: { Args: { p_topic: string }; Returns: Json }
       curriculum_topic_allowed: { Args: { p_topic: string }; Returns: boolean }
@@ -1568,17 +1584,30 @@ export type Database = {
         Returns: string
       }
       learning_plan_reserve: { Args: never; Returns: undefined }
-      learning_plan_save: {
-        Args: {
-          p_guidance: string
-          p_milestones: Json
-          p_model: string
-          p_module: string
-          p_preferences: Json
-          p_topics: Json
-        }
-        Returns: string
-      }
+      learning_plan_save:
+        | {
+            Args: {
+              p_guidance: string
+              p_milestones: Json
+              p_model: string
+              p_module: string
+              p_preferences: Json
+              p_topics: Json
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_guidance: string
+              p_milestones: Json
+              p_model: string
+              p_module: string
+              p_preferences: Json
+              p_topics: Json
+              p_user: string
+            }
+            Returns: string
+          }
       learning_snapshot: { Args: { p_user?: string }; Returns: Json }
       learning_submit: {
         Args: { p_activity: string; p_submission: Json }

@@ -92,6 +92,27 @@
       "when": 1793353727533,
       "tag": "0012_personalized_python_learning",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1793354071392,
+      "tag": "0013_curriculum_draft_import_validation",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1793354302647,
+      "tag": "0014_learning_plan_server_only_integrity",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1793354373952,
+      "tag": "0015_curriculum_fixture_cleanup_and_authorship",
+      "breakpoints": true
     }
   ]
 }
