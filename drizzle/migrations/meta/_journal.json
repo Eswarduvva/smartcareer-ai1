@@ -85,6 +85,13 @@
       "when": 1793351677825,
       "tag": "0011_assessment_explicit_access_restrictions",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1793353727533,
+      "tag": "0012_personalized_python_learning",
+      "breakpoints": true
     }
   ]
 }
