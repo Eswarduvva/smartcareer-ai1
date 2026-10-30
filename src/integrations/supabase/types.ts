@@ -1429,31 +1429,43 @@ export type Database = {
       }
       topic_quiz_questions: {
         Row: {
+          authored_by: string | null
+          authorship: string
           correct_option: number
           explanation: string
           id: string
           options: Json
           prompt: string
+          reviewed_at: string | null
+          reviewed_by: string | null
           status: string
           topic_id: string
           version: number
         }
         Insert: {
+          authored_by?: string | null
+          authorship?: string
           correct_option: number
           explanation: string
           id?: string
           options: Json
           prompt: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           topic_id: string
           version?: number
         }
         Update: {
+          authored_by?: string | null
+          authorship?: string
           correct_option?: number
           explanation?: string
           id?: string
           options?: Json
           prompt?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           topic_id?: string
           version?: number

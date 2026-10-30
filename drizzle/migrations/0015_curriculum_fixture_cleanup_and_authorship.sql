@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION public.curriculum_immutable_content() RETURNS trigger LANGUAGE plpgsql SET search_path=public AS $$ BEGIN
+IF TG_TABLE_NAME='topic_quiz_questions' AND EXISTS(SELECT 1 FROM public.student_quiz_answers b WHERE b.question_id=OLD.id) THEN RAISE EXCEPTION 'Referenced questions are immutable'; END IF;
+IF TG_TABLE_NAME='topic_quiz_questions' AND OLD.status='approved' AND NOT (TG_OP='DELETE' AND EXISTS(SELECT 1 FROM public.learning_topics t JOIN public.learning_modules m ON m.id=t.module_id WHERE t.id=OLD.topic_id AND m.status='draft')) THEN RAISE EXCEPTION 'Approved questions are immutable'; END IF;
+IF TG_TABLE_NAME='learning_notes' AND OLD.status='approved' THEN RAISE EXCEPTION 'Approved notes are immutable'; END IF; RETURN CASE WHEN TG_OP='DELETE' THEN OLD ELSE NEW END; END $$;
+ALTER TABLE public.topic_quiz_questions ADD COLUMN authored_by uuid;
+ALTER TABLE public.topic_quiz_questions ADD COLUMN reviewed_by uuid;
+ALTER TABLE public.topic_quiz_questions ADD COLUMN reviewed_at timestamptz;
+ALTER TABLE public.topic_quiz_questions ADD COLUMN authorship text NOT NULL DEFAULT 'unverified' CHECK(authorship IN ('unverified','human-attested'));
+CREATE FUNCTION public.curriculum_question_authorship() RETURNS trigger LANGUAGE plpgsql SET search_path=public AS $$ BEGIN IF TG_OP='INSERT' AND auth.uid() IS NOT NULL AND public.has_role(auth.uid(),'admin') THEN NEW.authored_by:=auth.uid(); NEW.authorship:='human-attested'; END IF; IF TG_OP='UPDATE' AND NEW.status='approved' AND OLD.status='draft' THEN IF NEW.authorship<>'human-attested' OR NEW.authored_by IS NULL THEN RAISE EXCEPTION 'Human authorship attestation required'; END IF; NEW.reviewed_by:=auth.uid(); NEW.reviewed_at:=now(); END IF; RETURN NEW; END $$;
+REVOKE ALL ON FUNCTION public.curriculum_question_authorship() FROM PUBLIC,anon,authenticated; GRANT EXECUTE ON FUNCTION public.curriculum_question_authorship() TO service_role;
+CREATE TRIGGER attest_topic_question BEFORE INSERT OR UPDATE ON public.topic_quiz_questions FOR EACH ROW EXECUTE FUNCTION public.curriculum_question_authorship();

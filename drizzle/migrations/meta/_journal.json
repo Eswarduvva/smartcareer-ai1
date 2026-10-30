@@ -106,6 +106,13 @@
       "when": 1793354302647,
       "tag": "0014_learning_plan_server_only_integrity",
       "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1793354373952,
+      "tag": "0015_curriculum_fixture_cleanup_and_authorship",
+      "breakpoints": true
     }
   ]
 }
