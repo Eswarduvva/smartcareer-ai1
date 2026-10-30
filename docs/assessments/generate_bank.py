@@ -2,6 +2,9 @@ import json
 rows=[]
 def add(skill,topic,difficulty,i,prompt,answer,distractors,explanation):
  options=list(dict.fromkeys([str(answer)]+[str(x) for x in distractors]))
+ # Disambiguate colliding numeric distractors for particular parameter values.
+ for alternative in ['Not enough information','None of these values','A runtime error']:
+  if len(options)<4 and alternative not in options: options.append(alternative)
  if len(options)!=4: raise ValueError((skill,topic,i,options))
  position=i%4; options.insert(position,options.pop(0))
  rows.append(dict(bank_key=f'{skill}-{topic.lower().replace(" ","-")}-{i}',skill=skill,topic=topic,difficulty=difficulty,prompt=prompt,options=options,correct_option=position,explanation=explanation,review_status='checked'))
