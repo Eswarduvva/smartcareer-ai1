@@ -18,7 +18,8 @@
 - Cohort tables are readable only by admins or assigned mentors (`can_view_student`); roles live in `user_roles`, granted server-side only, signups default to student. Why: access must be enforced by the database, not navigation.
 - Signed-in pages live under `src/routes/_authenticated/` (client-only gate); mentor/admin pages add a role `beforeLoad`. Why: one gate, URLs unchanged.
 - 3D scenes live in `src/components/space/` and load only client-side via `SkillSpaceLazy`. Why: three.js must not run during SSR and must stay out of the main bundle.
-- Skill score scale and thresholds are constants in `src/lib/skills.ts`. Why: one place to adjust when the real DB scale is confirmed.
+- Skill scales use shared constants. Why: one adjustment point.
+- Assessments use owner-only RPCs, private keys and transactional grading; verified proficiency never alters career scores. Assessment routes bypass the profile-required layout. Why: preserve privacy, timers and recommendation behavior.
 
 - The student's own profile and roadmap progress are saved to `student_accounts` (own-row RLS) with a device cache (`src/lib/my-profile.ts`, `src/lib/account.ts`) and scored by `src/lib/recommend.ts` (rule-based, labelled). Why: no auth yet and DB is read-only; a future engine replaces `recommend()` with the same output shape.
 - Journey page bodies live in `src/components/journey/` and read the record via `RecordProvider`/`useRecord`; `/students/$id/*` (database) and `/me/*` (self-entered) both reuse them. Why: one UI for both sources.
